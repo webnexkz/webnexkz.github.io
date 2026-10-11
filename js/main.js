@@ -15,6 +15,25 @@
   }
   var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
 
+  // ---------- Яндекс Метрика (номер счётчика — в config.js) ----------
+  var mId = +cfg.metrika || 0;
+  if (mId) {
+    window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
+    window.ym.l = +new Date();
+    var ms = document.createElement('script'); ms.async = true; ms.src = 'https://mc.yandex.ru/metrika/tag.js';
+    document.head.appendChild(ms);
+    window.ym(mId, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true });
+  }
+  // цели: calc — тронул калькулятор, calc_send — перенёс расчёт в заявку, lead — заявка дошла, lead_direct — ушёл в Direct, ig — нажал «Написать в Direct», demo — открыл демо
+  var goalsSent = {};
+  function goal(name, once) {
+    if (!mId || (once && goalsSent[name])) return;
+    goalsSent[name] = 1;
+    try { window.ym(mId, 'reachGoal', name); } catch (e) {}
+  }
+  $$('[data-ig]').forEach(function (a) { a.addEventListener('click', function () { goal('ig'); }); });
+  $$('a[href^="demo/"]').forEach(function (a) { a.addEventListener('click', function () { goal('demo'); }); });
+
   // ---------- шапка и мобильная кнопка ----------
   var nav = $('#nav'), mbar = $('#mbar'), order = $('#order');
   function onScroll() {
@@ -37,6 +56,7 @@
   var nSheet = $('#n-sheet'), nTg = $('#n-tg'), nCount = $('#n-count');
   var nameIn = $('#f-name'), contactIn = $('#f-contact'), aboutIn = $('#f-about');
   var note = $('#note'), send = $('#send');
+  if (cfg.formUrl) note.textContent = 'Заявка придёт мне в Telegram, отвечу по указанному контакту.';
   var noteDefault = note.textContent;
 
   function current() { return $('input[name="type"]:checked', form); }
@@ -105,22 +125,56 @@
       'Контакт: ' + contactIn.value.trim() +
       (aboutIn.value.trim() ? '\nБизнес: ' + aboutIn.value.trim() : '');
 
-    copy(text);
     send.disabled = true;
     send.textContent = 'Отправляю…';
     render();
     flow.classList.remove('is-firing'); void flow.offsetWidth; flow.classList.add('is-firing');
     nCount.textContent = String(parseInt(nCount.textContent, 10) + 1);
+    var started = Date.now();
+    var done = function (fn) { setTimeout(fn, Math.max(0, 1500 - (Date.now() - started))); };
 
-    var wa = cfg.whatsapp ? 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(text) : '';
-    setTimeout(function () {
+    if (!cfg.formUrl) { copy(text); done(direct); return; }
+    var pick = calcPick && calcPick.type === t.value ? calcPick : null;
+    var data = {
+      name: nameIn.value.trim(), contact: contactIn.value.trim(),
+      about: pick && aboutIn.value.trim() === 'тариф «' + pick.tier + '»' + (pick.opts.length ? ', ' + pick.opts.join(', ').toLowerCase() : '') ? '' : aboutIn.value.trim(),
+      type: t.value, tier: pick ? pick.tier : '', opts: pick ? pick.opts.join(', ') : '',
+      sum: pick ? pick.sum : 'от ' + t.dataset.price, days: pick ? pick.days : '',
+      ref: (new URLSearchParams(location.search).get('utm_source') || document.referrer.replace(/^https?:\/\//, '').split('/')[0] || 'прямой заход'),
+      website: (form.elements.website || {}).value || ''
+    };
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 12000);
+    // без заголовка Content-Type браузер шлёт text/plain — Google принимает такой запрос без лишних проверок
+    fetch(cfg.formUrl, { method: 'POST', body: JSON.stringify(data), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        clearTimeout(timer);
+        if (!r || !r.ok) throw new Error(r && r.error);
+        done(function () {
+          send.disabled = false;
+          send.textContent = 'Заявка отправлена ✓';
+          note.classList.add('is-ok');
+          note.textContent = 'Спасибо, ' + data.name + '! Заявка у меня — скоро напишу или позвоню по контакту ' + data.contact + '.';
+          goal('lead');
+        });
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        // не дошло до таблицы — запасной путь через Direct, чтобы заявка не потерялась
+        copy(text); done(direct);
+      });
+
+    function direct() {
+      var wa = cfg.whatsapp ? 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(text) : '';
       send.disabled = false;
       send.textContent = 'Отправить ещё раз';
       note.classList.add('is-ok');
       note.textContent = 'Текст заявки скопирован. Открываю ' + (wa ? 'WhatsApp' : 'Direct') + ' — вставьте сообщение и отправьте.';
+      goal('lead_direct');
       var w = window.open(wa || igUrl, '_blank', 'noopener');
       if (!w) note.textContent = 'Текст заявки скопирован. Откройте Direct @webnex.kz и вставьте сообщение.';
-    }, 1500);
+    }
   });
 
   form.addEventListener('input', function () {
@@ -177,6 +231,7 @@
       calcPick = { type: t.value, tier: tr.value, opts: opts, sum: num(sum), days: d };
     };
     cForm.addEventListener('change', calc);
+    cForm.addEventListener('change', function () { goal('calc', true); });
     calc();
 
     // на телефоне итог ниже опций — пока калькулятор на экране, нижняя кнопка показывает цену
@@ -195,6 +250,7 @@
       e.preventDefault(); $('#c-send').click();
     });
     $('#c-send').addEventListener('click', function () {
+      goal('calc_send');
       var r = $('input[name="type"][value="' + calcPick.type + '"]', form);
       if (r) { r.checked = true; render(); }
       if (!aboutIn.value.trim() || /^тариф «/.test(aboutIn.value)) aboutIn.value = 'тариф «' + calcPick.tier + '»' + (calcPick.opts.length ? ', ' + calcPick.opts.join(', ').toLowerCase() : '');
