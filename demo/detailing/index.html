@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BLACKLINE детейлинг — демо-сайт от WEBNEX STUDIO</title>
+<meta name="description" content="Демо-сайт детейлинг-центра: услуги, расчёт цены по классу авто, онлайн-запись. Сделано WEBNEX STUDIO.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0c;--bg-2:#131315;--card:#18181b;--line:#2a2a2f;--text:#f2f2f0;--muted:#9a9aa2;--lime:#d4ff3a;--lime-d:#a9cc1f;
+  --disp:"Oswald",Impact,sans-serif;--body:"Manrope",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}button,input{font:inherit;color:inherit}button{cursor:pointer}svg{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:4px}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(11,11,12,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top__in{display:flex;align-items:center;gap:28px;height:64px}
+.brand{font:700 22px/1 var(--disp);letter-spacing:.14em;color:var(--text);text-decoration:none}
+.brand span{color:var(--lime)}
+.top nav{display:flex;gap:22px}.top nav a{color:var(--muted);text-decoration:none;font-size:14px;text-transform:uppercase;letter-spacing:.08em}.top nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--lime);color:#0b0b0c;border:0;border-radius:4px;padding:15px 26px;font:600 16px/1 var(--disp);text-transform:uppercase;letter-spacing:.08em;text-decoration:none;transition:background .2s,transform .2s}
+.btn:hover{background:#e4ff7a;transform:translateY(-1px)}
+.btn--ghost{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}.btn--ghost:hover{background:var(--bg-2)}
+.top .btn{margin-left:auto;padding:11px 18px;font-size:14px}
+
+.hero{position:relative;padding:60px 0 30px;overflow:hidden}
+.hero__kicker{font:500 14px/1 var(--disp);letter-spacing:.3em;text-transform:uppercase;color:var(--lime)}
+.hero h1{margin-top:18px;font:700 clamp(48px,8.4vw,124px)/.9 var(--disp);text-transform:uppercase;letter-spacing:-.01em}
+.hero h1 .o{-webkit-text-stroke:1.5px var(--text);color:transparent}
+.hero__row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:24px;flex-wrap:wrap}
+.hero__row p{max-width:30em;color:var(--muted);font-size:17px}
+
+.ba{position:relative;margin-top:36px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:radial-gradient(120% 90% at 50% 100%,#1d1d22,#0b0b0c 70%);aspect-ratio:21/9;user-select:none;touch-action:pan-y}
+.ba svg{position:absolute;inset:0;width:100%;height:100%}
+.ba__before{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.ba__line{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--lime);transform:translateX(-1px);pointer-events:none}
+.ba__knob{position:absolute;top:50%;left:var(--x,50%);width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:var(--lime);color:#0b0b0c;display:grid;place-items:center;font:700 18px/1 var(--disp);pointer-events:none;box-shadow:0 0 0 6px rgba(212,255,58,.15)}
+.ba__lbl{position:absolute;top:16px;font:600 13px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;padding:8px 12px;background:rgba(11,11,12,.7);border:1px solid var(--line);border-radius:3px}
+.ba__lbl--l{left:16px;color:var(--muted)}.ba__lbl--r{right:16px;color:var(--lime)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.shine{animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,40%{transform:translateX(-500px)}80%,100%{transform:translateX(1400px)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:30px}
+.stats div{padding:20px 18px;border-right:1px solid var(--line)}.stats div:last-child{border-right:0}
+.stats b{display:block;font:600 34px/1 var(--disp);color:var(--lime)}
+.stats span{font-size:13px;color:var(--muted)}
+
+.sec{padding:90px 0}
+.h2{font:700 clamp(38px,5.4vw,72px)/.95 var(--disp);text-transform:uppercase}
+.h2 em{font-style:normal;color:var(--lime)}
+.lead{margin-top:14px;color:var(--muted);max-width:36em}
+
+.book{display:grid;grid-template-columns:1fr 380px;gap:34px;margin-top:40px;align-items:start}
+.cls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.cls button{border:1px solid var(--line);background:var(--bg-2);border-radius:4px;padding:12px 16px;display:flex;align-items:center;gap:10px;transition:border-color .2s}
+.cls button svg{width:46px;height:20px}
+.cls button small{color:var(--muted);font-size:12px}
+.cls button[aria-pressed=true]{border-color:var(--lime);background:#1b1f0d}
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.s{position:relative;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:6px;padding:20px;transition:border-color .2s,background .2s,transform .2s;animation:up .5s both}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+.s:hover{border-color:#44444c;transform:translateY(-2px)}
+.s[aria-pressed=true]{border-color:var(--lime);background:#161a0b}
+.s__cat{font:500 12px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.s h3{margin-top:10px;font:600 24px/1.05 var(--disp);text-transform:uppercase}
+.s p{margin-top:8px;font-size:14px;color:var(--muted)}
+.s__foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px}
+.s__price{font:600 22px/1 var(--disp);color:var(--text)}
+.s__h{font-size:13px;color:var(--muted)}
+.s__chk{position:absolute;top:18px;right:18px;width:24px;height:24px;border:1.5px solid var(--line);border-radius:4px;display:grid;place-items:center;color:#0b0b0c;font-weight:700;font-size:15px}
+.s[aria-pressed=true] .s__chk{background:var(--lime);border-color:var(--lime)}
+.s:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+.panel{position:sticky;top:88px;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:24px}
+.panel h3{font:600 26px/1 var(--disp);text-transform:uppercase}
+.sel{list-style:none;margin:16px 0 0;padding:0;font-size:15px}
+.sel li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.sel li span:last-child{white-space:nowrap}
+.empty{margin-top:14px;color:var(--muted);font-size:15px}
+.lbl{display:block;margin-top:18px;font:500 12px/1 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.days,.times{display:flex;gap:6px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.days button,.times button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:4px;padding:8px 10px;font-size:14px;text-align:center;line-height:1.2}
+.days button small{display:block;font-size:11px;color:var(--muted)}
+.days button[aria-pressed=true],.times button[aria-pressed=true]{background:var(--lime);color:#0b0b0c;border-color:var(--lime)}
+.days button[aria-pressed=true] small{color:#0b0b0c}
+.times{flex-wrap:wrap}
+.times button:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.field{width:100%;margin-top:8px;border:1px solid var(--line);background:var(--card);border-radius:4px;padding:12px 14px}
+.field:focus{outline:2px solid var(--lime);outline-offset:0}
+.tot{display:flex;justify-content:space-between;align-items:flex-end;margin:22px 0 14px}
+.tot small{display:block;color:var(--muted);font-size:13px}
+.tot b{font:700 36px/1 var(--disp);color:var(--lime)}
+.panel .btn{width:100%}
+.err{color:#ff7a6b;font-size:14px;margin-top:10px;min-height:1em}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.done{text-align:center}
+.done .ok{width:72px;height:72px;margin:6px auto 0;border-radius:50%;background:var(--lime);color:#0b0b0c;display:grid;place-items:center;font:700 34px/1 var(--disp);animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(0)}}
+.done h3{margin-top:16px}.done p{margin-top:8px;color:var(--muted);font-size:15px}
+.done a{color:var(--lime)}
+
+.bar{display:none}
+.foot{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:14px}
+.foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .top nav{display:none}
+  .hero{padding:34px 0 10px}
+  .ba{aspect-ratio:4/3}
+  .stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .sec{padding:64px 0 120px}
+  .book{grid-template-columns:1fr}.svc{grid-template-columns:1fr}
+  .cls{display:grid;grid-template-columns:repeat(3,1fr)}.cls button{flex-direction:column;gap:4px;padding:10px 4px;text-align:center;font-size:13px}
+  .panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:60;border-radius:12px 12px 0 0;max-height:88vh;overflow:auto;transform:translateY(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .panel.open{transform:none}
+  .bar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:55;justify-content:space-between;align-items:center;background:var(--lime);color:#0b0b0c;border:0;border-radius:6px;padding:15px 20px;font:600 16px/1 var(--disp);text-transform:uppercase;letter-spacing:.06em;transform:translateY(150%);transition:transform .3s}
+  .bar.show{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:58;opacity:0;pointer-events:none;transition:opacity .3s}.scrim.show{opacity:1;pointer-events:auto}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap top__in">
+  <a class="brand" href="#">BLACK<span>LINE</span></a>
+  <nav aria-label="Разделы"><a href="#book">Услуги</a><a href="#book">Запись</a></nav>
+  <a class="btn" href="#book">Записаться</a>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <p class="hero__kicker">Детейлинг-центр</p>
+  <h1>Вернём <span class="o">машине</span><br>блеск салона</h1>
+  <div class="hero__row">
+    <p>Полировка, керамика, химчистка. Выберите услуги — цена и время посчитаются сразу. Запись онлайн, без звонков.</p>
+    <a class="btn" href="#book">Рассчитать и записаться →</a>
+  </div>
+
+  <div class="ba" id="ba" style="--x:50%">
+    <svg viewBox="0 0 1050 450" aria-hidden="true"><use href="#car" style="--body:#c8cdd2;--glass:#0e1418"/>
+      <g clip-path="url(#bodyClip)"><g class="shine"><rect x="0" y="0" width="90" height="450" fill="url(#gl)" transform="skewX(-20)"/></g></g></svg>
+    <svg class="ba__before" viewBox="0 0 1050 450" aria-hidden="true"><use href="#car" style="--body:#7d7a72;--glass:#3a3934"/><use href="#dirt"/></svg>
+    <span class="ba__lbl ba__lbl--l">До</span><span class="ba__lbl ba__lbl--r">После</span>
+    <span class="ba__line"></span><span class="ba__knob">⇆</span>
+    <input type="range" min="0" max="100" value="50" id="baR" aria-label="Сравнить до и после">
+  </div>
+
+  <div class="stats">
+    <div><b>от 1,5 ч</b><span>детейлинг-мойка</span></div>
+    <div><b>2 года</b><span>держится керамика</span></div>
+    <div><b>3 класса</b><span>цена зависит от размера авто</span></div>
+    <div><b>онлайн</b><span>свободное время видно сразу</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="book"><div class="wrap">
+  <h2 class="h2">Соберите <em>свой</em> уход</h2>
+  <p class="lead">Отметьте услуги — справа сразу видно цену, сколько времени займёт работа и свободные окна.</p>
+  <div class="book">
+    <div>
+      <div class="cls" id="cls" role="group" aria-label="Класс автомобиля"></div>
+      <div class="svc" id="svc"></div>
+    </div>
+    <aside class="panel" id="panel" aria-label="Запись"></aside>
+  </div>
+</div></section>
+</main>
+
+<button class="bar" id="bar" type="button"><span id="barN"></span><span id="barT"></span></button>
+<div class="scrim" id="scrim"></div>
+<footer class="foot"><div class="wrap"><span>BLACKLINE — демо-сайт. Адрес, телефон и окна записи условные.</span><span>Сайт сделан в WEBNEX STUDIO</span></div></footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
+    <clipPath id="bodyClip"><path d="M120 330c-14 0-22-10-20-26l8-46c4-22 20-36 44-40l130-20c40-36 100-82 170-92 70-10 170-8 230 10 50 16 104 60 140 96l70 14c40 8 56 30 56 58v18c0 18-12 28-28 28z"/></clipPath>
+    <g id="car">
+      <ellipse cx="525" cy="372" rx="430" ry="22" fill="#000" opacity=".55"/>
+      <path d="M120 330c-14 0-22-10-20-26l8-46c4-22 20-36 44-40l130-20c40-36 100-82 170-92 70-10 170-8 230 10 50 16 104 60 140 96l70 14c40 8 56 30 56 58v18c0 18-12 28-28 28z" style="fill:var(--body)"/>
+      <path d="M120 330c-14 0-22-10-20-26l8-46c4-22 20-36 44-40l130-20c40-36 100-82 170-92 70-10 170-8 230 10 50 16 104 60 140 96l70 14c40 8 56 30 56 58v18c0 18-12 28-28 28z" fill="url(#bodyG)"/>
+      <path d="M318 200c36-36 84-68 140-76 50-6 112-4 150 4l-8 72z" style="fill:var(--glass)"/>
+      <path d="M628 128c40 8 80 34 116 72H620z" style="fill:var(--glass)"/>
+      <path d="M610 126l-8 76" style="stroke:var(--body)" stroke-width="10"/>
+      <path d="M150 262h780" stroke="#000" stroke-opacity=".18" stroke-width="2"/>
+      <path d="M880 246c14 0 30 6 38 16h-48z" fill="#f5f2df"/>
+      <path d="M108 252h30v18h-34z" fill="#c2332a"/>
+      <g><circle cx="270" cy="330" r="62" fill="#0a0a0a" stroke="#2c2c30" stroke-width="3"/><circle cx="270" cy="330" r="38" fill="#5d6168" stroke="#9aa0a8" stroke-width="2"/><circle cx="270" cy="330" r="10" fill="#c9cdd2"/>
+        <circle cx="790" cy="330" r="62" fill="#0a0a0a" stroke="#2c2c30" stroke-width="3"/><circle cx="790" cy="330" r="38" fill="#5d6168" stroke="#9aa0a8" stroke-width="2"/><circle cx="790" cy="330" r="10" fill="#c9cdd2"/></g>
+    </g>
+    <g id="dirt" fill="#4a3f2c" opacity=".55">
+      <path d="M140 300c40-10 70 10 110 0s60-20 100 0 80 4 120-4 90 10 130 0 80-16 120-2 70 8 110-2 60 6 80 20v20H130z"/>
+      <circle cx="420" cy="250" r="14"/><circle cx="380" cy="280" r="9"/><circle cx="520" cy="270" r="18"/><circle cx="600" cy="240" r="7"/><circle cx="700" cy="285" r="12"/><circle cx="820" cy="270" r="10"/><circle cx="210" cy="250" r="11"/>
+      <path d="M340 190l40-30M380 180l60-40M460 160l50-24" stroke="#cfc6b0" stroke-width="3" opacity=".6"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="../store.js"></script>
+<script>
+(function(){
+  'use strict';
+  WXD.ribbon('detailing');
+  var $=function(s){return document.querySelector(s)}, fmt=WXD.fmt;
+
+  // слайдер «до / после»
+  var ba=$('#ba'), r=$('#baR');
+  r.addEventListener('input',function(){ba.style.setProperty('--x',r.value+'%')});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    // при первом показе шторка сама «проезжает», чтобы было понятно, что её можно тянуть
+    var t0=null, played=false;
+    new IntersectionObserver(function(es){if(es[0].isIntersecting&&!played){played=true;requestAnimationFrame(function step(t){if(!t0)t0=t;var k=(t-t0)/1800;if(k>1)return;var v=50+Math.sin(k*Math.PI*2)*28;r.value=v;ba.style.setProperty('--x',v+'%');requestAnimationFrame(step)})}},{threshold:.5}).observe(ba);
+  }
+
+  var classes=[{id:'sed',name:'Седан',k:1,w:'M4 14h38l-4-6-10-3H16l-6 4z'},{id:'suv',name:'Кроссовер',k:1.2,w:'M3 14h40l-2-7-12-3H14l-8 5z'},{id:'off',name:'Внедорожник',k:1.4,w:'M3 14h40V6l-10-3H10L4 7z'}];
+  var cls='sed', picked={}, day=0, time=null, done=null;
+
+  function prods(){return WXD.products('detailing')}
+  function k(){return classes.filter(function(c){return c.id===cls})[0].k}
+  function priceOf(p){return Math.round(p.price*k()/500)*500}
+  function sel(){return prods().filter(function(p){return picked[p.id]&&!p.off})}
+  function total(){return sel().reduce(function(a,p){return a+priceOf(p)},0)}
+  function hours(){return sel().reduce(function(a,p){return a+p.hours},0)}
+  function hTxt(h){return h>=8?Math.ceil(h/8)+' '+(Math.ceil(h/8)===1?'день':'дня'):(h%1?String(h).replace('.',','):h)+' ч'}
+
+  function renderCls(){
+    $('#cls').innerHTML=classes.map(function(c){return '<button type="button" data-cls="'+c.id+'" aria-pressed="'+(c.id===cls)+'"><svg viewBox="0 0 46 20" aria-hidden="true"><path d="'+c.w+'" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="15" r="3.5" fill="currentColor"/><circle cx="34" cy="15" r="3.5" fill="currentColor"/></svg><span>'+c.name+'<br><small>'+(c.k===1?'базовая цена':'×'+String(c.k).replace('.',','))+'</small></span></button>'}).join('');
+  }
+  function renderSvc(){
+    $('#svc').innerHTML=prods().map(function(p,i){
+      return '<button type="button" class="s" data-svc="'+p.id+'" aria-pressed="'+(!!picked[p.id]&&!p.off)+'"'+(p.off?' disabled':'')+' style="animation-delay:'+(i*.05)+'s"><span class="s__chk">✓</span><span class="s__cat">'+p.cat+'</span><h3>'+p.name+'</h3><p>'+(p.off?'Временно не записываем':p.desc)+'</p><div class="s__foot"><span class="s__price">'+fmt(priceOf(p))+'</span><span class="s__h">≈ '+hTxt(p.hours)+'</span></div></button>';
+    }).join('');
+  }
+
+  var DAYS=['вс','пн','вт','ср','чт','пт','сб'], MON=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  function dayDate(i){var d=new Date();d.setDate(d.getDate()+i+1);return d}
+  // «занятые» окна условные, но одинаковые для одного и того же дня
+  function busy(i,h){var d=dayDate(i),x=(d.getDate()*31+h*7)%10;return x<3}
+  function renderPanel(){
+    var p=$('#panel');
+    if(done){
+      p.innerHTML='<div class="done"><div class="ok">✓</div><h3>Вы записаны</h3><p>Заявка №'+done.id+' · '+done.when+'<br>Мастер позвонит за день, чтобы подтвердить.</p><p style="margin-top:16px"><a href="../admin/?site=detailing" target="_blank" rel="noopener">Посмотреть запись в админке →</a></p><button class="btn" type="button" id="again" style="margin-top:18px">Новая запись</button></div>';
+      return;
+    }
+    var keep={nm:$('#nm')?$('#nm').value:'',ph:$('#ph')?$('#ph').value:'',car:$("#carIn")?$("#carIn").value:''};
+    var s=sel(), days='', times='';
+    for(var i=0;i<7;i++){var d=dayDate(i);days+='<button type="button" data-day="'+i+'" aria-pressed="'+(i===day)+'">'+d.getDate()+' '+MON[d.getMonth()]+'<small>'+(i===0?'завтра':DAYS[d.getDay()])+'</small></button>'}
+    for(var h=9;h<=18;h++){var b=busy(day,h),v=h+':00';if(b&&time===v)time=null;times+='<button type="button" data-time="'+v+'" aria-pressed="'+(time===v)+'"'+(b?' disabled aria-label="'+v+' занято"':'')+'>'+v+'</button>'}
+    p.innerHTML='<h3>Ваша запись</h3>'+(s.length?'<ul class="sel">'+s.map(function(x){return '<li><span>'+x.name+'</span><span>'+fmt(priceOf(x))+'</span></li>'}).join('')+'</ul>':'<p class="empty">Отметьте одну или несколько услуг слева.</p>')+
+      '<span class="lbl">День</span><div class="days" role="group" aria-label="День">'+days+'</div>'+
+      '<span class="lbl">Время приезда</span><div class="times" role="group" aria-label="Время">'+times+'</div>'+
+      '<label class="lbl" for="carIn">Марка и модель</label><input class="field" id="carIn" autocomplete="off" placeholder="Например, Toyota Camry">'+
+      '<label class="lbl" for="nm">Имя</label><input class="field" id="nm" autocomplete="off" placeholder="Как к вам обращаться">'+
+      '<label class="lbl" for="ph">Телефон</label><input class="field" id="ph" inputmode="tel" autocomplete="off" placeholder="+7 7__ ___ __ __">'+
+      '<div class="tot"><div><small>Итого'+(s.length?' · ≈ '+hTxt(hours()):'')+'</small><b>'+fmt(total())+'</b></div></div>'+
+      '<button class="btn" type="button" id="send">Записаться</button><p class="err" id="err"></p><p class="note">Это демо: данные никуда не уходят, запись появится только в демо-админке.</p>';
+    $('#nm').value=keep.nm;$('#ph').value=keep.ph;$("#carIn").value=keep.car;
+    $('#bar').classList.toggle('show',s.length>0);$('#barN').textContent='Услуг: '+s.length;$('#barT').textContent=fmt(total())+' →';
+  }
+  function open(v){$('#panel').classList.toggle('open',v);$('#scrim').classList.toggle('show',v)}
+
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('button');if(!t)return;
+    if(t.dataset.cls){cls=t.dataset.cls;renderCls();renderSvc();renderPanel()}
+    else if(t.dataset.svc){picked[t.dataset.svc]=!picked[t.dataset.svc];done=null;t.setAttribute('aria-pressed',!!picked[t.dataset.svc]);renderPanel()}
+    else if(t.dataset.day){day=+t.dataset.day;time=null;renderPanel()}
+    else if(t.dataset.time){time=t.dataset.time;renderPanel()}
+    else if(t.id==='bar')open(true)
+    else if(t.id==='again'){done=null;renderPanel();open(false)}
+    else if(t.id==='send'){
+      var err=$('#err'),nm=$('#nm').value.trim(),ph=$('#ph').value.trim(),car=$("#carIn").value.trim();
+      if(!sel().length){err.textContent='Выберите хотя бы одну услугу.';return}
+      if(!time){err.textContent='Выберите время приезда.';return}
+      if(!nm){err.textContent='Как к вам обращаться?';$('#nm').focus();return}
+      if(ph.replace(/\D/g,'').length<10){err.textContent='Проверьте телефон — нужно 10–11 цифр.';$('#ph').focus();return}
+      var d=dayDate(day), when=d.getDate()+' '+MON[d.getMonth()]+', '+time;
+      var cname=classes.filter(function(c){return c.id===cls})[0].name;
+      var o=WXD.addOrder({site:'detailing',client:nm,phone:ph,slot:when,car:(car||'авто не указано')+' · '+cname.toLowerCase(),items:sel().map(function(x){return{name:x.name,qty:1,price:priceOf(x)}}),total:total()});
+      done={id:o.id,when:when};picked={};time=null;renderSvc();renderPanel();$('#bar').classList.remove('show');open(true);
+    }
+  });
+  $('#scrim').addEventListener('click',function(){open(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')open(false)});
+  window.addEventListener('storage',function(e){if(e.key==='wxd-products'||e.key===null){renderSvc();renderPanel()}});
+
+  renderCls();renderSvc();renderPanel();
+})();
+</script>
+</body>
+</html>

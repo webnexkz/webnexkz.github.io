@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>WEBNEX STUDIO — сайты с заявками и админкой для бизнеса в Казахстане</title>
+<meta name="description" content="Делаю сайты для бизнеса в Казахстане: лендинги, каталоги, интернет-магазины с админкой. Заявки приходят в таблицу и Telegram. Цены открыты, от 70 000 ₸.">
+<meta name="theme-color" content="#060b24">
+<meta property="og:title" content="WEBNEX STUDIO — сайты, которые сами приносят заявки">
+<meta property="og:description" content="Сайты с админкой для бизнеса в Казахстане. Цены от 70 000 ₸. Работаю один — напрямую с разработчиком.">
+<meta property="og:image" content="img/smell-hero.webp">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/unbounded-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-motion')</script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="M20.5 4.5 3.5 11.2l5.6 2.1 2.2 6.2 3.2-4.1 4.6 3.4z"/><path d="m9.1 13.3 8.2-6.1"/></symbol>
+  <symbol id="i-admin" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M8.5 4.5v15M11.5 15.5v-3M14.5 15.5v-6M17.5 15.5v-4.5"/></symbol>
+  <symbol id="i-form" viewBox="0 0 24 24"><rect x="4.5" y="3.5" width="15" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h4.5"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4.2 19.8 5.3 16A8.4 8.4 0 1 1 8.4 19z"/><path d="M9.2 8.6c.2-.5.6-.6.9-.6h.5l1 2.2-.7.9c.5 1.1 1.3 1.9 2.4 2.4l.9-.7 2.2 1v.5c0 .3-.2.8-.6.9-.9.4-2.7.1-4.5-1.6S8.8 9.6 9.2 8.6z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="WEBNEX STUDIO — на главную"><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <nav class="nav__links" aria-label="Разделы">
+      <a href="#works">Работы</a>
+      <a href="#demos">Демо</a>
+      <a href="#system">Админка</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#process">Как работаю</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="btn btn--small" href="#order">Оставить заявку</a>
+  </div>
+  <span class="nav__progress" id="progress" aria-hidden="true"></span>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <h1 class="hero__title">Сайты, которые сами приносят <span class="hl">заявки</span></h1>
+      <p class="hero__sub">Делаю сайты для бизнеса в Казахстане — с админкой, таблицей заказов и уведомлениями в Telegram.<span class="more"> Работаю один: вы общаетесь напрямую с тем, кто пишет ваш сайт.</span></p>
+      <ul class="hero__perks"><li>Без абонплаты</li><li>Цена фиксируется до начала работы</li><li>Поддержка после запуска</li></ul>
+      <p class="hero__try">Попробуйте форму — и посмотрите, куда уходит заявка.</p>
+    </div>
+
+    <div class="flow" id="flow">
+      <form class="order node-card" id="order" novalidate>
+        <div class="order__head">
+          <svg class="ico" aria-hidden="true"><use href="#i-form"/></svg>
+          <h2 class="order__title">Заявка на сайт</h2>
+        </div>
+
+        <fieldset class="chips">
+          <legend>Какой сайт нужен</legend>
+          <label class="chip"><input type="radio" name="type" value="Лендинг" data-price="60 000" checked><span>Лендинг</span></label>
+          <label class="chip"><input type="radio" name="type" value="Сайт-визитка" data-price="80 000"><span>Визитка</span></label>
+          <label class="chip"><input type="radio" name="type" value="Многостраничный сайт" data-price="120 000"><span>Многостраничный</span></label>
+          <label class="chip"><input type="radio" name="type" value="Каталог с заказом в WhatsApp" data-price="130 000"><span>Каталог</span></label>
+          <label class="chip"><input type="radio" name="type" value="Интернет-магазин" data-price="180 000"><span>Магазин</span></label>
+          <label class="chip"><input type="radio" name="type" value="Админка" data-price="120 000"><span>Админка</span></label>
+        </fieldset>
+
+        <p class="order__price" aria-live="polite">Стоимость <b id="price">от 60 000 ₸</b></p>
+
+        <div class="field">
+          <label for="f-name">Как вас зовут</label>
+          <input id="f-name" name="name" autocomplete="given-name" placeholder="Например, Айгерим" required>
+          <p class="field__err" id="e-name"></p>
+        </div>
+        <div class="field">
+          <label for="f-contact">Телефон или Instagram</label>
+          <input id="f-contact" name="contact" autocomplete="tel" placeholder="+7 7__ ___ __ __ или @ваш_ник" required>
+          <p class="field__err" id="e-contact"></p>
+        </div>
+        <div class="field field--opt">
+          <label for="f-about">О бизнесе <span class="opt">необязательно</span></label>
+          <input id="f-about" name="about" placeholder="Салон, магазин, услуги…">
+        </div>
+
+        <button class="btn btn--full" type="submit" id="send">Отправить заявку</button>
+        <p class="order__note" id="note">Пока заявка уходит в Instagram Direct: текст скопируется сам, останется вставить и отправить.</p>
+      </form>
+
+      <ol class="line" id="line" aria-label="Куда попадает заявка">
+        <span class="line__pulse" aria-hidden="true"></span>
+        <li class="node" style="--i:0">
+          <span class="node__dot"><svg class="ico"><use href="#i-sheet"/></svg></span>
+          <div><b>Таблица заказов</b><span class="node__sub" id="n-sheet">новая строка: Айгерим · Лендинг</span></div>
+        </li>
+        <li class="node" style="--i:1">
+          <span class="node__dot"><svg class="ico"><use href="#i-tg"/></svg></span>
+          <div><b>Telegram владельца</b><span class="node__sub" id="n-tg">«Новая заявка: Лендинг, от 60 000 ₸»</span></div>
+        </li>
+        <li class="node" style="--i:2">
+          <span class="node__dot"><svg class="ico"><use href="#i-admin"/></svg></span>
+          <div><b>Админка</b><span class="node__sub" id="n-admin">заявок сегодня: <span id="n-count">3</span></span></div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORKS ============ -->
+<section class="works" id="works">
+  <div class="wrap">
+    <h2 class="h2">Работы</h2>
+    <p class="lead">Показываю только то, что сделал сам. Настоящие проекты — с живой ссылкой, учебные — с пометкой «концепт».</p>
+
+    <article class="case">
+      <div class="case__shots">
+        <figure class="shot shot--main">
+          <div class="shot__bar"><i></i><i></i><i></i><span>smellparfume.github.io</span></div>
+          <img src="img/smell-hero.webp" width="1440" height="900" alt="Главный экран магазина SMELL PARFUME: тёмный фон, золотой логотип, кнопки «Смотреть каталог» и «Подобрать аромат»" loading="lazy">
+        </figure>
+        <figure class="shot shot--over">
+          <div class="shot__bar"><i></i><i></i><i></i><span>каталог</span></div>
+          <img src="img/smell-catalog.webp" width="1440" height="900" alt="Каталог SMELL PARFUME: фильтры по типу аромата и карточки флаконов с ценой за 1 мл" loading="lazy">
+        </figure>
+      </div>
+
+      <div class="case__body">
+        <h3 class="case__title">SMELL PARFUME</h3>
+        <p class="case__what">Магазин парфюмерии на разлив в Петропавловске. Сделал всё сам: от дизайна до админки и уведомлений.</p>
+        <dl class="specs">
+          <div><dt>Каталог</dt><dd>109 ароматов, фильтры, поиск по нотам</dd></div>
+          <div><dt>Заказ</dt><dd>корзина → заказ сразу в WhatsApp</dd></div>
+          <div><dt>Продажи</dt><dd>подбор аромата за минуту, наборы, промокоды, бонусы</dd></div>
+          <div><dt>Админка</dt><dd>заказы, клиенты, товары, статистика</dd></div>
+          <div><dt>Уведомления</dt><dd>каждый заказ — в таблицу и Telegram</dd></div>
+          <div><dt>Поиск</dt><dd>отдельные страницы для Google и Яндекса</dd></div>
+        </dl>
+        <a class="btn btn--ghost" href="https://smellparfume.github.io" target="_blank" rel="noopener">Открыть сайт магазина <svg class="ico"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+
+    <article class="case case--small">
+      <div class="case__body">
+        <h3 class="case__title">WEBNEX</h3>
+        <p class="case__what">Сайт, на котором вы сейчас. Своя форма заявок, свои шрифты, быстрый на телефоне — и он будет расти: калькулятор, отзывы, статистика.</p>
+      </div>
+      <a class="case__self" href="#top">Вы уже здесь <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </article>
+  </div>
+</section>
+
+<!-- ============ DEMOS ============ -->
+<section class="demos" id="demos">
+  <div class="wrap">
+    <h2 class="h2">Живые демо-сайты</h2>
+    <p class="lead">Три сайта для разных бизнесов — нажимайте, заказывайте, записывайтесь. Заказ сразу появится в демо-админке, как у настоящего владельца.</p>
+
+    <div class="demos__grid">
+      <article class="demo-card" style="--accent:#c7841c">
+        <a class="demo-card__view" href="demo/coffee/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <iframe src="demo/coffee/" title="Превью: кофейня" loading="lazy" tabindex="-1" scrolling="no"></iframe>
+        </a>
+        <div class="demo-card__body">
+          <span class="demo-card__kind">Кофейня</span>
+          <h3 class="demo-card__title">Кофе с собой без очереди</h3>
+          <p>Меню, заказ к нужному времени, имя на стакане и карта «каждый 6-й в подарок».</p>
+          <a class="demo-card__go" href="demo/coffee/" target="_blank" rel="noopener">Открыть сайт кофейни <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="demo-card" style="--accent:#8b5cff">
+        <a class="demo-card__view" href="demo/pizza/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <iframe src="demo/pizza/" title="Превью: пиццерия" loading="lazy" tabindex="-1" scrolling="no"></iframe>
+        </a>
+        <div class="demo-card__body">
+          <span class="demo-card__kind">Пиццерия</span>
+          <h3 class="demo-card__title">Доставка с корзиной</h3>
+          <p>Выбор пиццы, корзина, адрес и оплата — заказ уходит в админку и Telegram.</p>
+          <a class="demo-card__go" href="demo/pizza/" target="_blank" rel="noopener">Открыть сайт пиццерии <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="demo-card" style="--accent:#139bc4">
+        <a class="demo-card__view" href="demo/detailing/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <iframe src="demo/detailing/" title="Превью: автодетейлинг" loading="lazy" tabindex="-1" scrolling="no"></iframe>
+        </a>
+        <div class="demo-card__body">
+          <span class="demo-card__kind">Автодетейлинг</span>
+          <h3 class="demo-card__title">Онлайн-запись на время</h3>
+          <p>«До и после», цена под класс машины, свободные окна — клиент записывается сам.</p>
+          <a class="demo-card__go" href="demo/detailing/" target="_blank" rel="noopener">Открыть сайт детейлинга <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="demos__admin">
+      <p><b>Все заказы с трёх сайтов — в одной админке.</b> Меняйте статусы и цены — демо-сайт обновится сам. Данные условные.</p>
+      <a class="btn btn--ghost" href="demo/admin/" target="_blank" rel="noopener">Открыть демо-админку <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SYSTEM ============ -->
+<section class="system" id="system">
+  <div class="wrap system__grid">
+    <div class="system__text">
+      <h2 class="h2">Сайт — это ещё и ваша админка</h2>
+      <p class="lead">Красивая страница — половина дела. Каждый заказ должен где-то оказаться, а цены вы должны менять сами, без программиста. Поэтому к сайту я делаю систему.</p>
+      <ul class="ticks">
+        <li><svg class="ico"><use href="#i-check"/></svg>Заказы сохраняются в таблицу — ничего не теряется в переписке</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Уведомление в Telegram в ту же секунду</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Товары, цены и фото меняете сами с телефона</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Видно, сколько людей зашло и сколько заказало</li>
+      </ul>
+      <a class="btn system__live" href="demo/admin/" target="_blank" rel="noopener">Открыть живую админку <svg class="ico"><use href="#i-arrow"/></svg></a>
+      <p class="system__note">Можно нажимать: менять статусы заказов, цены и наличие.</p>
+    </div>
+
+    <figure class="admin" aria-label="Пример админки с условными данными">
+      <div class="admin__top">
+        <span class="admin__brand">W<i>.</i> Админка</span>
+        <span class="admin__tabs"><b>Заказы</b><span>Товары</span><span>Статистика</span></span>
+      </div>
+      <div class="admin__kpis">
+        <div><span>Заказы за неделю</span><b>24</b></div>
+        <div><span>Посетители</span><b>1 318</b></div>
+        <div><span>Выручка</span><b>486 500 ₸</b></div>
+      </div>
+      <table class="admin__table">
+        <thead><tr><th>Клиент</th><th>Заказ</th><th class="num">Сумма</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td>Айгерим К.</td><td>Набор «Топ-5»</td><td class="num">12 900 ₸</td><td><span class="st st--new">новый</span></td></tr>
+          <tr><td>Данияр С.</td><td>2 позиции</td><td class="num">8 400 ₸</td><td><span class="st st--work">в работе</span></td></tr>
+          <tr><td>Марина Л.</td><td>5 позиций</td><td class="num">21 750 ₸</td><td><span class="st">выдан</span></td></tr>
+          <tr><td>Ерлан Т.</td><td>Сертификат</td><td class="num">10 000 ₸</td><td><span class="st">выдан</span></td></tr>
+        </tbody>
+      </table>
+      <div class="tgmsg">
+        <svg class="ico" aria-hidden="true"><use href="#i-tg"/></svg>
+        <p><b>Новый заказ №248</b>Айгерим К. · Набор «Топ-5» · 12 900 ₸</p>
+      </div>
+      <figcaption>Пример. Имена и цифры условные.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ PRICES ============ -->
+<section class="prices" id="prices">
+  <div class="wrap">
+    <h2 class="h2">Цены</h2>
+    <p class="lead">Здесь — цены самого простого тарифа «Старт». У каждого вида сайта 3 тарифа: Старт, Бизнес и Всё включено. Цену называю до начала работы — и она не вырастет.</p>
+
+    <div class="deal">
+      <div class="deal__fee">
+        <p class="deal__big">Без абонплаты</p>
+        <p>Сайт ваш и работает без ежемесячной платы. Платите один раз — за разработку. Домен — несколько тысяч ₸ в год. Обслуживание — только если захотите.</p>
+      </div>
+      <div class="deal__first">
+        <p class="deal__off">−20%</p>
+        <p>Первым трём клиентам — скидка 20% в обмен на честный отзыв о работе.</p>
+      </div>
+    </div>
+
+    <ul class="pricelist">
+      <li><div class="pl__name"><b>Лендинг</b><span>одна страница под рекламу или услугу, с формой заявки</span></div><p class="pl__sum">от 60 000 ₸</p><button class="pl__pick" type="button" data-pick="Лендинг">Выбрать</button></li>
+      <li><div class="pl__name"><b>Сайт-визитка</b><span>до 5 страниц: о вас, услуги, цены, контакты</span></div><p class="pl__sum">от 80 000 ₸</p><button class="pl__pick" type="button" data-pick="Сайт-визитка">Выбрать</button></li>
+      <li><div class="pl__name"><b>Многостраничный сайт</b><span>до 10 страниц для компании с несколькими направлениями</span></div><p class="pl__sum">от 120 000 ₸</p><button class="pl__pick" type="button" data-pick="Многостраничный сайт">Выбрать</button></li>
+      <li><div class="pl__name"><b>Каталог с заказом в WhatsApp</b><span>товары с фото и ценами, заказ прилетает вам в WhatsApp</span></div><p class="pl__sum">от 130 000 ₸</p><button class="pl__pick" type="button" data-pick="Каталог с заказом в WhatsApp">Выбрать</button></li>
+      <li class="pl--accent"><div class="pl__name"><b>Интернет-магазин</b><span>корзина и оформление заказа, как у SMELL PARFUME</span></div><p class="pl__sum">от 180 000 ₸</p><button class="pl__pick" type="button" data-pick="Интернет-магазин">Выбрать</button></li>
+      <li><div class="pl__name"><b>Админка</b><span>панель управления к уже готовому сайту: товары, заказы, статистика</span></div><p class="pl__sum">от 120 000 ₸</p><button class="pl__pick" type="button" data-pick="Админка">Выбрать</button></li>
+    </ul>
+    <a class="prices__more" href="#calc">3 тарифа для каждого сайта — посчитайте в калькуляторе <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+
+    <div class="care">
+      <h3 class="h3">Обслуживание после запуска</h3>
+      <p class="care__lead"><b>Не обязательно — сайт работает и без этого.</b> Но если хотите, чтобы сайтом занимался я, можно взять обслуживание помесячно или сразу на год.</p>
+      <div class="care__switch" role="radiogroup" aria-label="Как платить">
+        <label><input type="radio" name="care" value="m" checked><span>Помесячно</span></label>
+        <label><input type="radio" name="care" value="y"><span>На год <em>2 месяца в подарок</em></span></label>
+      </div>
+      <div class="care__plans">
+        <div class="plan"><b>Лайт</b><p class="plan__sum" data-m="10 000" data-y="100 000" data-ym="≈ 8 300">10 000 ₸<span>/мес</span></p><p class="plan__h">до 2 часов работы в месяц</p><p>Слежу, чтобы сайт работал, и вношу мелкие правки.</p></div>
+        <div class="plan plan--mid"><b>Оптимум</b><p class="plan__sum" data-m="30 000" data-y="300 000" data-ym="25 000">30 000 ₸<span>/мес</span></p><p class="plan__h">до 8 часов работы в месяц</p><p>Обновляю товары, цены и тексты, добавляю новые разделы.</p></div>
+        <div class="plan"><b>Максимум</b><p class="plan__sum" data-m="60 000" data-y="600 000" data-ym="50 000">60 000 ₸<span>/мес</span></p><p class="plan__h">до 20 часов работы в месяц</p><p>Развиваю сайт вместе с вами: новые функции и улучшения.</p></div>
+      </div>
+      <p class="care__fine">Неиспользованные часы на следующий месяц не переносятся. Отказаться от помесячного обслуживания можно в любой момент. Годовая оплата не возвращается; год начинается после того, как закончится бесплатная поддержка из тарифа сайта.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALC ============ -->
+<section class="calc" id="calc">
+  <div class="wrap">
+    <h2 class="h2">Калькулятор стоимости</h2>
+    <p class="lead">Выберите вид сайта и тариф — сразу увидите цену, срок и что входит. Точную сумму подтвержу после короткого разговора.</p>
+
+    <div class="calc__grid">
+      <form class="calc__form" id="calcForm" onsubmit="return false">
+        <fieldset class="calc__types">
+          <legend>1. Какой сайт</legend>
+          <label class="ctype"><input type="radio" name="ctype" value="Лендинг" data-p="60000,110000,150000" data-d="5-7,7-10,7-11" checked><span><b>Лендинг</b><small>от 60 000 ₸</small></span></label>
+          <label class="ctype"><input type="radio" name="ctype" value="Сайт-визитка" data-p="80000,130000,180000" data-d="7-10,10-14,11-15"><span><b>Визитка</b><small>от 80 000 ₸</small></span></label>
+          <label class="ctype"><input type="radio" name="ctype" value="Многостраничный сайт" data-p="120000,170000,230000" data-d="10-14,14-18,15-22"><span><b>Многостраничный</b><small>от 120 000 ₸</small></span></label>
+          <label class="ctype"><input type="radio" name="ctype" value="Каталог с заказом в WhatsApp" data-p="130000,200000,270000" data-d="10-14,14-20,17-25"><span><b>Каталог</b><small>от 130 000 ₸</small></span></label>
+          <label class="ctype"><input type="radio" name="ctype" value="Интернет-магазин" data-p="180000,260000,360000" data-d="14-18,18-25,22-32"><span><b>Магазин</b><small>от 180 000 ₸</small></span></label>
+        </fieldset>
+
+        <fieldset class="calc__tiers">
+          <legend>2. Тариф</legend>
+          <label class="tier"><input type="radio" name="ctier" value="Старт" data-i="0"><span><b>Старт</b><i class="tier__p">60 000 ₸</i><small class="tier__d">5–7 дней</small><em>Всё нужное, чтобы сайт приносил заявки</em></span></label>
+          <label class="tier tier--top"><input type="radio" name="ctier" value="Бизнес" data-i="1" checked><span><b>Бизнес <mark>чаще выбирают</mark></b><i class="tier__p">110 000 ₸</i><small class="tier__d">7–10 дней</small><em>+ админка, таблица заказов, 2 языка, статистика</em></span></label>
+          <label class="tier"><input type="radio" name="ctier" value="Всё включено" data-i="2"><span><b>Всё включено</b><i class="tier__p">150 000 ₸</i><small class="tier__d">7–11 дней</small><em>+ тексты, фото, акции, обучение и отчёты</em></span></label>
+        </fieldset>
+
+        <div class="calc__inc">
+          <p class="calc__inc-h">Что входит в «<span id="c-tier">Бизнес</span>»</p>
+          <ul class="calc__feats" id="c-feats">
+            <li data-tiers="0"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Короткая видео-инструкция</span></li>
+            <li data-tiers="12"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Видео-инструкция по админке</span></li>
+            <li data-tiers="0"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>2 круга правок</span></li>
+            <li data-tiers="1"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>3 круга правок</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Правки без ограничений</span></li>
+            <li data-tiers="0"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>7 дней бесплатной поддержки</span></li>
+            <li data-tiers="1"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>14 дней бесплатной поддержки</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Месяц бесплатной поддержки</span></li>
+            <li data-tiers="1"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Админка — базовая<small>заявки и статусы, цены, наличие и товары, сводка за день, неделю и месяц</small></span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Админка — расширенная<small>всё из базовой + графики и топ товаров, база клиентов, промокоды и баннер акций, выгрузка в Excel, несколько сотрудников</small></span></li>
+            <li data-tiers="12"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Заявки в Google Таблицу</span></li>
+            <li data-tiers="12"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>2 языка<small>русский + казахский или английский</small></span></li>
+            <li data-tiers="12"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Статистика посещений</span></li>
+            <li data-tiers="12"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Карточка в 2ГИС и Google Картах<small>помогу создать и оформить</small></span></li>
+            <li data-tiers="12" data-kind="shop"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Оплата через Kaspi QR</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Продающие тексты<small>напишу за вас</small></span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Обработка фото товаров</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Калькулятор цены для ваших услуг</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Баннер «Акция» с таймером</span></li>
+            <li data-tiers="2" data-kind="shop"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Промокоды и накопительная карта</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Созвон-обучение 30 минут</span></li>
+            <li data-tiers="2"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg><span>Ежемесячный отчёт</span></li>
+          </ul>
+          <p class="calc__base"><b>Во всех тарифах:</b> дизайн под телефон, контакты и карта, без абонплаты за хостинг, помощь с доменом и запуском, заявки в Telegram, защита формы от спама, базовое продвижение в Google и Яндекс, блок реальных отзывов, красивое превью ссылки в WhatsApp и QR-код для печати.</p>
+        </div>
+
+        <fieldset class="calc__opts">
+          <legend>3. Что добавить</legend>
+          <label class="opt"><input type="checkbox" value="Онлайн-запись на время" data-sum="50000" data-days="3"><span class="opt__box" aria-hidden="true"></span><span class="opt__t"><b>Онлайн-запись на время</b><small>для салонов, сервисов, детейлинга</small></span><span class="opt__p">+50 000 ₸</span></label>
+        </fieldset>
+      </form>
+
+      <aside class="calc__sum node-card">
+        <span class="calc__label">Примерная стоимость</span>
+        <p class="calc__price" aria-live="polite"><span id="c-sum" class="num">110 000</span> ₸</p>
+        <p class="calc__days">Срок: <b id="c-days">7–10 дней</b></p>
+        <p class="calc__from">Срок считается со дня, когда вы прислали фото и информацию.</p>
+        <ul class="calc__list" id="c-list"></ul>
+        <ul class="calc__perks">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Платите один раз. Без ежемесячной платы за сайт</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>После запуска — обслуживание по желанию, от 10 000 ₸/мес</li>
+        </ul>
+        <button class="btn btn--full" type="button" id="c-send">Отправить такую заявку</button>
+        <p class="calc__note">Цена и срок примерные. Точные назову до начала работы — и они не вырастут. Первым трём клиентам — ещё −20% за честный отзыв.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="wrap">
+    <h2 class="h2">Как работаю</h2>
+    <ol class="steps">
+      <li><span class="steps__dot"></span><b>Вы пишете</b><p>Оставляете заявку на сайте или пишете «САЙТ» в Direct.</p></li>
+      <li><span class="steps__dot"></span><b>Обсуждаем задачу</b><p>Расспрашиваю про бизнес и клиентов, предлагаю, какой сайт подойдёт.</p></li>
+      <li><span class="steps__dot"></span><b>Фиксируем цену и срок</b><p>Называю точную сумму и дату запуска до начала работы.</p></li>
+      <li><span class="steps__dot"></span><b>Делаю и запускаю</b><p>Показываю по ходу, вношу правки, запускаю и учу пользоваться админкой.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ DIRECT ============ -->
+<section class="direct">
+  <div class="wrap direct__grid">
+    <h2 class="direct__title">Работаю один — и это плюс</h2>
+    <div class="direct__list">
+      <p><b>Нет испорченного телефона.</b> Вы объясняете задачу тому, кто её делает, а не менеджеру.</p>
+      <p><b>Нет наценки студии.</b> Вы не платите за офис, отдел продаж и аккаунт-менеджера.</p>
+      <p><b>Один отвечает за всё.</b> Дизайн, код, админка и поддержка — у одного человека, который знает ваш сайт целиком.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="wrap faq__grid">
+    <h2 class="h2">Вопросы</h2>
+    <div class="faq__list">
+      <details><summary>Сколько стоит сайт?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Лендинг — от 60 000 ₸. У каждого вида сайта 3 тарифа: Старт, Бизнес и Всё включено — посчитать можно в калькуляторе. Точную сумму называю после короткого разговора о задаче и фиксирую её до начала работы.</p></details>
+      <details><summary>Нужно ли платить каждый месяц?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Нет. Сайт ваш и работает без ежемесячной платы — вы платите один раз за разработку. Отдельно оплачивается только домен (адрес сайта) — несколько тысяч ₸ в год. Обслуживание — по желанию, от него можно отказаться в любой момент.</p></details>
+      <details><summary>Сколько времени занимает работа?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Зависит от объёма: лендинг делается быстрее магазина. Срок называю вместе с ценой, до старта, и держусь его.</p></details>
+      <details><summary>Что нужно подготовить?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Логотип, фото, цены и пару слов о бизнесе — если есть. Если чего-то нет, подскажу, как собрать, и помогу с текстами.</p></details>
+      <details><summary>Смогу сам менять цены и товары?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Да, если к сайту есть админка. Вы меняете цены, фото и товары с телефона, без меня и без кода.</p></details>
+      <details><summary>Куда приходят заказы с сайта?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Куда вам удобно: в WhatsApp, в Telegram и в таблицу заказов. Обычно — сразу во все три, чтобы ничего не потерялось.</p></details>
+      <details><summary>Вы делаете сайты только в Петропавловске?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Нет, работаю со всем Казахстаном. Всё обсуждаем в переписке и созвонах, встречаться не обязательно.</p></details>
+      <details><summary>А домен и хостинг?<svg class="ico"><use href="#i-plus"/></svg></summary><p>Помогу выбрать и подключить адрес сайта, например ваш-бизнес.kz. Домен стоит несколько тысяч ₸ в год и оформляется на вас. За хостинг платить не нужно — абонплаты нет, сайт остаётся вашим.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap final__in">
+    <p class="final__big">Напишите «САЙТ»</p>
+    <p class="final__sub">в Direct — отвечу, задам пару вопросов и назову цену.</p>
+    <div class="final__btns">
+      <a class="btn" href="https://ig.me/m/webnex.kz" target="_blank" rel="noopener" data-ig><svg class="ico"><use href="#i-ig"/></svg>Написать в Direct</a>
+      <a class="btn btn--ghost" href="#" target="_blank" rel="noopener" data-wa hidden><svg class="ico"><use href="#i-wa"/></svg>Написать в WhatsApp</a>
+      <a class="btn btn--ghost" href="#order">Заполнить заявку</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="logo" href="#top" aria-label="WEBNEX STUDIO — наверх"><span class="logo__w">W<i>.</i></span><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <p>Сайты для бизнеса · Петропавловск · весь Казахстан</p>
+    <nav class="foot__links" aria-label="Контакты">
+      <a href="https://instagram.com/webnex.kz" target="_blank" rel="noopener"><svg class="ico"><use href="#i-ig"/></svg>@webnex.kz</a>
+      <a href="#" target="_blank" rel="noopener" data-wa hidden><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
+    </nav>
+    <p class="foot__copy">© <span id="year">2026</span> WEBNEX STUDIO</p>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn btn--full" href="#order">Оставить заявку</a></div>
+
+<script src="config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/bg.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>

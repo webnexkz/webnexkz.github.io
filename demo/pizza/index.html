@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Пиццерия FORNO — демо-сайт от WEBNEX STUDIO</title>
+<meta name="description" content="Демо-сайт пиццерии: меню, корзина, промокод, доставка. Сделано WEBNEX STUDIO.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e2381b">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#e2381b;--red-d:#b8270e;--cream:#fff4e3;--paper:#fffaf2;--ink:#2a1a12;--muted:#7a5f50;--basil:#2f7d32;--line:#efdcc4;--r:18px;
+  --disp:"Dela Gothic One",Impact,sans-serif;--body:"Rubik",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}button{font:inherit;cursor:pointer}img,svg{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:8px}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(255,244,227,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
+.top__in{display:flex;align-items:center;gap:20px;height:64px}
+.brand{font:400 26px/1 var(--disp);color:var(--red);letter-spacing:.02em;text-decoration:none}
+.top nav{display:flex;gap:18px;margin-left:12px}.top nav a{color:var(--ink);text-decoration:none;font-weight:500}
+.top__phone{margin-left:auto;font-weight:700;color:var(--ink);text-decoration:none}
+.cartbtn{display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:2px solid var(--ink);border-radius:999px;padding:9px 18px;font-weight:700;box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.cartbtn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.cartbtn b{background:#fff;color:var(--red);border-radius:999px;min-width:24px;padding:1px 7px;font-size:14px;text-align:center}
+.cartbtn.bump{animation:bump .45s}
+@keyframes bump{40%{transform:scale(1.15) rotate(-4deg)}}
+
+.hero{position:relative;overflow:hidden;padding:56px 0 72px}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font:400 clamp(40px,6.4vw,84px)/.98 var(--disp);text-transform:uppercase;letter-spacing:-.01em}
+.hero h1 span{color:var(--red)}
+.hero p{margin-top:22px;font-size:19px;color:var(--muted);max-width:30em}
+.hero__btns{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;border:2px solid var(--ink);border-radius:999px;padding:14px 26px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn--ghost{background:var(--paper);color:var(--ink)}
+.hero__pizza{position:relative;aspect-ratio:1}
+.hero__pizza svg{width:100%;height:100%;animation:spin 60s linear infinite;filter:drop-shadow(0 30px 40px rgba(120,40,10,.25))}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge{position:absolute;background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:10px 14px;font-weight:700;box-shadow:4px 4px 0 var(--ink);font-size:15px}
+.badge small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.badge--a{left:-6%;top:12%;transform:rotate(-6deg)}.badge--b{right:-4%;bottom:10%;transform:rotate(5deg);background:#ffd84d}
+.facts{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap}
+.facts div b{display:block;font:400 28px/1 var(--disp)}.facts div{color:var(--muted);font-size:14px}
+
+.marquee{background:var(--ink);color:var(--cream);overflow:hidden;white-space:nowrap;padding:14px 0;font:400 20px/1 var(--disp);text-transform:uppercase}
+.marquee div{display:inline-block;animation:mq 26s linear infinite}
+.marquee span{margin:0 26px}.marquee i{font-style:normal;color:#ffd84d}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.menu{padding:72px 0}
+.menu__head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.h2{font:400 clamp(32px,4.4vw,52px)/1 var(--disp);text-transform:uppercase}
+.tabs{display:flex;gap:8px}
+.tab{border:2px solid var(--ink);background:var(--paper);border-radius:999px;padding:8px 18px;font-weight:700}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;margin-top:34px}
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;box-shadow:5px 5px 0 var(--ink);transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card__img{aspect-ratio:1;margin:-4px 0 14px;display:grid;place-items:center}
+.card__img svg{width:88%;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.card:hover .card__img svg{transform:rotate(40deg) scale(1.04)}
+.card h3{font:400 21px/1.1 var(--disp)}
+.card p{color:var(--muted);font-size:14.5px;margin-top:6px;flex:1}
+.sizes{display:flex;margin-top:14px;border:2px solid var(--ink);border-radius:999px;padding:3px;background:var(--cream)}
+.sizes button{flex:1;border:0;background:none;border-radius:999px;padding:6px;font-weight:700;font-size:14px;color:var(--muted)}
+.sizes button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.card__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+.price{font:400 22px/1 var(--disp);white-space:nowrap}
+.add{border:2px solid var(--ink);background:var(--red);color:#fff;border-radius:999px;padding:9px 16px;white-space:nowrap;font-weight:700}
+.add:active{transform:scale(.95)}
+.card--off{opacity:.5}.card--off .add{background:#aaa}
+.drink{display:grid;place-items:center;height:100%}
+
+.steps{background:var(--red);color:#fff;padding:70px 0;border-block:2px solid var(--ink)}
+.steps .h2{color:#fff}
+.steps ol{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+.steps li{background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:var(--r);padding:24px;box-shadow:5px 5px 0 var(--ink);counter-increment:s}
+.steps li::before{content:counter(s);display:block;font:400 44px/1 var(--disp);color:var(--red);margin-bottom:10px}
+.steps li b{font-size:19px}
+.steps li p{color:var(--muted);margin-top:6px}
+
+.foot{padding:48px 0 120px;color:var(--muted);font-size:14px}
+.foot .brand{font-size:22px}
+.foot__in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+/* корзина */
+.scrim{position:fixed;inset:0;background:rgba(42,26,18,.45);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--paper);z-index:100;border-left:2px solid var(--ink);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.drawer.on{transform:none}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:2px solid var(--line)}
+.drawer__head h2{font:400 24px/1 var(--disp)}
+.x{border:2px solid var(--ink);background:none;border-radius:50%;width:38px;height:38px;font-size:20px;line-height:1}
+.drawer__body{flex:1;overflow:auto;padding:16px 22px}
+.line{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line)}
+.line svg{width:52px}
+.line b{display:block;font-size:15px}.line small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);background:none;font-weight:700;line-height:1}
+.empty{text-align:center;color:var(--muted);padding:40px 0}
+.promo{display:flex;gap:8px;margin-top:16px}
+.promo input,.form input,.form select{width:100%;border:2px solid var(--ink);border-radius:12px;padding:11px 13px;font:inherit;background:#fff}
+.promo button{border:2px solid var(--ink);border-radius:12px;background:var(--ink);color:#fff;padding:0 16px;font-weight:700}
+.promo__msg{font-size:13px;margin-top:6px;min-height:18px}
+.sum{padding:16px 22px;border-top:2px solid var(--line);font-size:15px}
+.sum div{display:flex;justify-content:space-between;margin:4px 0}
+.sum .total{font:400 22px/1.2 var(--disp);margin-top:8px}
+.sum .btn{width:100%;justify-content:center;margin-top:14px}
+.bar{height:8px;border-radius:9px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--basil);transition:width .4s}
+.form{display:grid;gap:12px}
+.form label{font-size:13px;font-weight:700;display:grid;gap:5px}
+.pay{display:flex;gap:6px}.pay label{flex:1}
+.pay input{position:absolute;opacity:0}
+.pay span{display:block;text-align:center;border:2px solid var(--ink);border-radius:12px;padding:10px 4px;font-weight:700}
+.pay input:checked+span{background:var(--ink);color:#fff}
+.err{color:var(--red-d);font-size:13px;min-height:16px}
+.done{text-align:center;padding:24px 0}
+.done h3{font:400 26px/1.1 var(--disp);margin-top:16px}
+.done p{color:var(--muted);margin-top:8px}
+.track{list-style:none;padding:0;margin:22px 0;text-align:left;display:grid;gap:12px}
+.track li{display:flex;gap:12px;align-items:center;opacity:.35;transition:opacity .4s}
+.track li.on{opacity:1}
+.track li i{width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-style:normal;font-size:14px;flex:none}
+.track li.on i{background:var(--basil);color:#fff;border-color:var(--basil)}
+.toadmin{display:block;margin-top:8px;color:var(--ink);font-weight:700}
+
+@media(max-width:860px){
+  .top nav,.top__phone{display:none}.top__in{justify-content:space-between}
+  .hero{padding:28px 0 48px}.hero__grid{grid-template-columns:1fr;gap:10px}
+  .hero__pizza{max-width:330px;margin:0 auto;order:-1;width:80%}
+  .badge--a{left:-12%}.badge--b{right:-12%}
+  .steps ol{grid-template-columns:1fr}
+  .drawer{top:auto;height:92vh;width:100%;border-left:0;border-top:2px solid var(--ink);border-radius:22px 22px 0 0;transform:translateY(105%)}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top__in">
+    <a class="brand" href="#">FORNO</a>
+    <nav><a href="#menu">Меню</a><a href="#how">Доставка</a></nav>
+    <a class="top__phone" href="#">+7 700 000 00 00</a>
+    <button class="cartbtn" id="cartBtn" type="button" aria-label="Открыть корзину">Корзина <b id="cartCount">0</b></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <h1>Горячая пицца <span>за 40 минут</span> или бесплатно</h1>
+      <p>Тесто 48 часов, печь на 400°, моцарелла — настоящая. Привезём по Петропавловску, пока пицца ещё тянется.</p>
+      <div class="hero__btns"><a class="btn" href="#menu">Выбрать пиццу</a><a class="btn btn--ghost" href="#how">Как работает доставка</a></div>
+      <div class="facts"><div><b>40 мин</b>доставка</div><div><b>от 7 000 ₸</b>бесплатно</div><div><b>−10%</b>промокод FORNO10</div></div>
+    </div>
+    <div class="hero__pizza">
+      <div id="heroPizza"></div>
+      <div class="badge badge--a">🔥 400°<small>каменная печь</small></div>
+      <div class="badge badge--b">Хит недели<small>Пепперони</small></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div>
+  <span>Пепперони</span><i>✶</i><span>Маргарита</span><i>✶</i><span>Четыре сыра</span><i>✶</i><span>Барбекю</span><i>✶</i><span>Грибная</span><i>✶</i><span>Гавайская</span><i>✶</i>
+  <span>Пепперони</span><i>✶</i><span>Маргарита</span><i>✶</i><span>Четыре сыра</span><i>✶</i><span>Барбекю</span><i>✶</i><span>Грибная</span><i>✶</i><span>Гавайская</span><i>✶</i>
+</div></div>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="menu__head">
+      <h2 class="h2">Меню</h2>
+      <div class="tabs" role="group" aria-label="Категории"><button class="tab" type="button" aria-pressed="true" data-cat="Пицца">Пицца</button><button class="tab" type="button" aria-pressed="false" data-cat="Напитки">Напитки</button></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="steps" id="how">
+  <div class="wrap">
+    <h2 class="h2">Как это работает</h2>
+    <ol>
+      <li><b>Заказываете на сайте</b><p>Без звонков: корзина, адрес, оплата — минута.</p></li>
+      <li><b>Заказ сразу у пиццайоло</b><p>Он появляется в админке и в Telegram кухни в ту же секунду.</p></li>
+      <li><b>Курьер в пути</b><p>40 минут — или следующая пицца бесплатно.</p></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="brand" href="#">FORNO</a>
+    <p>Петропавловск · адрес и телефон условные · ежедневно 10:00–23:00</p>
+    <p>Сайт сделан в <a href="../../">WEBNEX STUDIO</a></p>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Корзина" aria-hidden="true">
+  <div class="drawer__head"><h2 id="drTitle">Корзина</h2><button class="x" id="close" type="button" aria-label="Закрыть">×</button></div>
+  <div class="drawer__body" id="drBody"></div>
+  <div class="sum" id="drSum"></div>
+</aside>
+
+<script src="../store.js"></script>
+<script>
+(function(){
+  'use strict';
+  WXD.ribbon('pizza');
+  var $=function(s){return document.querySelector(s)};
+  var fmt=WXD.fmt, cart=[], size={}, cat='Пицца', step='cart', promo=false;
+  var FREE=7000, SHIP=800;
+
+  // ---- пицца, нарисованная кодом ----
+  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return seed/2147483647}}
+  function pizza(top,seed){
+    var r=rnd(seed||7),s='<svg viewBox="0 0 200 200" aria-hidden="true">';
+    s+='<circle cx="100" cy="100" r="96" fill="#d98d3e"/><circle cx="100" cy="100" r="88" fill="#efb361"/>';
+    s+='<circle cx="100" cy="100" r="80" fill="#d2401f"/>';
+    for(var i=0;i<14;i++){var a=r()*6.28,d=r()*62;s+='<ellipse cx="'+(100+Math.cos(a)*d)+'" cy="'+(100+Math.sin(a)*d)+'" rx="'+(14+r()*12)+'" ry="'+(10+r()*9)+'" fill="#ffd27a" opacity=".95" transform="rotate('+(r()*180)+' '+(100+Math.cos(a)*d)+' '+(100+Math.sin(a)*d)+')"/>'}
+    (top||[]).forEach(function(t){
+      for(var i=0;i<(t==='basil'?6:9);i++){
+        var a=r()*6.28,d=12+r()*56,x=100+Math.cos(a)*d,y=100+Math.sin(a)*d,rot=r()*180;
+        if(t==='pep')s+='<circle cx="'+x+'" cy="'+y+'" r="10" fill="#b52a17"/><circle cx="'+(x-3)+'" cy="'+(y-2)+'" r="1.6" fill="#7d1a0c"/><circle cx="'+(x+3)+'" cy="'+(y+3)+'" r="1.3" fill="#7d1a0c"/>';
+        else if(t==='basil')s+='<ellipse cx="'+x+'" cy="'+y+'" rx="9" ry="5" fill="#3b8c3a" transform="rotate('+rot+' '+x+' '+y+')"/><path d="M'+(x-7)+' '+y+'h14" stroke="#286b29" stroke-width="1" transform="rotate('+rot+' '+x+' '+y+')"/>';
+        else if(t==='moz')s+='<circle cx="'+x+'" cy="'+y+'" r="'+(6+r()*4)+'" fill="#fff6e4"/>';
+        else if(t==='ched')s+='<rect x="'+(x-5)+'" y="'+(y-5)+'" width="10" height="10" rx="2" fill="#f2a516" transform="rotate('+rot+' '+x+' '+y+')"/>';
+        else if(t==='mush')s+='<path d="M'+(x-8)+' '+y+'a8 7 0 0 1 16 0z" fill="#e9d6b8"/><rect x="'+(x-2.5)+'" y="'+y+'" width="5" height="6" fill="#d8c19d"/>';
+        else if(t==='chick')s+='<rect x="'+(x-6)+'" y="'+(y-4)+'" width="12" height="8" rx="3" fill="#e6c08a" transform="rotate('+rot+' '+x+' '+y+')"/>';
+        else if(t==='onion')s+='<circle cx="'+x+'" cy="'+y+'" r="6" fill="none" stroke="#c88bb6" stroke-width="2"/>';
+        else if(t==='pine')s+='<path d="M'+(x-6)+' '+(y+5)+'l6-11 6 11z" fill="#ffd54a" transform="rotate('+rot+' '+x+' '+y+')"/>';
+      }
+    });
+    return s+'</svg>';
+  }
+  function drink(id){
+    var c=id==='mor'?'#b3123a':'#f4d03f';
+    return '<svg viewBox="0 0 120 200" width="46%" aria-hidden="true"><rect x="38" y="10" width="44" height="18" rx="4" fill="#2a1a12"/><path d="M34 40q-4-12 8-12h36q12 0 8 12l6 140q0 12-12 12H40q-12 0-12-12z" fill="'+c+'" stroke="#2a1a12" stroke-width="4"/><rect x="34" y="80" width="52" height="54" rx="6" fill="#fff4e3" stroke="#2a1a12" stroke-width="3"/><text x="60" y="113" text-anchor="middle" font-family="Dela Gothic One" font-size="14" fill="#2a1a12">FORNO</text></svg>';
+  }
+  $('#heroPizza').innerHTML=pizza(['pep','moz','basil'],42);
+
+  // ---- меню ----
+  function price(p){return p.cat==='Пицца'&&size[p.id]==='40'?Math.round(p.price*1.35/100)*100:p.price}
+  function renderMenu(){
+    var list=WXD.products('pizza').filter(function(p){return p.cat===cat});
+    $('#grid').innerHTML=list.map(function(p,i){
+      var s=size[p.id]||'30';
+      return '<article class="card'+(p.off?' card--off':'')+'">'+
+        '<div class="card__img">'+(p.cat==='Пицца'?pizza(p.top,i*97+13):drink(p.id))+'</div>'+
+        '<h3>'+p.name+'</h3><p>'+p.desc+'</p>'+
+        (p.cat==='Пицца'?'<div class="sizes" role="group" aria-label="Размер"><button type="button" data-size="30" data-id="'+p.id+'" aria-pressed="'+(s==='30')+'">30 см</button><button type="button" data-size="40" data-id="'+p.id+'" aria-pressed="'+(s==='40')+'">40 см</button></div>':'')+
+        '<div class="card__foot"><span class="price">'+fmt(price(p))+'</span><button class="add" type="button" data-add="'+p.id+'"'+(p.off?' disabled':'')+'>'+(p.off?'Нет':'В корзину')+'</button></div></article>';
+    }).join('');
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('[data-size],[data-add],[data-cat],[data-q]');if(!t)return;
+    if(t.dataset.size){size[t.dataset.id]=t.dataset.size;renderMenu()}
+    else if(t.dataset.cat){cat=t.dataset.cat;document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-pressed',b===t)});renderMenu()}
+    else if(t.dataset.add){add(t.dataset.add,t)}
+    else if(t.dataset.q){var l=cart[+t.dataset.i];l.qty+=+t.dataset.q;if(l.qty<1)cart.splice(+t.dataset.i,1);renderCart()}
+  });
+
+  function add(id,btn){
+    var p=WXD.products('pizza').filter(function(x){return x.id===id})[0];
+    var s=p.cat==='Пицца'?(size[id]||'30'):'';
+    var name=p.name+(s?', '+s+' см':'');
+    var l=cart.filter(function(x){return x.name===name})[0];
+    if(l)l.qty++;else cart.push({id:id,name:name,price:price(p),qty:1,top:p.top,cat:p.cat});
+    // летящая пицца в корзину
+    var img=btn.closest('.card').querySelector('.card__img svg'),a=img.getBoundingClientRect(),b=$('#cartBtn').getBoundingClientRect();
+    var fly=img.cloneNode(true);fly.style.cssText='position:fixed;z-index:200;left:'+a.left+'px;top:'+a.top+'px;width:'+a.width+'px;transition:all .7s cubic-bezier(.5,-.3,.7,1);pointer-events:none';
+    document.body.appendChild(fly);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){fly.style.left=b.left+'px';fly.style.top=b.top+'px';fly.style.width='30px';fly.style.opacity='.4';fly.style.transform='rotate(360deg)'})});
+    setTimeout(function(){fly.remove();var c=$('#cartBtn');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump')},700);
+    renderCart();
+  }
+
+  // ---- корзина ----
+  function totals(){
+    var sub=cart.reduce(function(a,l){return a+l.price*l.qty},0);
+    var disc=promo?Math.round(sub*.1):0, ship=sub-disc>=FREE||!sub?0:SHIP;
+    return {sub:sub,disc:disc,ship:ship,total:sub-disc+ship};
+  }
+  function renderCart(){
+    $('#cartCount').textContent=cart.reduce(function(a,l){return a+l.qty},0);
+    var t=totals(),body=$('#drBody'),sum=$('#drSum');
+    if(step==='cart'){
+      $('#drTitle').textContent='Корзина';
+      if(!cart.length){body.innerHTML='<div class="empty"><div style="width:120px;margin:0 auto 14px;opacity:.6">'+pizza(['moz'],3)+'</div>Пока пусто. Добавьте пиццу из меню.</div>';sum.innerHTML='';return}
+      body.innerHTML=cart.map(function(l,i){return '<div class="line">'+(l.cat==='Пицца'?pizza(l.top,i+5):drink(l.id))+'<div><b>'+l.name+'</b><small>'+fmt(l.price)+'</small></div><div class="qty"><button type="button" data-q="-1" data-i="'+i+'" aria-label="Меньше">−</button>'+l.qty+'<button type="button" data-q="1" data-i="'+i+'" aria-label="Больше">+</button></div></div>'}).join('')+
+        '<div class="promo"><input id="promo" placeholder="Промокод" value="'+(promo?'FORNO10':'')+'" aria-label="Промокод"><button type="button" id="promoBtn">OK</button></div><p class="promo__msg" id="promoMsg">'+(promo?'Скидка 10% применена':'Попробуйте FORNO10')+'</p>';
+      var left=Math.max(0,FREE-(t.sub-t.disc));
+      sum.innerHTML='<div><span>Товары</span><span>'+fmt(t.sub)+'</span></div>'+(t.disc?'<div><span>Скидка</span><span>−'+fmt(t.disc)+'</span></div>':'')+
+        '<div><span>Доставка</span><span>'+(t.ship?fmt(t.ship):'бесплатно')+'</span></div>'+
+        (left?'<small>До бесплатной доставки: '+fmt(left)+'</small>':'<small>Доставка бесплатная 🎉</small>')+'<div class="bar"><i style="width:'+Math.min(100,(t.sub-t.disc)/FREE*100)+'%"></i></div>'+
+        '<div class="total"><span>Итого</span><span>'+fmt(t.total)+'</span></div><button class="btn" type="button" id="toForm">Оформить заказ</button>';
+      $('#promoBtn').onclick=function(){var v=$('#promo').value.trim().toUpperCase();promo=v==='FORNO10';renderCart();if(!promo){$('#promoMsg').textContent='Такого промокода нет';}};
+      $('#toForm').onclick=function(){step='form';renderCart()};
+    } else if(step==='form'){
+      $('#drTitle').textContent='Доставка';
+      body.innerHTML='<form class="form" id="f" novalidate><label>Имя<input name="name" autocomplete="off" placeholder="Например, Айгерим"></label><label>Телефон<input name="phone" inputmode="tel" autocomplete="off" placeholder="+7 7__ ___ __ __"></label><label>Адрес<input name="addr" autocomplete="off" placeholder="Улица, дом, квартира"></label>'+
+        '<div><b style="font-size:13px">Оплата</b><div class="pay"><label><input type="radio" name="pay" value="Kaspi" checked><span>Kaspi</span></label><label><input type="radio" name="pay" value="Картой"><span>Картой</span></label><label><input type="radio" name="pay" value="Наличными"><span>Наличные</span></label></div></div>'+
+        '<p class="err" id="err"></p><p style="font-size:13px;color:var(--muted)">Это демо: настоящие данные не нужны, заказ никуда не уйдёт — только в демо-админку.</p></form>';
+      sum.innerHTML='<div class="total"><span>К оплате</span><span>'+fmt(t.total)+'</span></div><button class="btn" type="button" id="send">Заказать</button><button type="button" id="back" style="background:none;border:0;margin-top:10px;width:100%;color:var(--muted)">← Назад в корзину</button>';
+      $('#back').onclick=function(){step='cart';renderCart()};
+      $('#send').onclick=function(){
+        var f=$('#f'),name=f.name.value.trim(),ph=f.phone.value.trim(),ad=f.addr.value.trim();
+        if(name.length<2||ph.replace(/\D/g,'').length<10||ad.length<4){$('#err').textContent='Заполните имя, телефон (10+ цифр) и адрес';return}
+        var o=WXD.addOrder({site:'pizza',client:name,phone:ph,addr:ad,pay:f.pay.value,items:cart.map(function(l){return{name:l.name,qty:l.qty,price:l.price}}),total:t.total});
+        cart=[];promo=false;step='done';renderCart(o);
+      };
+    }
+  }
+  function doneScreen(o){
+    $('#drTitle').textContent='Заказ принят';
+    $('#drBody').innerHTML='<div class="done"><div style="width:140px;margin:0 auto">'+pizza(['pep','moz'],9)+'</div><h3>Заказ №'+o.id+' уже на кухне</h3><p>Курьер привезёт его примерно через 40 минут.</p>'+
+      '<ol class="track"><li class="on"><i>✓</i>Заказ принят</li><li><i>2</i>Готовим в печи</li><li><i>3</i>Курьер в пути</li><li><i>4</i>У вас</li></ol>'+
+      '<a class="toadmin" href="../admin/?site=pizza" target="_blank" rel="noopener">Посмотреть заказ в админке пиццерии →</a></div>';
+    $('#drSum').innerHTML='<button class="btn" type="button" id="again" style="width:100%;justify-content:center">Вернуться в меню</button>';
+    $('#again').onclick=function(){step='cart';close();renderCart()};
+    var li=document.querySelectorAll('.track li');[1,2].forEach(function(k){setTimeout(function(){if(li[k])li[k].classList.add('on')},k*1600)});
+  }
+  var _r=renderCart;renderCart=function(o){if(step==='done'&&o&&o.id){$('#cartCount').textContent='0';doneScreen(o)}else _r()};
+
+  function open(){$('#drawer').classList.add('on');$('#scrim').classList.add('on');$('#drawer').setAttribute('aria-hidden','false');renderCart()}
+  function close(){$('#drawer').classList.remove('on');$('#scrim').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true');if(step==='done')step='cart'}
+  $('#cartBtn').onclick=open;$('#close').onclick=close;$('#scrim').onclick=close;
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  window.addEventListener('storage',renderMenu); // цену поменяли в админке — меню обновится
+  renderMenu();renderCart();
+})();
+</script>
+</body>
+</html>
