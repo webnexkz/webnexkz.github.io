@@ -52,6 +52,7 @@ a{color:inherit}
 .input:focus{outline:0;border-color:var(--cyan)}
 textarea.input{height:auto;min-height:92px;padding:12px 14px;resize:vertical;line-height:1.5}
 input[type=date].input{color-scheme:dark}
+select.input{appearance:none;-webkit-appearance:none;padding-right:38px;background:var(--bg-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa6d2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center/16px;cursor:pointer}
 
 /* вход */
 .login{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
@@ -83,9 +84,10 @@ section+section{margin-top:22px}
 .remind b{font-weight:600;color:var(--violet-soft);margin-right:4px}
 .remind button{border:0;background:none;padding:2px 0;color:var(--text);text-decoration:underline;text-decoration-color:rgba(232,238,255,.35);text-underline-offset:3px}
 .remind button:hover{color:var(--cyan)}
+.remind__br{flex-basis:100%;height:0}
 
 /* цифры */
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .kpi{padding:16px 18px;border:1px solid var(--hair);border-radius:var(--r);background:var(--bg-2)}
 .kpi span{font-size:14px;color:var(--muted)}
 .kpi b{display:block;margin-top:8px;font:700 clamp(22px,2.6vw,28px)/1 var(--display);letter-spacing:-.02em}
@@ -209,6 +211,41 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
 .err-bar{padding:12px 16px;border:1px solid rgba(255,122,147,.5);border-radius:var(--r);color:var(--err);font-size:14px}
 .loading{padding:60px 0;text-align:center;color:var(--dim)}
 
+/* период */
+.period{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.period .input{width:auto;height:42px;font-size:15px}
+.period__c{display:flex;align-items:center;gap:6px;color:var(--dim)}
+.period__c .input{padding:0 10px}
+/* оплата, этапы, обслуживание, КП */
+.block{grid-column:1/-1;display:flex;flex-direction:column;gap:12px;padding:14px 16px 16px;border:1px solid var(--hair);border-radius:var(--r);background:var(--bg-2)}
+.block__h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+.block__h b{font:600 15px/1.3 var(--body)}
+.block__h>span:not(.saved){font-size:13.5px;color:var(--dim)}
+.block__t{font-size:14.5px;color:var(--muted)}
+.block__t b{font-weight:600;color:var(--text)}
+.block__l{font-size:13.5px;color:var(--dim)}
+.meter{height:6px;border-radius:3px;background:var(--wire);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--ok)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.row .input{flex:1 1 150px;width:auto;height:42px;font-size:15px}
+.row .btn{height:42px}
+.links{display:flex;flex-wrap:wrap;gap:6px 16px}
+.linkbtn{border:0;background:none;padding:0;color:var(--cyan);font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--cyan-2)}
+.track{display:grid;grid-template-columns:repeat(3,1fr);margin:0;padding:0;list-style:none}
+.track li{position:relative}
+.track li+li::before{content:"";position:absolute;top:9px;right:50%;width:100%;height:2px;background:var(--wire)}
+.track li.done+li.done::before{background:var(--ok)}
+.track button{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:2px 2px 0;border:0;background:none;color:var(--dim);font-size:14px}
+.track button::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--bg-2);box-shadow:inset 0 0 0 2px var(--wire);transition:background .2s,box-shadow .2s}
+.track button:hover{color:var(--text)}
+.track button:hover::before{box-shadow:inset 0 0 0 2px var(--ok)}
+.track .done button{color:var(--text)}
+.track .done button::before{background:var(--ok);box-shadow:none}
+.track .cur button{color:var(--ok);font-weight:600}
+.pill--ok{box-shadow:inset 0 0 0 1px rgba(79,240,176,.6);color:var(--ok)}
+.check.full{grid-column:1/-1}
+
 @media (max-width:860px){
   .kpis{grid-template-columns:repeat(2,1fr)}
   .stats{grid-template-columns:1fr}
@@ -223,6 +260,10 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   .logo{margin-right:auto}
   .tools .h2{width:100%}
   .search{width:100%}
+  .period,.period select.input{width:100%}
+  .period__c{width:100%}
+  .period__c .input{flex:1;min-width:0}
+  .block{padding:12px 12px 14px}
   .lead__head{padding:14px 14px 12px}
   .contact{padding:0 14px 14px}
   .contact .btn{flex:1 1 0}
@@ -288,9 +329,11 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
           <div class="kpi"><span>Новые, без ответа</span><b class="c" id="k-new">0</b><small id="k-new-s"></small></div>
           <div class="kpi"><span>За 30 дней</span><b id="k-30">0</b><small id="k-30-s"></small></div>
           <div class="kpi"><span>В работе</span><b id="k-work">0</b><small id="k-work-s"></small></div>
+          <div class="kpi"><span>Скорость ответа</span><b id="k-speed">—</b><small id="k-speed-s"></small></div>
           <div class="kpi"><span>Заработано</span><b id="k-money">0 ₸</b><small id="k-money-s"></small></div>
           <div class="kpi"><span>В работе на сумму</span><b id="k-pipe">0 ₸</b><small id="k-pipe-s"></small></div>
-          <div class="kpi"><span>Скорость ответа</span><b id="k-speed">—</b><small id="k-speed-s"></small></div>
+          <div class="kpi"><span>Ждёт оплаты</span><b id="k-owe">0 ₸</b><small id="k-owe-s"></small></div>
+          <div class="kpi"><span>На обслуживании</span><b id="k-care">0</b><small id="k-care-s"></small></div>
         </div>
         <div class="stats">
           <div class="card">
@@ -322,6 +365,18 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
           <div class="search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
             <input class="input" id="q" type="search" placeholder="Имя, телефон, бизнес" aria-label="Поиск по заявкам">
+          </div>
+          <div class="period">
+            <select class="input" id="per" aria-label="Период: когда пришла заявка">
+              <option value="all">Всё время</option>
+              <option value="today">Сегодня</option>
+              <option value="7">7 дней</option>
+              <option value="30">30 дней</option>
+              <option value="month">Этот месяц</option>
+              <option value="prev">Прошлый месяц</option>
+              <option value="custom">Свой период…</option>
+            </select>
+            <span class="period__c" id="per-c" hidden><input class="input" type="date" id="per-a" aria-label="С какого дня"> – <input class="input" type="date" id="per-b" aria-label="По какой день"></span>
           </div>
         </div>
         <div class="chips" id="chips" role="group" aria-label="Фильтр по статусу" style="margin-bottom:14px"></div>
@@ -365,6 +420,40 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
       <button class="btn btn--ghost btn--sm" type="button" id="tpl-reset">Вернуть стандартные</button>
     </div>
     <div class="dlg__foot"><p class="msg" id="tpl-msg" role="alert"></p><button class="btn" type="submit" id="tpl-btn">Сохранить</button></div>
+  </form>
+</dialog>
+
+<dialog id="kp-dlg" aria-labelledby="kp-h">
+  <form class="dlg" id="kp-form" method="dialog" novalidate>
+    <div class="dlg__head">
+      <h2 id="kp-h">Коммерческое предложение</h2>
+      <button class="btn btn--ghost btn--icon" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="hint" id="kp-hint">Клиент увидит красивую страницу с этими данными по ссылке. Всё уже заполнено из заявки — проверьте и поправьте.</p>
+    <div class="dlg__grid">
+      <div class="field"><label for="kp-name">Клиент *</label><input class="input" id="kp-name" maxlength="60" autocomplete="off"></div>
+      <div class="field"><label for="kp-title">Какой сайт *</label><input class="input" id="kp-title" maxlength="80" list="a-types" autocomplete="off"></div>
+      <div class="field full"><span>Тариф <small class="hint">— при смене подставлю цену, срок и список</small></span><div class="seg" id="kp-tier"></div></div>
+      <div class="field"><label for="kp-price">Цена, ₸ *</label><input class="input" id="kp-price" inputmode="numeric" maxlength="12" autocomplete="off"></div>
+      <div class="field"><label for="kp-days">Срок</label><input class="input" id="kp-days" maxlength="30" autocomplete="off" placeholder="7–10 дней"></div>
+      <div class="field full"><span>Предоплата</span><div class="seg" id="kp-prepay"></div></div>
+      <div class="field full"><label for="kp-items">Что входит — каждый пункт с новой строки</label><textarea class="input" id="kp-items" rows="9"></textarea></div>
+      <div class="field"><label for="kp-demo">Показать пример</label>
+        <select class="input" id="kp-demo">
+          <option value="coffee">Демо: кофейня «Зерно»</option>
+          <option value="pizza">Демо: пиццерия FORNO</option>
+          <option value="detailing">Демо: детейлинг BLACKLINE</option>
+          <option value="smell">Мой проект: SMELL PARFUME</option>
+          <option value="custom">Своя ссылка…</option>
+          <option value="">Не показывать</option>
+        </select>
+      </div>
+      <div class="field"><label for="kp-valid">Цена действует до</label><input class="input" type="date" id="kp-valid"></div>
+      <div class="field full" id="kp-url-f" hidden><label for="kp-url">Ссылка на пример (начинается с https://)</label><input class="input" id="kp-url" maxlength="200" inputmode="url" autocomplete="off"></div>
+      <div class="field full"><label for="kp-note">Комментарий для клиента</label><textarea class="input" id="kp-note" maxlength="1000" placeholder="Например: могу начать в понедельник, после предоплаты"></textarea></div>
+      <label class="check full"><input type="checkbox" id="kp-maint" checked> Показать тарифы обслуживания после запуска</label>
+    </div>
+    <div class="dlg__foot"><p class="msg" id="kp-msg" role="alert"></p><button class="btn" type="submit" id="kp-btn">Сохранить и получить ссылку</button></div>
   </form>
 </dialog>
 
@@ -532,7 +621,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     return String(l.log || '').split('\n').filter(function (s) { return s.trim(); }).map(function (s) {
       var m = s.match(/^(\d\d)\.(\d\d)\.(\d{4}) (\d\d):(\d\d) · ([\s\S]*)$/);
       var e = m ? { t: new Date(+m[3], m[2] - 1, +m[1], +m[4], +m[5]).getTime(), x: m[6] } : { t: 0, x: s };
-      e.sys = /^(статус: |добавлена вручную)/.test(e.x);
+      e.sys = /^(статус: |добавлена вручную|оплата: |оплачено исправлено|этап|обслуживание|КП |клиент открыл КП)/.test(e.x);
       return e;
     });
   }
@@ -546,6 +635,36 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     return e ? e.t : l.ts;
   }
   function manual(l) { return /^вручную/.test(l.ref || ''); }
+
+  // ---------- оплата, этапы, обслуживание ----------
+  var STAGES = ['макет', 'правки', 'запуск'];
+  var PLANS = { 'Лайт': 10000, 'Оптимум': 30000, 'Максимум': 60000 };
+  function dFull(t) { var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear(); }
+  function addMonths(t, n) { var d = new Date(t), day = d.getDate(); d.setMonth(d.getMonth() + n); if (d.getDate() !== day) d.setDate(0); return d.getTime(); }
+  function daysLeft(t) { return Math.round((day0(t) - day0(Date.now())) / 864e5); }
+  // сколько клиент ещё должен: только по заявкам «в работе» и «сделано» с суммой сделки
+  function owes(l) { return (l.status === 'в работе' || l.status === 'сделано') && l.deal > (l.paid || 0) ? l.deal - (l.paid || 0) : 0; }
+  function cared(l) { return l.maint && l.until && daysLeft(l.until) >= 0; }
+  function numInput(el) { el.addEventListener('input', function () { var v = el.value.replace(/\D/g, ''); el.value = v ? money(+v).replace(' ₸', '') : ''; }); }
+  function linkBtn(text, fn) { var b = h('button', 'linkbtn', text); b.type = 'button'; b.addEventListener('click', fn); return b; }
+
+  // ---------- период ----------
+  var per = 'all';
+  function perRange() {
+    var t = new Date(); t.setHours(0, 0, 0, 0);
+    var d = t.getTime();
+    if (per === 'today') return [d, d + 864e5];
+    if (per === '7') return [d - 6 * 864e5, d + 864e5];
+    if (per === '30') return [d - 29 * 864e5, d + 864e5];
+    if (per === 'month') return [new Date(t.getFullYear(), t.getMonth(), 1).getTime(), Infinity];
+    if (per === 'prev') return [new Date(t.getFullYear(), t.getMonth() - 1, 1).getTime(), new Date(t.getFullYear(), t.getMonth(), 1).getTime()];
+    if (per === 'custom') {
+      var a = $('per-a').value, b = $('per-b').value;
+      return [a ? new Date(a + 'T00:00:00').getTime() : -Infinity, b ? new Date(b + 'T00:00:00').getTime() + 864e5 : Infinity];
+    }
+    return null;
+  }
+  function inPer(l) { var r = perRange(); return !r || (l.ts >= r[0] && l.ts < r[1]); }
 
   // ---------- шаблоны сообщений ----------
   var DEF_TPL = [
@@ -681,18 +800,35 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     drawTop($('src'), leads.map(function (l) { return source(l.ref); }));
     drawTop($('types'), leads.map(function (l) { return l.type || 'Не указан'; }));
 
+    // деньги: сколько ещё должны и сколько клиентов на обслуживании
+    var owe = leads.filter(owes), paidAll = leads.reduce(function (s, l) { return s + (l.paid || 0); }, 0);
+    $('k-owe').textContent = money(owe.reduce(function (s, l) { return s + owes(l); }, 0));
+    $('k-owe-s').textContent = owe.length ? plural(owe.length, 'клиент', 'клиента', 'клиентов') + (paidAll ? ' · получено ' + money(paidAll) : '')
+      : paidAll ? 'долгов нет · получено ' + money(paidAll) : 'отмечайте оплаты в заявке';
+    var care = leads.filter(cared);
+    $('k-care').textContent = care.length;
+    $('k-care-s').textContent = care.length ? '≈ ' + money(care.reduce(function (s, l) { return s + (PLANS[l.maint] || 0); }, 0)) + ' в месяц' : 'тариф и срок — в заявке';
+
     var due = leads.filter(isDue), rm = $('remind'); rm.textContent = '';
-    rm.hidden = !due.length;
-    if (due.length) {
-      rm.appendChild(h('b', null, 'Пора связаться:'));
-      due.forEach(function (l, i) {
-        var b = h('button', null, l.name + (day0(l.next) < day0(Date.now()) ? ' (с ' + dShort(l.next) + ')' : ''));
+    var renew = leads.filter(function (l) { return l.maint && l.until && Math.abs(daysLeft(l.until)) <= 7; });
+    rm.hidden = !due.length && !renew.length;
+    var group = function (title, arr, label) {
+      if (!arr.length) return;
+      if (rm.children.length) rm.appendChild(h('span', 'remind__br'));
+      rm.appendChild(h('b', null, title));
+      arr.forEach(function (l, i) {
+        var b = h('button', null, label(l));
         b.type = 'button';
         b.addEventListener('click', function () { reveal(l.ts); });
         rm.appendChild(b);
-        if (i < due.length - 1) rm.appendChild(document.createTextNode(' · '));
+        if (i < arr.length - 1) rm.appendChild(document.createTextNode(' · '));
       });
-    }
+    };
+    group('Пора связаться:', due, function (l) { return l.name + (day0(l.next) < day0(Date.now()) ? ' (с ' + dShort(l.next) + ')' : ''); });
+    group('Продлить обслуживание:', renew, function (l) {
+      var d = daysLeft(l.until);
+      return l.name + ' (' + (d > 0 ? 'до ' + dShort(l.until) : d === 0 ? 'сегодня последний день' : 'закончилось ' + dShort(l.until)) + ')';
+    });
   }
 
   function dur(ms) {
@@ -739,8 +875,9 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
 
   function chips() {
     var c = $('chips'); c.textContent = '';
+    var base = leads.filter(inPer);
     ['все'].concat(STATUSES).forEach(function (s) {
-      var n = s === 'все' ? leads.length : leads.filter(function (l) { return l.status === s; }).length;
+      var n = s === 'все' ? base.length : base.filter(function (l) { return l.status === s; }).length;
       var b = h('button', 'chip'); b.type = 'button';
       b.appendChild(document.createTextNode(s[0].toUpperCase() + s.slice(1)));
       b.appendChild(h('small', null, n));
@@ -754,6 +891,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     var q = query.toLowerCase(), qd = query.replace(/\D/g, '');
     return leads.filter(function (l) {
       if (filter !== 'все' && l.status !== filter) return false;
+      if (!inPer(l)) return false;
       if (!q) return true;
       var hay = [l.name, l.contact, l.about, l.type, l.log, l.ref].join(' ').toLowerCase();
       return hay.indexOf(q) >= 0 || (qd.length >= 3 && l.contact.replace(/\D/g, '').indexOf(qd) >= 0);
@@ -766,7 +904,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     if (!items.length) {
       var e = h('div', 'empty');
       if (!leads.length) { e.appendChild(h('b', null, 'Заявок пока нет')); e.appendChild(document.createTextNode('Как только кто-то отправит форму на сайте, заявка появится здесь и придёт вам в Telegram.')); }
-      else e.appendChild(document.createTextNode(query ? 'Ничего не нашлось по запросу «' + query + '».' : 'Нет заявок с таким статусом.'));
+      else e.appendChild(document.createTextNode(query ? 'Ничего не нашлось по запросу «' + query + '»' + (per !== 'all' ? ' за этот период.' : '.') : per !== 'all' ? 'За этот период заявок' + (filter !== 'все' ? ' с таким статусом' : '') + ' нет.' : 'Нет заявок с таким статусом.'));
       box.appendChild(e); return;
     }
     items.forEach(function (l) { box.appendChild(card(l)); });
@@ -781,6 +919,15 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     var pill = h('span', 'pill', l.status); pill.dataset.s = l.status; nm.appendChild(pill);
     if (isDue(l)) nm.appendChild(h('span', 'pill pill--due', 'связаться ' + (day0(l.next) === day0(Date.now()) ? 'сегодня' : 'с ' + dShort(l.next))));
     else if (l.next && l.status !== 'сделано' && l.status !== 'отказ') nm.appendChild(h('span', 'pill', 'связаться ' + dShort(l.next)));
+    var prog = [];
+    if (l.stage && l.status === 'в работе') prog.push(l.stage);
+    if (owes(l)) prog.push(l.paid ? 'оплачено ' + Math.floor(l.paid / l.deal * 100) + '%' : 'не оплачено');
+    if (prog.length) nm.appendChild(h('span', 'pill', prog.join(' · ')));
+    if (l.maint && l.until) {
+      var left = daysLeft(l.until);
+      nm.appendChild(h('span', 'pill ' + (left < 0 ? 'pill--due' : 'pill--ok'), l.maint + (left < 0 ? ' · закончилось' : ' до ' + dShort(l.until))));
+    }
+    if (l.kp) nm.appendChild(h('span', 'pill', l.kpViews ? 'КП открыто' : 'КП не открыто'));
     head.appendChild(nm);
     head.appendChild(h('span', 'lead__date', when(l.ts)));
     var meta = h('p', 'lead__meta'), what = h('strong', null, l.type || 'Сайт');
@@ -867,6 +1014,10 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     foot.appendChild(btn); foot.appendChild(saved);
     f.appendChild(foot);
 
+    if (l.status === 'в работе' || l.status === 'сделано' || l.paid || l.stage) f.appendChild(payBlock(l));
+    if (l.status === 'сделано' || l.maint) f.appendChild(maintBlock(l));
+    if (l.status !== 'отказ' || l.kp) f.appendChild(kpBlock(l));
+
     // история по клиенту: новые записи сверху
     var hf = h('div', 'field full'), logId = 'm' + l.ts;
     var hl = h('label', null, 'История'); hl.htmlFor = logId; hf.appendChild(hl);
@@ -915,12 +1066,138 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     return f;
   }
 
+  // оплата по частям и этап работы
+  function payBlock(l) {
+    var b = h('div', 'block'), msg = h('span', 'saved'), hd = h('div', 'block__h');
+    hd.appendChild(h('b', null, 'Оплата и этапы')); hd.appendChild(msg); b.appendChild(hd);
+    var paid = l.paid || 0, deal = l.deal || 0;
+    if (deal) {
+      var m = h('div', 'meter'), i = h('i'); i.style.width = Math.min(100, paid / deal * 100) + '%'; m.appendChild(i); b.appendChild(m);
+      var t = h('p', 'block__t');
+      if (paid >= deal) { t.appendChild(h('b', null, 'Оплачено полностью: ' + money(paid))); if (paid > deal) t.appendChild(document.createTextNode(' — больше суммы сделки на ' + money(paid - deal))); }
+      else { t.appendChild(document.createTextNode('Оплачено ')); t.appendChild(h('b', null, money(paid))); t.appendChild(document.createTextNode(' из ' + money(deal) + ' · осталось ')); t.appendChild(h('b', null, money(deal - paid))); }
+      b.appendChild(t);
+    } else b.appendChild(h('p', 'block__t', (paid ? 'Оплачено ' + money(paid) + '. ' : '') + 'Впишите сумму сделки выше — покажу, сколько осталось.'));
+
+    var row = h('div', 'row'), inp = h('input', 'input');
+    inp.inputMode = 'numeric'; inp.placeholder = 'Сколько заплатил, ₸'; inp.setAttribute('aria-label', 'Сумма оплаты'); numInput(inp);
+    var add = h('button', 'btn btn--sm', 'Добавить оплату'); add.type = 'button';
+    add.addEventListener('click', function () {
+      var v = +inp.value.replace(/\D/g, '');
+      if (!v) { inp.focus(); return; }
+      add.disabled = true;
+      save(l, { pay: v }, msg, null, function () { add.disabled = false; inp.value = ''; });
+    });
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') add.click(); });
+    row.appendChild(inp); row.appendChild(add); b.appendChild(row);
+
+    var ln = h('div', 'links'), put = function (v) { inp.value = money(v).replace(' ₸', ''); inp.focus(); };
+    if (deal > paid) {
+      if (!paid) ln.appendChild(linkBtn('предоплата 50% — ' + money(Math.round(deal / 2)), function () { put(Math.round(deal / 2)); }));
+      ln.appendChild(linkBtn('весь остаток — ' + money(deal - paid), function () { put(deal - paid); }));
+    }
+    if (paid) ln.appendChild(linkBtn('исправить итог', function () {
+      var v = prompt('Сколько всего оплачено, ₸? Впишите итоговую сумму.', String(paid));
+      if (v == null) return;
+      save(l, { paid: v.replace(/\D/g, '') || '0' }, msg);
+    }));
+    if (ln.children.length) b.appendChild(ln);
+
+    b.appendChild(h('span', 'block__l', 'Этап работы'));
+    var tr = h('ol', 'track');
+    var draw = function () {
+      tr.textContent = '';
+      var cur = STAGES.indexOf(l.stage || '');
+      STAGES.forEach(function (s, i) {
+        var li = h('li', i < cur ? 'done' : i === cur ? 'done cur' : null);
+        var bt = h('button', null, s); bt.type = 'button'; bt.setAttribute('aria-pressed', String(i === cur));
+        bt.title = i === cur ? 'Нажмите ещё раз, чтобы снять этап' : 'Отметить этап «' + s + '»';
+        bt.addEventListener('click', function () {
+          var prev = l.stage; l.stage = i === cur ? '' : s; draw();
+          save(l, { stage: l.stage }, msg, function () { l.stage = prev; draw(); });
+        });
+        li.appendChild(bt); tr.appendChild(li);
+      });
+    };
+    draw(); b.appendChild(tr);
+    return b;
+  }
+
+  // обслуживание после запуска: тариф и до какого дня оплачено
+  function maintBlock(l) {
+    var b = h('div', 'block'), msg = h('span', 'saved'), hd = h('div', 'block__h');
+    hd.appendChild(h('b', null, 'Обслуживание сайта')); hd.appendChild(msg); b.appendChild(hd);
+    var t = h('p', 'block__t');
+    if (l.maint && l.until) {
+      var d = daysLeft(l.until);
+      t.appendChild(h('b', null, l.maint));
+      t.appendChild(document.createTextNode(' · оплачено до ' + dFull(l.until) + ' · ' + (d > 0 ? 'осталось ' + plural(d, 'день', 'дня', 'дней') : d === 0 ? 'сегодня последний день' : 'закончилось ' + plural(-d, 'день', 'дня', 'дней') + ' назад')));
+    } else t.textContent = l.maint ? l.maint + ' — укажите, до какого дня оплачено.' : 'Не подключено. Лайт — 10 000 ₸/мес, Оптимум — 30 000, Максимум — 60 000.';
+    b.appendChild(t);
+
+    var plan = l.maint || '', seg = h('div', 'seg');
+    var date = h('input', 'input'); date.type = 'date'; date.value = iso(l.until); date.setAttribute('aria-label', 'Оплачено до');
+    ['нет'].concat(Object.keys(PLANS)).forEach(function (p) {
+      var v = p === 'нет' ? '' : p, bt = h('button', null, p); bt.type = 'button';
+      bt.setAttribute('aria-pressed', String(plan === v));
+      if (v) bt.title = money(PLANS[p]) + ' в месяц';
+      bt.addEventListener('click', function () {
+        plan = v;
+        [].forEach.call(seg.children, function (x) { x.setAttribute('aria-pressed', String(x === bt)); });
+        if (v && !date.value) date.value = iso(addMonths(Date.now(), 1));
+        b.closest('.edit').dataset.dirty = '1';
+      });
+      seg.appendChild(bt);
+    });
+    b.appendChild(seg);
+
+    var row = h('div', 'row'), from = function () { var v = date.value ? new Date(date.value + 'T00:00:00').getTime() : 0; return Math.max(v, day0(Date.now())); };
+    var plus = function (n, text) {
+      var bt = h('button', 'btn btn--ghost btn--sm', text); bt.type = 'button';
+      bt.addEventListener('click', function () { date.value = iso(addMonths(from(), n)); b.closest('.edit').dataset.dirty = '1'; });
+      return bt;
+    };
+    var ok = h('button', 'btn btn--sm', 'Сохранить'); ok.type = 'button';
+    ok.addEventListener('click', function () {
+      if (plan && !date.value) { date.focus(); msg.className = 'saved err'; msg.textContent = 'Укажите дату'; return; }
+      ok.disabled = true;
+      save(l, { maint: plan, until: plan ? date.value : '' }, msg, null, function () { ok.disabled = false; });
+    });
+    row.appendChild(date); row.appendChild(plus(1, '+1 месяц')); row.appendChild(plus(12, '+1 год')); row.appendChild(ok);
+    b.appendChild(row);
+    return b;
+  }
+
+  // коммерческое предложение: страница для клиента по ссылке
+  var KP_URL = 'https://webnexkz.github.io/kp/#';
+  function kpBlock(l) {
+    var b = h('div', 'block'), hd = h('div', 'block__h');
+    hd.appendChild(h('b', null, 'Коммерческое предложение'));
+    if (l.kp) hd.appendChild(h('span', null, l.kpViews ? 'клиент открыл ' + plural(l.kpViews, 'раз', 'раза', 'раз') : 'клиент ещё не открывал'));
+    b.appendChild(hd);
+    var row = h('div', 'row'), btn = function (cls, text, fn) { var x = h('button', 'btn btn--sm ' + cls, text); x.type = 'button'; x.addEventListener('click', fn); row.appendChild(x); return x; };
+    if (l.kp) {
+      var url = KP_URL + l.kp;
+      btn('', 'Отправить клиенту', function () {
+        send(l, { x: 'Здравствуйте, {имя}! Подготовил предложение по вашему сайту — что сделаю, сколько стоит и сроки: ' + url });
+      });
+      btn('btn--ghost', 'Скопировать ссылку', function () { copy(url); toast('Ссылка скопирована'); });
+      btn('btn--ghost', 'Посмотреть', function () { window.open(new URL('../kp/?p=1#' + l.kp, location.href).href, '_blank', 'noopener'); });
+      btn('btn--ghost', 'Изменить', function () { kpOpen(l); });
+    } else {
+      b.appendChild(h('p', 'block__t', 'Страница с ценой, сроками и тем, что входит, — клиент открывает по ссылке. Заполню из заявки, останется проверить.'));
+      btn('', 'Сделать КП', function () { kpOpen(l); });
+    }
+    b.appendChild(row);
+    return b;
+  }
+
   function save(l, data, msg, undo, after) {
     msg.className = 'saved'; msg.textContent = 'Сохраняю…';
     data.action = 'update'; data.row = l.row; data.ts = l.ts;
     api(data).then(function (r) {
       if (!r.ok) throw r;
-      if (r.lead) { l.log = r.lead.log; l.row = r.lead.row; }
+      if (r.lead) Object.keys(r.lead).forEach(function (k) { l[k] = r.lead[k]; });
       if (after) after();
       msg.className = 'saved ok'; msg.textContent = 'Сохранено ✓';
       var ed = msg.closest('.edit');
@@ -949,7 +1226,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   }
 
   function reveal(ts) {
-    filter = 'все'; query = ''; $('q').value = ''; open[ts] = 1;
+    filter = 'все'; query = ''; $('q').value = ''; per = 'all'; $('per').value = 'all'; $('per-c').hidden = true; open[ts] = 1;
     chips(); list();
     var el = document.getElementById('l' + ts);
     if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('flash'); }
@@ -977,7 +1254,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     [].forEach.call(d.querySelectorAll('[data-close]'), function (b) { b.onclick = function () { close(d); }; });
   }
   function close(d) { if (typeof d.close === 'function') d.close(); else d.removeAttribute('open'); }
-  [$('add-dlg'), $('tpl-dlg')].forEach(function (d) {
+  [$('add-dlg'), $('tpl-dlg'), $('kp-dlg')].forEach(function (d) {
     d.addEventListener('click', function (e) { if (e.target === d) close(d); });   // нажатие мимо окна
   });
   function segPick(box, items, val) {
@@ -1057,6 +1334,123 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     });
   });
 
+  // ---------- коммерческое предложение ----------
+  var TYPES = {
+    'Лендинг': { p: [60000, 110000, 150000], d: ['5–7', '7–10', '7–11'] },
+    'Сайт-визитка': { p: [80000, 130000, 180000], d: ['7–10', '10–14', '11–15'] },
+    'Многостраничный сайт': { p: [120000, 170000, 230000], d: ['10–14', '14–18', '15–22'] },
+    'Каталог с заказом в WhatsApp': { p: [130000, 200000, 270000], d: ['10–14', '14–20', '17–25'], shop: 1 },
+    'Интернет-магазин': { p: [180000, 260000, 360000], d: ['14–18', '18–25', '22–32'], shop: 1 }
+  };
+  var TIERS = ['Старт', 'Бизнес', 'Всё включено'];
+  var KP_BASE = ['Дизайн под телефон и компьютер', 'Контакты, кнопки связи и карта', 'Заявки сразу в Telegram, защита формы от спама',
+    'Базовое продвижение в Google и Яндекс', 'Красивое превью ссылки в WhatsApp и QR-код для печати', 'Помощь с доменом и запуском, без абонплаты за хостинг'];
+  // «!» — только для каталога и магазина
+  var KP_TIER = [
+    ['Короткая видео-инструкция', '2 круга правок', '7 дней бесплатной поддержки'],
+    ['Админка: заявки и статусы, цены, наличие и товары, сводка за день, неделю и месяц', 'Видео-инструкция по админке', 'Заявки в Google Таблицу',
+      '2 языка: русский + казахский или английский', 'Статистика посещений', 'Карточка в 2ГИС и Google Картах — помогу создать и оформить', '!Оплата через Kaspi QR',
+      '3 круга правок', '14 дней бесплатной поддержки'],
+    ['Расширенная админка: графики и топ товаров, база клиентов, промокоды и баннер акций, выгрузка в Excel, несколько сотрудников', 'Видео-инструкция по админке',
+      'Заявки в Google Таблицу', '2 языка: русский + казахский или английский', 'Статистика посещений', 'Карточка в 2ГИС и Google Картах — помогу создать и оформить',
+      '!Оплата через Kaspi QR', '!Промокоды и накопительная карта', 'Продающие тексты — напишу за вас', 'Обработка фото товаров', 'Калькулятор цены для ваших услуг',
+      'Баннер «Акция» с таймером', 'Созвон-обучение 30 минут', 'Ежемесячный отчёт', 'Правки без ограничений', 'Месяц бесплатной поддержки']
+  ];
+  var DEMOS = {
+    coffee: ['https://webnexkz.github.io/demo/coffee/', 'Демо-сайт кофейни'],
+    pizza: ['https://webnexkz.github.io/demo/pizza/', 'Демо-сайт пиццерии'],
+    detailing: ['https://webnexkz.github.io/demo/detailing/', 'Демо-сайт детейлинга'],
+    smell: ['https://smellparfume.github.io/', 'Магазин SMELL PARFUME — мой проект']
+  };
+  var kpLead = null;
+  function kpItems(type, tier) {
+    var shop = TYPES[type] && TYPES[type].shop, i = Math.max(0, TIERS.indexOf(tier));
+    return KP_BASE.concat(KP_TIER[i].filter(function (x) { return x[0] !== '!' || shop; }).map(function (x) { return x.replace(/^!/, ''); }));
+  }
+  function kpDemo(l) {
+    var t = ((l.about || '') + ' ' + (l.type || '')).toLowerCase();
+    if (/коф|кафе|кулинар|пекар|ресторан/.test(t)) return 'coffee';
+    if (/пицц|доставк|суши|еда|бургер|шаурм/.test(t)) return 'pizza';
+    if (/авто|детейл|мойк|шин|сто\b|ремонт/.test(t)) return 'detailing';
+    if (/магазин|каталог|товар|парфюм|одежд|косметик/.test(t)) return 'smell';
+    return 'coffee';
+  }
+  function kpTierFill(tier) {
+    var type = $('kp-title').value.trim(), T = TYPES[type], i = TIERS.indexOf(tier);
+    if (T && i >= 0) { $('kp-price').value = money(T.p[i]).replace(' ₸', ''); $('kp-days').value = T.d[i] + ' дней'; }
+    $('kp-items').value = kpItems(type, tier).join('\n');
+  }
+  function kpFill(k) {
+    $('kp-name').value = k.name || ''; $('kp-title').value = k.title || '';
+    segPick($('kp-tier'), TIERS, k.tier);
+    [].forEach.call($('kp-tier').children, function (b) { b.addEventListener('click', function () { kpTierFill(b.textContent); }); });
+    $('kp-price').value = k.price ? money(k.price).replace(' ₸', '') : '';
+    $('kp-days').value = k.days || '';
+    segPick($('kp-prepay'), ['30%', '50%', '100%', 'без предоплаты'], k.prepay ? k.prepay + '%' : 'без предоплаты');
+    $('kp-items').value = (k.items || []).join('\n');
+    var demo = '';
+    Object.keys(DEMOS).forEach(function (x) { if (DEMOS[x][0] === k.demo) demo = x; });
+    if (k.demo && !demo) demo = 'custom';
+    $('kp-demo').value = demo; $('kp-url').value = demo === 'custom' ? k.demo : ''; $('kp-url-f').hidden = demo !== 'custom';
+    $('kp-valid').value = k.valid || ''; $('kp-note').value = k.note || ''; $('kp-maint').checked = k.maint !== false;
+  }
+  function kpOpen(l) {
+    kpLead = l; $('kp-msg').textContent = ''; $('kp-btn').disabled = false; $('kp-btn').textContent = 'Сохранить и получить ссылку';
+    var tier = TIERS.indexOf(l.tier) >= 0 ? l.tier : 'Бизнес', T = TYPES[l.type], i = TIERS.indexOf(tier);
+    kpFill({
+      name: l.name, title: l.type || 'Сайт', tier: tier,
+      price: l.deal || (l.tier === tier && digits(l.sum)) || (T ? T.p[i] : 0),
+      days: l.tier === tier && l.days ? l.days : T ? T.d[i] + ' дней' : '',
+      prepay: 50, items: kpItems(l.type, tier), demo: DEMOS[kpDemo(l)][0], valid: iso(Date.now() + 14 * 864e5), maint: true
+    });
+    $('kp-hint').textContent = l.kp ? 'Загружаю сохранённое предложение…' : 'Клиент увидит красивую страницу с этими данными по ссылке. Всё уже заполнено из заявки — проверьте и поправьте.';
+    modal($('kp-dlg'));
+    if (l.kp) api({ action: 'kpget', id: l.kp }).then(function (r) {
+      if (kpLead !== l) return;
+      $('kp-hint').textContent = 'Ссылка останется прежней — клиент увидит обновлённые данные.';
+      if (r.ok && r.kp) kpFill(r.kp);
+    }).catch(function () { $('kp-hint').textContent = 'Не удалось загрузить сохранённое — показываю данные из заявки.'; });
+  }
+  numInput($('kp-price'));
+  $('kp-demo').addEventListener('change', function () { $('kp-url-f').hidden = this.value !== 'custom'; if (this.value === 'custom') $('kp-url').focus(); });
+  $('kp-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var l = kpLead, msg = $('kp-msg'), demo = $('kp-demo').value, url = demo === 'custom' ? $('kp-url').value.trim() : demo ? DEMOS[demo][0] : '';
+    var k = {
+      name: $('kp-name').value.trim(), title: $('kp-title').value.trim(), tier: segVal($('kp-tier')),
+      price: +$('kp-price').value.replace(/\D/g, ''), prepay: parseInt(segVal($('kp-prepay')), 10) || 0, days: $('kp-days').value.trim(),
+      items: $('kp-items').value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean),
+      demo: url, demoName: demo === 'custom' ? 'Пример работы' : demo ? DEMOS[demo][1] : '',
+      valid: $('kp-valid').value, note: $('kp-note').value.trim(), maint: $('kp-maint').checked
+    };
+    if (k.name.length < 2) { msg.textContent = 'Впишите имя клиента.'; $('kp-name').focus(); return; }
+    if (!k.title) { msg.textContent = 'Впишите, какой сайт.'; $('kp-title').focus(); return; }
+    if (!k.price) { msg.textContent = 'Впишите цену.'; $('kp-price').focus(); return; }
+    if (demo === 'custom' && !/^https:\/\/\S+$/.test(url)) { msg.textContent = 'Ссылка на пример должна начинаться с https://'; $('kp-url').focus(); return; }
+    var btn = $('kp-btn'); btn.disabled = true; btn.textContent = 'Сохраняю…'; msg.textContent = '';
+    api({ action: 'kpsave', row: l.row, ts: l.ts, kp: k }).then(function (r) {
+      btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
+      if (!r.ok) throw r;
+      if (r.lead) Object.keys(r.lead).forEach(function (x) { l[x] = r.lead[x]; });
+      close($('kp-dlg'));
+      copy(KP_URL + r.id);
+      open[l.ts] = 1; rerenderCard(l); list();
+      toast('КП готово — ссылка скопирована');
+    }).catch(function (r) {
+      btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
+      if (r && r.error === 'key') { close($('kp-dlg')); dropKey(); showLogin(ERR.key); return; }
+      msg.textContent = r && r.error === 'bad' ? 'Проверьте имя, название и цену.' : ERR[r && r.error] || ERR.net;
+    });
+  });
+
+  // ---------- период ----------
+  $('per').addEventListener('change', function () {
+    per = this.value; $('per-c').hidden = per !== 'custom';
+    if (per === 'custom' && !$('per-a').value) { $('per-a').value = iso(Date.now() - 6 * 864e5); $('per-b').value = iso(Date.now()); }
+    chips(); list();
+  });
+  ['per-a', 'per-b'].forEach(function (id) { $(id).addEventListener('change', function () { chips(); list(); }); });
+
   // ---------- поиск, обновление ----------
   var qt;
   $('q').addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { query = $('q').value.trim(); list(); }, 150); });
@@ -1064,7 +1458,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
 
   function busy() {
     var a = document.activeElement;
-    return document.querySelector('.edit[data-dirty]') || (a && /INPUT|TEXTAREA/.test(a.tagName) && a.id !== 'q');
+    return document.querySelector('.edit[data-dirty]') || document.querySelector('dialog[open]') || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.id !== 'q' && a.id !== 'per');
   }
   function tick() {
     if (!loadedAt) return;

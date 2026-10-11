@@ -563,3 +563,11 @@ section{padding:clamp(72px,10vw,128px) 0}
   .line__pulse{display:none}
 }
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* кейс: кнопки и ссылка на страницу кейса; ссылки на внутренние страницы в подвале */
+.case__acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.case__more{color:var(--cyan);text-decoration:none;font-weight:600}
+.case__more:hover{text-decoration:underline}
+.foot__nav{display:flex;flex-wrap:wrap;gap:8px 20px;width:100%}
+.foot__nav a{color:var(--dim);font-size:14px;text-decoration:none}
+.foot__nav a:hover{color:var(--cyan)}

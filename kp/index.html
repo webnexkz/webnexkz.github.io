@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Коммерческое предложение — WEBNEX STUDIO</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#060b24">
+<meta property="og:title" content="Коммерческое предложение — WEBNEX STUDIO">
+<meta property="og:description" content="Что сделаю, сколько стоит и за какой срок.">
+<meta property="og:image" content="https://webnexkz.github.io/img/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/unbounded-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<style>
+.kp{padding:clamp(24px,4vw,56px) 0 clamp(56px,8vw,96px)}
+.kp__in{max-width:960px}
+.kp section{padding:0}
+.kp .kp__hero{padding-bottom:28px}
+.kp .kp__go{padding:clamp(22px,3.5vw,36px)}
+.kp__state{display:grid;justify-items:start;gap:16px;padding:clamp(40px,8vw,96px) 0;color:var(--muted)}
+.kp__state h1{font:700 clamp(24px,3.4vw,36px)/1.15 var(--display);letter-spacing:-.03em;color:var(--text)}
+.kp__load{display:flex;align-items:center;gap:12px}
+.kp__load::before{content:"";width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--wire);border-top:2px solid var(--cyan);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+
+.kp__top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;color:var(--dim);font-size:15px}
+.kp__top b{color:var(--muted);font-weight:500}
+.kp__hero{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px 48px;margin-top:22px;padding-bottom:32px;border-bottom:1px solid var(--hair)}
+.kp__for{color:var(--violet-soft);font-size:16px}
+.kp__title{margin-top:10px;font:700 clamp(28px,4.6vw,52px)/1.06 var(--display);letter-spacing:-.04em;text-wrap:balance}
+.kp__tier{margin-top:12px;color:var(--muted)}
+.kp__price{text-align:right}
+.kp__price span{display:block;color:var(--dim);font-size:14px}
+.kp__price b{display:block;margin-top:4px;font:700 clamp(32px,5vw,54px)/1 var(--display);letter-spacing:-.04em;color:var(--cyan);white-space:nowrap}
+.kp__price small{display:block;margin-top:8px;color:var(--muted);font-size:15px}
+
+.kp__facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.kp__fact{padding:18px 20px;border-radius:var(--r-lg);background:var(--panel);box-shadow:inset 0 0 0 1px var(--hair)}
+.kp__fact span{display:block;color:var(--dim);font-size:14px}
+.kp__fact b{display:block;margin-top:6px;font:600 19px/1.3 var(--display);letter-spacing:-.02em}
+.kp__fact small{display:block;margin-top:4px;color:var(--muted);font-size:14.5px}
+
+.kp__sec{margin-top:clamp(36px,5vw,56px)}
+.kp__h{margin-bottom:18px;font:700 clamp(20px,2.4vw,26px)/1.2 var(--display);letter-spacing:-.03em}
+.kp__note{padding:18px 20px;border-radius:var(--r-lg);background:var(--bg-2);box-shadow:inset 3px 0 0 var(--violet);color:var(--text);white-space:pre-line}
+
+/* этапы: провод с узлами */
+.steps-kp{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.steps-kp li{position:relative;padding-top:34px;counter-increment:s}
+.steps-kp li::before{content:counter(s);position:absolute;top:0;left:0;z-index:1;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:var(--bg);box-shadow:inset 0 0 0 2px var(--cyan),0 0 14px rgba(41,211,255,.45);color:var(--cyan);font:700 12px/1 var(--display)}
+.steps-kp li::after{content:"";position:absolute;top:12px;left:26px;right:-16px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));opacity:.55}
+.steps-kp li:last-child::after{display:none}
+.steps-kp b{display:block;font-weight:600}
+.steps-kp p{margin-top:4px;color:var(--muted);font-size:15px}
+
+.kp__demo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;padding:20px 22px;border-radius:var(--r-lg);background:var(--panel);box-shadow:inset 0 0 0 1px var(--hair)}
+.kp__demo p{color:var(--muted)}
+.kp__demo b{display:block;color:var(--text);font-weight:600}
+
+.plans-kp{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.plans-kp li{padding:18px 20px;border-radius:var(--r-lg);background:var(--panel);box-shadow:inset 0 0 0 1px var(--hair)}
+.plans-kp b{font:600 17px/1.3 var(--display)}
+.plans-kp span{display:block;margin-top:6px;font:700 20px/1.2 var(--display);color:var(--cyan)}
+.plans-kp p{margin-top:6px;color:var(--muted);font-size:14.5px}
+
+.kp__go{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px 32px;margin-top:clamp(40px,6vw,64px);padding:clamp(22px,3.5vw,36px);
+  border-radius:var(--r-lg);background:var(--panel);box-shadow:inset 0 0 0 1px var(--wire)}
+.kp__go h2{font:700 clamp(20px,2.6vw,28px)/1.2 var(--display);letter-spacing:-.03em}
+.kp__go p{margin-top:6px;color:var(--muted)}
+.kp__acts{display:flex;flex-wrap:wrap;gap:12px}
+.kp__old{margin-top:14px;padding:12px 16px;border-radius:var(--r);background:rgba(255,122,147,.08);color:var(--err);font-size:15px}
+
+@media (max-width:820px){
+  .kp__hero{grid-template-columns:1fr}
+  .kp__price{text-align:left}
+  .kp__facts,.plans-kp{grid-template-columns:1fr}
+  .steps-kp{grid-template-columns:1fr;gap:0}
+  .steps-kp li{padding:0 0 22px 42px}
+  .steps-kp li::after{top:26px;bottom:0;left:12px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--cyan),var(--violet))}
+  .kp__go{grid-template-columns:1fr}
+  .kp__acts .btn{flex:1 1 200px}
+}
+@media print{
+  :root{--bg:#fff;--bg-2:#f4f6fb;--panel:#fff;--text:#0b1230;--muted:#3a4466;--dim:#5b6584;--hair:#d5daea;--wire:#c3cae0;--cyan:#0a6fa8;--violet-soft:#5b3fc4}
+  body{background:#fff}
+  .nav,.foot,.kp__go .kp__acts,.no-print{display:none!important}
+  .steps-kp li::before{box-shadow:inset 0 0 0 2px var(--cyan)}
+  .kp__fact,.plans-kp li,.kp__demo,.kp__go{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="nav nav--page">
+  <div class="wrap nav__in">
+    <a class="logo" href="../" aria-label="WEBNEX STUDIO — на главную"><span class="logo__w">W<i>.</i></span><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <button class="btn btn--small btn--ghost no-print" type="button" id="print">Сохранить PDF</button>
+  </div>
+</header>
+
+<main class="kp">
+  <div class="wrap kp__in" id="kp">
+    <div class="kp__state"><p class="kp__load">Загружаю предложение…</p></div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="logo" href="../" aria-label="WEBNEX STUDIO — на главную"><span class="logo__w">W<i>.</i></span><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <p>Сайты для бизнеса · Петропавловск · весь Казахстан</p>
+    <nav class="foot__links" aria-label="Контакты"><a href="https://instagram.com/webnex.kz" target="_blank" rel="noopener">@webnex.kz</a></nav>
+  </div>
+</footer>
+
+<script src="../config.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.WEBNEX || {}, box = document.getElementById('kp');
+  var PLANS = [['Лайт', '10 000 ₸/мес', 'До 2 часов в месяц: слежу, чтобы сайт работал, и вношу мелкие правки.'],
+    ['Оптимум', '30 000 ₸/мес', 'До 8 часов в месяц: обновляю товары, цены и тексты, добавляю новые разделы.'],
+    ['Максимум', '60 000 ₸/мес', 'До 20 часов в месяц: развиваю сайт вместе с вами — новые функции и улучшения.']];
+
+  function h(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function money(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₸'; }
+  var MON = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+  function date(t) { var d = new Date(t); return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); }
+  function state(title, text, retry) {
+    box.textContent = '';
+    var s = h('div', 'kp__state');
+    s.appendChild(h('h1', null, title)); s.appendChild(h('p', null, text));
+    var acts = h('div', 'kp__acts');
+    if (retry) { var b = h('button', 'btn', 'Попробовать ещё раз'); b.type = 'button'; b.addEventListener('click', load); acts.appendChild(b); }
+    var ig = h('a', 'btn btn--ghost', 'Написать в Instagram'); ig.href = 'https://ig.me/m/' + (C.instagram || 'webnex.kz'); ig.target = '_blank'; ig.rel = 'noopener';
+    acts.appendChild(ig); s.appendChild(acts); box.appendChild(s);
+  }
+
+  var id = (location.hash || '').slice(1).toLowerCase();
+  // владелец смотрит из админки — просмотр не засчитываем
+  var peek = /[?&]p=1\b/.test(location.search);
+  try { peek = peek || !!(localStorage.getItem('wx-admin-key') || sessionStorage.getItem('wx-admin-key')); } catch (e) {}
+
+  function load() {
+    if (!/^[a-f0-9]{16}$/.test(id)) { state('Предложение не найдено', 'Проверьте ссылку — возможно, она скопировалась не целиком. Или напишите мне, пришлю заново.'); return; }
+    if (!C.formUrl) { state('Не получилось открыть', 'Напишите мне в Instagram — пришлю предложение заново.'); return; }
+    box.innerHTML = '<div class="kp__state"><p class="kp__load">Загружаю предложение…</p></div>';
+    var ctrl = window.AbortController ? new AbortController() : null, t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+    fetch(C.formUrl, { method: 'POST', body: JSON.stringify({ action: 'kp', id: id, peek: peek ? 1 : 0 }), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        clearTimeout(t);
+        if (r.ok && r.kp) render(r.kp);
+        else if (r.error === 'busy') state('Слишком много запросов', 'Подождите пару минут и обновите страницу.', true);
+        else state('Предложение не найдено', 'Возможно, ссылка устарела. Напишите мне — пришлю актуальное.');
+      })
+      .catch(function () { clearTimeout(t); state('Нет связи', 'Не удалось загрузить предложение. Проверьте интернет и попробуйте ещё раз.', true); });
+  }
+
+  function render(k) {
+    document.title = 'КП: ' + k.title + ' — ' + k.name + ' · WEBNEX STUDIO';
+    box.textContent = '';
+
+    var top = h('div', 'kp__top');
+    var l = h('span'); l.appendChild(document.createTextNode('Коммерческое предложение')); if (k.created) l.appendChild(document.createTextNode(' от ' + date(k.created)));
+    top.appendChild(l);
+    top.appendChild(h('span', null, 'WEBNEX STUDIO · Петропавловск'));
+    box.appendChild(top);
+
+    var hero = h('section', 'kp__hero'), L = h('div');
+    L.appendChild(h('p', 'kp__for', 'Для: ' + k.name));
+    L.appendChild(h('h1', 'kp__title', k.title));
+    if (k.tier) L.appendChild(h('p', 'kp__tier', 'Тариф «' + k.tier + '»'));
+    hero.appendChild(L);
+    var P = h('div', 'kp__price');
+    P.appendChild(h('span', null, 'Стоимость под ключ'));
+    P.appendChild(h('b', null, money(k.price)));
+    P.appendChild(h('small', null, 'без абонплаты за хостинг'));
+    hero.appendChild(P);
+    box.appendChild(hero);
+
+    var facts = h('div', 'kp__facts'), fact = function (a, b, c) { var f = h('div', 'kp__fact'); f.appendChild(h('span', null, a)); f.appendChild(h('b', null, b)); if (c) f.appendChild(h('small', null, c)); facts.appendChild(f); };
+    fact('Срок', k.days || 'обсудим', 'с момента предоплаты и материалов');
+    if (k.prepay >= 100) fact('Оплата', '100% вперёд', money(k.price));
+    else if (k.prepay > 0) { var pre = Math.round(k.price * k.prepay / 100); fact('Предоплата ' + k.prepay + '%', money(pre), 'остаток ' + money(k.price - pre) + ' — после запуска'); }
+    else fact('Оплата', 'после запуска', 'без предоплаты');
+    var expired = false;
+    if (k.valid) {
+      var v = new Date(k.valid + 'T23:59:59'); expired = v.getTime() < Date.now();
+      fact('Цена действует', 'до ' + date(v), expired ? 'срок прошёл — уточните цену' : null);
+    } else fact('Правки', 'входят в цену', 'по тарифу');
+    box.appendChild(facts);
+    if (expired) box.appendChild(h('p', 'kp__old', 'Срок этого предложения закончился. Напишите мне — проверю, актуальна ли цена.'));
+
+    if (k.note) { var ns = h('section', 'kp__sec'); ns.appendChild(h('p', 'kp__note', k.note)); box.appendChild(ns); }
+
+    if (k.items && k.items.length) {
+      var is = h('section', 'kp__sec'); is.appendChild(h('h2', 'kp__h', 'Что входит'));
+      var ul = h('ul', 'ticks ticks--2'); k.items.forEach(function (x) { ul.appendChild(h('li', null, x)); }); is.appendChild(ul);
+      box.appendChild(is);
+    }
+
+    var ss = h('section', 'kp__sec'); ss.appendChild(h('h2', 'kp__h', 'Как будем работать'));
+    var ol = h('ol', 'steps-kp');
+    [['Старт', k.prepay > 0 ? 'Предоплата, вы присылаете тексты, фото, логотип — что есть. Чего нет — помогу.' : 'Вы присылаете тексты, фото, логотип — что есть. Чего нет — помогу.'],
+      ['Макет', 'Показываю дизайн главного экрана и страниц, вы смотрите с телефона.'],
+      ['Правки', 'Вносим изменения, пока всё не станет как надо — по тарифу.'],
+      ['Запуск', 'Сайт на вашем адресе, заявки идут в Telegram. ' + (k.prepay > 0 && k.prepay < 100 ? 'Оплата остатка.' : 'Показываю, как всем пользоваться.')]
+    ].forEach(function (s) { var li = h('li'); li.appendChild(h('b', null, s[0])); li.appendChild(h('p', null, s[1])); ol.appendChild(li); });
+    ss.appendChild(ol); box.appendChild(ss);
+
+    if (k.demo && /^https:\/\//.test(k.demo)) {
+      var ds = h('section', 'kp__sec no-print'), d = h('div', 'kp__demo'), dp = h('p');
+      dp.appendChild(h('b', null, k.demoName || 'Пример работы'));
+      dp.appendChild(document.createTextNode('Откройте с телефона — так примерно будет работать и ваш сайт.'));
+      var a = h('a', 'btn btn--ghost', 'Открыть пример'); a.href = k.demo; a.target = '_blank'; a.rel = 'noopener';
+      d.appendChild(dp); d.appendChild(a); ds.appendChild(d); box.appendChild(ds);
+    }
+
+    if (k.maint) {
+      var ms = h('section', 'kp__sec'); ms.appendChild(h('h2', 'kp__h', 'После запуска — по желанию'));
+      ms.appendChild(h('p', 'note', 'Сайт ваш и работает без абонплаты. Если хотите, чтобы я вёл его дальше, — есть тарифы обслуживания:'));
+      var pl = h('ul', 'plans-kp'); pl.style.marginTop = '16px';
+      PLANS.forEach(function (p) { var li = h('li'); li.appendChild(h('b', null, p[0])); li.appendChild(h('span', null, p[1])); li.appendChild(h('p', null, p[2])); pl.appendChild(li); });
+      ms.appendChild(pl); box.appendChild(ms);
+    }
+
+    var go = h('section', 'kp__go'), gt = h('div');
+    gt.appendChild(h('h2', null, 'Подходит? Напишите — начнём'));
+    gt.appendChild(h('p', null, 'Если что-то хотите поменять — тоже пишите, поправлю предложение.'));
+    var acts = h('div', 'kp__acts');
+    var msg = 'Здравствуйте! Посмотрел(а) предложение «' + k.title + '» — ';
+    if (C.whatsapp) { var wa = h('a', 'btn', 'Написать в WhatsApp'); wa.href = 'https://wa.me/' + C.whatsapp + '?text=' + encodeURIComponent(msg); wa.target = '_blank'; wa.rel = 'noopener'; acts.appendChild(wa); }
+    var ig = h('a', C.whatsapp ? 'btn btn--ghost' : 'btn', 'Написать в Instagram'); ig.href = 'https://ig.me/m/' + (C.instagram || 'webnex.kz'); ig.target = '_blank'; ig.rel = 'noopener';
+    acts.appendChild(ig);
+    go.appendChild(gt); go.appendChild(acts); box.appendChild(go);
+  }
+
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+  window.addEventListener('hashchange', function () { id = (location.hash || '').slice(1).toLowerCase(); load(); });
+  load();
+})();
+</script>
+</body>
+</html>

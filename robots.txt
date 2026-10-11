@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /kp/
 
 Sitemap: https://webnexkz.github.io/sitemap.xml
