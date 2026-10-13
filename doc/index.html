@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Документ — WEBNEX STUDIO</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#060b24">
+<meta property="og:title" content="Документ от WEBNEX STUDIO">
+<meta property="og:description" content="Договор или счёт на разработку сайта.">
+<meta property="og:image" content="https://webnexkz.github.io/img/og.png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/page.css">
+<style>
+.dc{padding:clamp(20px,4vw,48px) 0 clamp(48px,8vw,88px)}
+.dc section{padding:0}
+.dc__in{max-width:880px}
+.dc__state{display:grid;justify-items:start;gap:16px;padding:clamp(40px,8vw,96px) 0;color:var(--muted)}
+.dc__state h1{font:700 clamp(24px,3.4vw,36px)/1.15 var(--display);letter-spacing:-.03em;color:var(--text)}
+.dc__load{display:flex;align-items:center;gap:12px}
+.dc__load::before{content:"";width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--wire);border-top:2px solid var(--cyan);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.dc__acts{display:flex;flex-wrap:wrap;gap:12px}
+
+.dc__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-bottom:20px}
+.dc__bar p{color:var(--muted);font-size:15px;max-width:52ch}
+.dc__bar b{display:block;color:var(--text);font:600 18px/1.3 var(--display);letter-spacing:-.02em;margin-bottom:2px}
+
+/* лист бумаги */
+.sheet{--ink:#111830;--ink-2:#4a5372;--line:#cfd5e6;background:#fff;color:var(--ink);border-radius:6px;padding:clamp(22px,6vw,64px) clamp(18px,6vw,68px);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.8);font:400 14.5px/1.6 var(--body);font-variant-numeric:tabular-nums}
+.sheet h1{font:700 clamp(18px,2.6vw,22px)/1.3 var(--body);text-align:center;letter-spacing:0}
+.sheet .sub{margin-top:4px;text-align:center;color:var(--ink-2)}
+.sheet .place{display:flex;justify-content:space-between;gap:16px;margin:22px 0 18px;color:var(--ink-2)}
+.sheet h2{margin:20px 0 6px;font:700 14.5px/1.4 var(--body)}
+.sheet p+p{margin-top:6px}
+.sheet ol.pts{margin:0;padding:0;list-style:none}
+.sheet ol.pts li{margin-top:5px}
+.sheet ul.its{margin:6px 0 0;padding-left:22px;list-style:disc}
+.sheet ul.its li{margin-top:2px}
+.sheet .blank{display:inline-block;min-width:180px;border-bottom:1px solid var(--ink-2)}
+.sheet table{width:100%;border-collapse:collapse;margin-top:10px}
+.sheet th,.sheet td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.sheet th{background:#f2f4fa;font-weight:600;font-size:13.5px}
+.sheet td.n,.sheet th.n{text-align:right;white-space:nowrap}
+.sheet .bank td:first-child{width:38%;color:var(--ink-2)}
+.sheet .total{margin-top:12px;text-align:right}
+.sheet .total b{font-size:16px}
+.sheet .words{margin-top:8px}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px}
+.side h3{margin-bottom:6px;font:700 14.5px/1.4 var(--body)}
+.side p{margin:0!important;color:var(--ink)}
+.side .muted{color:var(--ink-2)}
+.sign{margin-top:26px;display:flex;align-items:flex-end;gap:10px}
+.sign i{flex:1;border-bottom:1px solid var(--ink);min-width:80px;height:22px}
+.sign span{color:var(--ink-2);font-size:13px;white-space:nowrap}
+.sign--inv span:last-child{white-space:normal}
+.sheet .note{margin-top:16px;padding:10px 12px;border-left:3px solid var(--line);color:var(--ink-2);white-space:pre-line}
+.sheet .app{margin-top:30px;padding-top:18px;border-top:1px dashed var(--line)}
+
+@media (max-width:640px){
+  .sides{grid-template-columns:1fr}
+  .sheet{font-size:14px}
+  .sheet .place{flex-direction:column;gap:2px}
+  .dc__bar .btn{flex:1 1 200px}
+  .sheet .tbl{overflow-x:auto}
+  .sheet table{min-width:480px}
+  .sheet .bank{min-width:0}
+}
+@page{size:A4;margin:14mm 14mm 16mm}
+@media print{
+  html,body{background:#fff!important}
+  .nav,.foot,.dc__bar,.no-print{display:none!important}
+  .dc{padding:0}
+  .dc__in{max-width:none;padding:0}
+  .sheet{box-shadow:none;border-radius:0;padding:0;font-size:11.5pt}
+  .sheet table{min-width:0}
+  .sides,.sign,tr{break-inside:avoid}
+  .app{break-before:page;border-top:0!important}
+}
+</style>
+</head>
+<body>
+<header class="nav nav--page">
+  <div class="wrap nav__in">
+    <a class="logo" href="../" aria-label="WEBNEX STUDIO — на главную"><span class="logo__w">W<i>.</i></span><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <button class="btn btn--small btn--ghost" type="button" id="print" hidden>Скачать PDF</button>
+  </div>
+</header>
+
+<main class="dc">
+  <div class="wrap dc__in" id="dc">
+    <div class="dc__state"><p class="dc__load">Загружаю документ…</p></div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <a class="logo" href="../" aria-label="WEBNEX STUDIO — на главную"><span class="logo__w">W<i>.</i></span><span class="logo__name">WEBNEX <b>STUDIO</b></span></a>
+    <p>Сайты для бизнеса · Петропавловск · весь Казахстан</p>
+    <nav class="foot__links" aria-label="Контакты"><a href="https://instagram.com/webnex.kz" target="_blank" rel="noopener">@webnex.kz</a></nav>
+  </div>
+</footer>
+
+<script src="../config.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.WEBNEX || {}, box = document.getElementById('dc');
+
+  function h(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function money(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₸'; }
+  function tg(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' тенге'; }
+  var MON = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+  function day(s) { if (!s) return ''; var d = typeof s === 'number' ? new Date(s) : new Date(s + 'T00:00:00'); return '«' + d.getDate() + '» ' + MON[d.getMonth()] + ' ' + d.getFullYear() + ' г.'; }
+  function plural(n, a, b, c) { var m = n % 10, mm = n % 100; return m === 1 && mm !== 11 ? a : m >= 2 && m <= 4 && (mm < 12 || mm > 14) ? b : c; }
+
+  // сумма прописью: 110000 → «Сто десять тысяч тенге 00 тиын»
+  function words(n) {
+    n = Math.floor(n);
+    if (!n) return 'Ноль тенге 00 тиын';
+    var U = ['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'],
+      UF = ['', 'одна', 'две'], TEEN = ['десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать'],
+      T = ['', '', 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто'],
+      HU = ['', 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот'],
+      S = [null, ['тысяча', 'тысячи', 'тысяч', 1], ['миллион', 'миллиона', 'миллионов'], ['миллиард', 'миллиарда', 'миллиардов']];
+    var out = [], i = 0;
+    while (n > 0) {
+      var g = n % 1000, part = [];
+      if (g) {
+        var hd = Math.floor(g / 100), r = g % 100, t = Math.floor(r / 10), u = r % 10;
+        if (hd) part.push(HU[hd]);
+        if (t === 1) part.push(TEEN[u]);
+        else { if (t) part.push(T[t]); if (u) part.push(S[i] && S[i][3] && u < 3 ? UF[u] : U[u]); }
+        if (S[i]) part.push(plural(r, S[i][0], S[i][1], S[i][2]));
+        out.unshift(part.join(' '));
+      }
+      n = Math.floor(n / 1000); i++;
+    }
+    var s = out.join(' ');
+    return s[0].toUpperCase() + s.slice(1) + ' тенге 00 тиын';
+  }
+
+  function state(title, text, retry) {
+    box.textContent = '';
+    var s = h('div', 'dc__state');
+    s.appendChild(h('h1', null, title)); s.appendChild(h('p', null, text));
+    var acts = h('div', 'dc__acts');
+    if (retry) { var b = h('button', 'btn', 'Попробовать ещё раз'); b.type = 'button'; b.addEventListener('click', load); acts.appendChild(b); }
+    acts.appendChild(igBtn('btn btn--ghost'));
+    s.appendChild(acts); box.appendChild(s);
+  }
+  function igBtn(cls) { var a = h('a', cls, 'Написать в Instagram'); a.href = 'https://ig.me/m/' + (C.instagram || 'webnex.kz'); a.target = '_blank'; a.rel = 'noopener'; return a; }
+
+  var id = (location.hash || '').slice(1).toLowerCase();
+  // владелец смотрит из админки — просмотр не засчитываем
+  var peek = /[?&]p=1\b/.test(location.search);
+  try { peek = peek || !!(localStorage.getItem('wx-admin-key') || sessionStorage.getItem('wx-admin-key')); } catch (e) {}
+
+  function load() {
+    document.getElementById('print').hidden = true;
+    if (!/^[a-f0-9]{16}$/.test(id)) { state('Документ не найден', 'Проверьте ссылку — возможно, она скопировалась не целиком. Или напишите мне, пришлю заново.'); return; }
+    if (!C.formUrl) { state('Не получилось открыть', 'Напишите мне в Instagram — пришлю документ заново.'); return; }
+    box.innerHTML = '<div class="dc__state"><p class="dc__load">Загружаю документ…</p></div>';
+    var ctrl = window.AbortController ? new AbortController() : null, t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+    fetch(C.formUrl, { method: 'POST', body: JSON.stringify({ action: 'doc', id: id, peek: peek ? 1 : 0 }), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        clearTimeout(t);
+        if (r.ok && r.doc) render(r.doc);
+        else if (r.error === 'busy') state('Слишком много запросов', 'Подождите пару минут и обновите страницу.', true);
+        else state('Документ не найден', 'Возможно, ссылка устарела. Напишите мне — пришлю актуальный.');
+      })
+      .catch(function () { clearTimeout(t); state('Нет связи', 'Не удалось загрузить документ. Проверьте интернет и попробуйте ещё раз.', true); });
+  }
+
+  // строка «подпись» и стороны
+  function blank(v) { if (v) return document.createTextNode(v); return h('span', 'blank', ' '); }
+  function line(p, label, v) { var x = h('p'); x.appendChild(h('span', 'muted', label + ': ')); x.appendChild(blank(v)); p.appendChild(x); }
+  function sides(d, a, b) {
+    var me = d.me || {}, wrap = h('div', 'sides');
+    var L = h('div', 'side'); L.appendChild(h('h3', null, a));
+    L.appendChild(h('p', null, me.name || '')); if (!me.name) L.lastChild.appendChild(blank(''));
+    line(L, 'ИИН/БИН', me.iin);
+    if (me.city) line(L, 'Город', me.city);
+    if (me.bank) line(L, 'Банк', me.bank);
+    line(L, 'ИИК (IBAN)', me.iban);
+    if (me.bik) line(L, 'БИК', me.bik);
+    if (me.kbe) line(L, 'Кбе', me.kbe);
+    if (me.phone) line(L, 'Телефон', me.phone);
+    var sg = h('div', 'sign'); sg.appendChild(h('i')); sg.appendChild(h('span', null, 'подпись')); L.appendChild(sg);
+    var R = h('div', 'side'); R.appendChild(h('h3', null, b));
+    R.appendChild(h('p', null, d.client));
+    line(R, 'ИИН/БИН', d.clientId);
+    line(R, 'Телефон', d.clientContact);
+    var sg2 = h('div', 'sign'); sg2.appendChild(h('i')); sg2.appendChild(h('span', null, 'подпись')); R.appendChild(sg2);
+    wrap.appendChild(L); wrap.appendChild(R);
+    return wrap;
+  }
+  function sec(sheet, title, pts) {
+    sheet.appendChild(h('h2', null, title));
+    var ol = h('ol', 'pts');
+    pts.filter(Boolean).forEach(function (x) { ol.appendChild(h('li', null, x)); });
+    sheet.appendChild(ol);
+  }
+
+  function contract(d, sheet) {
+    var me = d.me || {}, n = d.number ? ' № ' + d.number : '';
+    var pre = d.prepay || 0, preSum = Math.round(d.price * pre / 100);
+    sheet.appendChild(h('h1', null, 'Договор' + n));
+    sheet.appendChild(h('p', 'sub', 'на оказание услуг по разработке сайта'));
+    var pl = h('div', 'place'); pl.appendChild(h('span', null, 'г. ' + (d.city || me.city || '__________')));
+    pl.appendChild(h('span', null, day(d.date || d.created))); sheet.appendChild(pl);
+
+    sheet.appendChild(h('p', null, (me.name || '____________________') + (me.iin ? ', ИИН/БИН ' + me.iin : '') +
+      ', именуемый(-ая) в дальнейшем «Исполнитель», с одной стороны, и ' + d.client + (d.clientId ? ', ИИН/БИН ' + d.clientId : '') +
+      ', именуемый(-ая) в дальнейшем «Заказчик», с другой стороны, вместе именуемые «Стороны», заключили настоящий договор (далее — Договор) о нижеследующем.'));
+
+    sec(sheet, '1. Предмет договора', [
+      '1.1. Исполнитель по заданию Заказчика разрабатывает сайт «' + d.title + '» (далее — Сайт), а Заказчик принимает и оплачивает работу.',
+      '1.2. Состав работ указан в Приложении № 1, которое является неотъемлемой частью Договора.' ]);
+    sec(sheet, '2. Сроки', [
+      '2.1. Срок выполнения работ — ' + (d.days || '__________') + (/д(ня|ней|ень)/.test(d.days || '') ? '' : ' рабочих дней') + ' с момента ' + (pre ? 'получения предоплаты и ' : 'получения ') + 'материалов от Заказчика (тексты, фото, логотип и т. п.).',
+      '2.2. Если Заказчик задерживает материалы, ответы или согласование, срок продлевается на время задержки.' ]);
+    sec(sheet, '3. Стоимость и оплата', [
+      '3.1. Стоимость работ — ' + tg(d.price) + ' (' + words(d.price) + '). НДС не облагается.',
+      pre >= 100 ? '3.2. Заказчик оплачивает 100% стоимости в течение 3 (трёх) рабочих дней после подписания Договора.'
+        : pre > 0 ? '3.2. Предоплата ' + pre + '% — ' + tg(preSum) + ' — в течение 3 (трёх) рабочих дней после подписания Договора. Остаток — ' + tg(d.price - preSum) + ' — в течение 3 (трёх) рабочих дней после подписания Акта выполненных работ.'
+          : '3.2. Заказчик оплачивает стоимость работ в течение 3 (трёх) рабочих дней после подписания Акта выполненных работ.',
+      '3.3. Оплата — безналичным переводом по реквизитам Исполнителя или иным способом по согласованию Сторон.' ]);
+    sec(sheet, '4. Порядок работы и приёмка', [
+      '4.1. Исполнитель показывает Заказчику макет дизайна. Заказчик согласовывает его или присылает замечания в течение 3 (трёх) рабочих дней.',
+      '4.2. В стоимость входит: ' + (d.edits || 'правки по согласованию Сторон') + '. Правки, которые меняют утверждённое задание, оплачиваются отдельно по согласованию.',
+      '4.3. После завершения работ Исполнитель передаёт Сайт и Акт выполненных работ. Заказчик в течение 5 (пяти) рабочих дней подписывает Акт или присылает мотивированный отказ. Если ответа нет, работы считаются принятыми.',
+      '4.4. Согласования, правки и передача материалов по электронной почте и в мессенджерах (WhatsApp, Telegram, Instagram) признаются Сторонами надлежащими.' ]);
+    sec(sheet, '5. Обязанности сторон', [
+      '5.1. Исполнитель: выполнить работы качественно и в срок; сообщать Заказчику о ходе работ; не передавать третьим лицам данные Заказчика.',
+      '5.2. Заказчик: вовремя предоставить материалы и ответы; оплатить работу в порядке раздела 3; принять работу.',
+      '5.3. Заказчик гарантирует, что у него есть права на тексты, фото, логотипы и другие материалы, которые он передаёт для Сайта.' ]);
+    sec(sheet, '6. Права на сайт', [
+      '6.1. После полной оплаты исключительные имущественные права на дизайн и программный код Сайта переходят к Заказчику. Доступы к сайту, домену и админке передаются Заказчику.',
+      '6.2. Исполнитель вправе показывать Сайт в своём портфолио, не раскрывая конфиденциальных данных Заказчика.' ]);
+    sec(sheet, '7. Поддержка после запуска', [
+      '7.1. ' + (d.support ? 'В течение ' + d.support + ' после запуска' : 'После запуска в срок, согласованный Сторонами,') + ' Исполнитель бесплатно исправляет ошибки в работе Сайта.',
+      '7.2. Новые разделы и функции, а также обслуживание после этого срока — по отдельному соглашению.' ]);
+    sec(sheet, '8. Ответственность и форс-мажор', [
+      '8.1. За нарушение сроков оплаты или выполнения работ виновная Сторона по требованию другой Стороны платит неустойку 0,1% от стоимости работ за каждый день просрочки, но не более 10% стоимости работ.',
+      '8.2. Стороны не отвечают за неисполнение обязательств из-за обстоятельств непреодолимой силы.',
+      '8.3. Исполнитель не отвечает за перебои в работе сторонних сервисов (хостинг, домен, мессенджеры, платёжные системы).' ]);
+    sec(sheet, '9. Споры и прочие условия', [
+      '9.1. Споры Стороны решают переговорами, а если не договорились — в суде в порядке, установленном законодательством Республики Казахстан.',
+      '9.2. Договор вступает в силу с момента подписания и действует до полного исполнения обязательств.',
+      '9.3. Договор составлен в двух экземплярах, по одному для каждой Стороны. Скан или фото подписанного Договора имеет силу до обмена оригиналами.' ]);
+
+    sheet.appendChild(h('h2', null, '10. Реквизиты и подписи сторон'));
+    sheet.appendChild(sides(d, 'Исполнитель', 'Заказчик'));
+
+    var app = h('div', 'app');
+    app.appendChild(h('h2', null, 'Приложение № 1 к Договору' + n));
+    app.appendChild(h('p', null, 'Состав работ по сайту «' + d.title + '»:'));
+    var ul = h('ul', 'its');
+    (d.items && d.items.length ? d.items : ['По согласованию Сторон']).forEach(function (x) { ul.appendChild(h('li', null, x)); });
+    app.appendChild(ul);
+    app.appendChild(h('p', null, 'Стоимость: ' + tg(d.price) + '. Срок: ' + (d.days || 'по Договору') + '.'));
+    var sg = h('div', 'sides'), a = h('div', 'side'), b = h('div', 'side');
+    [[a, 'Исполнитель'], [b, 'Заказчик']].forEach(function (x) { x[0].appendChild(h('h3', null, x[1])); var s = h('div', 'sign'); s.appendChild(h('i')); s.appendChild(h('span', null, 'подпись')); x[0].appendChild(s); sg.appendChild(x[0]); });
+    app.appendChild(sg);
+    sheet.appendChild(app);
+  }
+
+  function invoice(d, sheet) {
+    var me = d.me || {};
+    sheet.appendChild(h('h1', null, 'Счёт на оплату' + (d.number ? ' № ' + d.number : '')));
+    sheet.appendChild(h('p', 'sub', 'от ' + day(d.date || d.created)));
+
+    var bt = h('div', 'tbl'), t = h('table', 'bank'), row = function (a, b) { var tr = h('tr'); tr.appendChild(h('td', null, a)); var td = h('td'); td.appendChild(blank(b)); tr.appendChild(td); t.appendChild(tr); };
+    row('Бенефициар', me.name); row('ИИН/БИН', me.iin); row('ИИК (IBAN)', me.iban); row('Банк бенефициара', me.bank); row('БИК', me.bik); row('Кбе', me.kbe);
+    bt.appendChild(t); sheet.appendChild(bt);
+
+    var pp = h('div'); pp.style.marginTop = '18px';
+    var p1 = h('p'); p1.appendChild(h('b', null, 'Поставщик: ')); p1.appendChild(document.createTextNode([me.name, me.iin ? 'ИИН/БИН ' + me.iin : '', me.city ? 'г. ' + me.city : '', me.phone].filter(Boolean).join(', ') || '—')); pp.appendChild(p1);
+    var p2 = h('p'); p2.appendChild(h('b', null, 'Покупатель: ')); p2.appendChild(document.createTextNode([d.client, d.clientId ? 'ИИН/БИН ' + d.clientId : '', d.clientContact].filter(Boolean).join(', '))); pp.appendChild(p2);
+    var p3 = h('p'); p3.appendChild(h('b', null, 'Основание: ')); p3.appendChild(document.createTextNode(d.contractNo ? 'Договор № ' + d.contractNo : 'разработка сайта')); pp.appendChild(p3);
+    sheet.appendChild(pp);
+
+    var tw = h('div', 'tbl'), tb = h('table'), hd = h('tr');
+    [['№', 'n'], ['Наименование', ''], ['Кол-во', 'n'], ['Ед.', ''], ['Цена', 'n'], ['Сумма', 'n']].forEach(function (x) { hd.appendChild(h('th', x[1] || null, x[0])); });
+    tb.appendChild(hd);
+    (d.lines || []).forEach(function (x, i) {
+      var tr = h('tr');
+      tr.appendChild(h('td', 'n', String(i + 1))); tr.appendChild(h('td', null, x.t)); tr.appendChild(h('td', 'n', String(x.q)));
+      tr.appendChild(h('td', null, 'усл.')); tr.appendChild(h('td', 'n', money(x.p))); tr.appendChild(h('td', 'n', money(x.q * x.p)));
+      tb.appendChild(tr);
+    });
+    tw.appendChild(tb); sheet.appendChild(tw);
+    var tot = h('div', 'total');
+    tot.appendChild(h('p', null, 'Без НДС'));
+    var tp = h('p'); tp.appendChild(document.createTextNode('Всего к оплате: ')); tp.appendChild(h('b', null, money(d.price))); tot.appendChild(tp);
+    sheet.appendChild(tot);
+    var c = (d.lines || []).length;
+    sheet.appendChild(h('p', 'words', 'Всего ' + c + ' ' + plural(c, 'наименование', 'наименования', 'наименований') + ' на сумму ' + tg(d.price) + ': ' + words(d.price) + '.'));
+    if (d.due) { var dp = h('p'); dp.appendChild(h('b', null, 'Оплатить до ' + day(d.due).replace(' г.', '') + '.')); sheet.appendChild(dp); }
+    if (d.payNote) sheet.appendChild(h('p', 'note', 'Как оплатить:\n' + d.payNote));
+    var sg = h('div', 'sign sign--inv'); sg.style.maxWidth = '420px';
+    sg.appendChild(h('span', null, 'Исполнитель')); sg.appendChild(h('i')); sg.appendChild(h('span', null, me.name || ''));
+    sheet.appendChild(sg);
+  }
+
+  function render(d) {
+    var c = d.kind === 'contract', name = c ? 'Договор' : 'Счёт на оплату';
+    document.title = name + (d.number ? ' № ' + d.number : '') + ' — ' + d.client + ' · WEBNEX STUDIO';
+    box.textContent = '';
+    var bar = h('div', 'dc__bar'), bp = h('p');
+    bp.appendChild(h('b', null, name + (d.number ? ' № ' + d.number : '')));
+    bp.appendChild(document.createTextNode(c ? 'Посмотрите условия. Если всё подходит — скачайте PDF, подпишите и пришлите мне фото или скан. Если хотите что-то поменять — напишите.'
+      : 'Реквизиты и сумма — ниже. После оплаты пришлите, пожалуйста, чек.'));
+    bar.appendChild(bp);
+    var acts = h('div', 'dc__acts'), pr = h('button', 'btn', 'Скачать PDF'); pr.type = 'button';
+    pr.addEventListener('click', function () { window.print(); });
+    acts.appendChild(pr); acts.appendChild(igBtn('btn btn--ghost'));
+    bar.appendChild(acts); box.appendChild(bar);
+    var sheet = h('article', 'sheet');
+    if (c) contract(d, sheet); else invoice(d, sheet);
+    box.appendChild(sheet);
+    document.getElementById('print').hidden = false;
+  }
+
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+  window.addEventListener('hashchange', function () { id = (location.hash || '').slice(1).toLowerCase(); load(); });
+  load();
+})();
+</script>
+</body>
+</html>

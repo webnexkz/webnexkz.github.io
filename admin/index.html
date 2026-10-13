@@ -246,6 +246,61 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
 .pill--ok{box-shadow:inset 0 0 0 1px rgba(79,240,176,.6);color:var(--ok)}
 .check.full{grid-column:1/-1}
 
+.src em{grid-column:1/-1;font-style:normal;font-size:12.5px;color:var(--dim)}
+.lead__memo{grid-column:1/-1;font-size:14px;color:var(--violet-soft);overflow-wrap:anywhere}
+.tools .btn{height:42px}
+/* вид: список или доска */
+.view{display:inline-flex;padding:3px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--wire)}
+.view button{height:36px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--muted);font-size:14px;transition:color .2s,background .2s}
+.view button:hover{color:var(--text)}
+.view button[aria-pressed=true]{background:var(--cyan);color:var(--cyan-ink);font-weight:600}
+.board-hint{margin:0 0 12px;font-size:13.5px;color:var(--dim)}
+.board{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:10px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.col{scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;min-width:0;min-height:260px;padding:10px;border:1px solid var(--hair);border-radius:var(--r);background:var(--bg-2);transition:border-color .15s,background .15s}
+.col.over{border-color:var(--cyan);background:rgba(41,211,255,.06)}
+.col__h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 8px;padding:2px 4px 4px}
+.col__h b{font:600 14px/1.3 var(--body)}
+.col__h small{font-size:12.5px;color:var(--dim)}
+.col__empty{padding:18px 6px;text-align:center;font-size:13px;color:var(--dim)}
+.tile{padding:11px 12px;border:1px solid var(--hair);border-radius:8px;background:var(--panel);font-size:13.5px;color:var(--muted);cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:border-color .15s}
+.tile:hover{border-color:var(--wire)}
+.tile b{display:block;margin-bottom:2px;font:600 14.5px/1.3 var(--body);color:var(--text);overflow-wrap:anywhere}
+.tile.lift{opacity:.3}
+.tile.press{border-color:var(--cyan)}
+.tile.ghost{position:fixed;z-index:60;margin:0;pointer-events:none;border-color:var(--cyan);box-shadow:0 18px 40px -12px rgba(0,0,0,.75);transform:rotate(1.5deg);cursor:grabbing}
+.tile__m{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:6px;font-size:12.5px;color:var(--dim)}
+.tile__m .due{color:var(--violet-soft)}
+.tile__m .ok{color:var(--ok)}
+body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
+/* задачи */
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tasks li{display:flex;align-items:flex-start;gap:6px;padding:5px 0;border-bottom:1px solid var(--hair)}
+.tasks li:last-child{border-bottom:0}
+.tasks label{flex:1;display:flex;align-items:flex-start;gap:10px;min-width:0;padding:3px 0;font-size:14.5px;cursor:pointer;overflow-wrap:anywhere}
+.tasks input{flex:none;width:18px;height:18px;margin:2px 0 0;accent-color:var(--ok)}
+.tasks li.done label span{color:var(--dim);text-decoration:line-through}
+.tasks .x{flex:none;width:32px;height:32px;border:0;border-radius:6px;background:none;color:var(--dim)}
+.tasks .x:hover{color:var(--err);background:rgba(255,122,147,.08)}
+.tasks .x svg{width:16px;height:16px}
+/* договор и счёт */
+.doc{display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:1px solid var(--hair)}
+.doc:first-of-type{padding-top:0;border-top:0}
+.doc__t{font-size:14.5px;color:var(--muted)}
+.doc__t b{font-weight:600;color:var(--text)}
+.me{border:1px solid var(--hair);border-radius:var(--r);background:var(--bg-2)}
+.me summary{display:flex;justify-content:space-between;gap:10px;padding:13px 14px;cursor:pointer;font-weight:600;font-size:15px;list-style:none}
+.me summary::-webkit-details-marker{display:none}
+.me summary::after{content:"+";color:var(--cyan);font-weight:600}
+.me[open] summary::after{content:"–"}
+.me summary small{margin-left:auto;font-weight:400;font-size:13px;color:var(--dim)}
+.me__in{display:flex;flex-direction:column;gap:12px;padding:0 14px 14px}
+.lines{display:flex;flex-direction:column;gap:8px}
+.ln{display:grid;grid-template-columns:1fr 70px 130px 42px;gap:6px}
+.ln .input{height:42px;font-size:15px;padding:0 10px}
+.ln .btn{height:42px}
+.ln-sum{font-size:14.5px;color:var(--muted)}
+.ln-sum b{color:var(--text)}
+.dlg__part{display:contents}
 @media (max-width:860px){
   .kpis{grid-template-columns:repeat(2,1fr)}
   .stats{grid-template-columns:1fr}
@@ -272,6 +327,11 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   .kpi{padding:14px}
   .bars{gap:6px}
   .bars:not(.bars--m) .bar:nth-child(odd) em{display:none}
+  .view{flex:1}
+  .view button{flex:1}
+  .board{grid-template-columns:repeat(5,78vw);scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 10px;scroll-padding:0 16px}
+  .ln{grid-template-columns:64px 1fr 42px}
+  .ln .ln__t{grid-column:1/-1}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -342,8 +402,8 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
             <div class="bars" id="bars"></div>
           </div>
           <div class="card">
-            <h2>Откуда приходят</h2>
-            <p class="sub">за всё время</p>
+            <h2>Откуда клиенты</h2>
+            <p class="sub">за всё время: заявки, сделки и деньги по каждому каналу</p>
             <ul class="src" id="src"></ul>
           </div>
           <div class="card">
@@ -362,6 +422,10 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
       <section aria-label="Заявки">
         <div class="tools">
           <h2 class="h2">Все заявки</h2>
+          <div class="view" id="view" role="group" aria-label="Как показывать заявки">
+            <button type="button" data-v="list" aria-pressed="true">Список</button>
+            <button type="button" data-v="board" aria-pressed="false">Доска</button>
+          </div>
           <div class="search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
             <input class="input" id="q" type="search" placeholder="Имя, телефон, бизнес" aria-label="Поиск по заявкам">
@@ -378,9 +442,14 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
             </select>
             <span class="period__c" id="per-c" hidden><input class="input" type="date" id="per-a" aria-label="С какого дня"> – <input class="input" type="date" id="per-b" aria-label="По какой день"></span>
           </div>
+          <button class="btn btn--ghost" id="csv-open" type="button" title="Скачать заявки или оплаты для Excel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Excel
+          </button>
         </div>
         <div class="chips" id="chips" role="group" aria-label="Фильтр по статусу" style="margin-bottom:14px"></div>
+        <p class="board-hint" id="board-hint" hidden>Перетащите карточку в другую колонку — статус сменится сам. На телефоне: нажмите и подержите карточку, потом ведите пальцем. С клавиатуры: стрелки ← →.</p>
         <div class="list" id="list"></div>
+        <div class="board" id="board" hidden></div>
       </section>
     </div>
   </main>
@@ -398,7 +467,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
       <div class="field"><label for="a-contact">Телефон или @ник *</label><input class="input" id="a-contact" maxlength="80" autocomplete="off"></div>
       <div class="field"><label for="a-type">Какой сайт</label><input class="input" id="a-type" maxlength="60" list="a-types" autocomplete="off" placeholder="например, Лендинг"></div>
       <div class="field"><label for="a-sum">Сумма, ₸</label><input class="input" id="a-sum" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="если уже обсуждали"></div>
-      <div class="field full"><span>Откуда</span><div class="seg" id="a-ref"></div></div>
+      <div class="field full"><span>Откуда клиент</span><div class="seg" id="a-ref"></div></div>
       <div class="field full"><label for="a-about">О бизнесе</label><textarea class="input" id="a-about" maxlength="300" placeholder="Чем занимается, что хочет"></textarea></div>
       <div class="field full"><span>Статус</span><div class="seg" id="a-status"></div></div>
     </div>
@@ -454,6 +523,77 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
       <label class="check full"><input type="checkbox" id="kp-maint" checked> Показать тарифы обслуживания после запуска</label>
     </div>
     <div class="dlg__foot"><p class="msg" id="kp-msg" role="alert"></p><button class="btn" type="submit" id="kp-btn">Сохранить и получить ссылку</button></div>
+  </form>
+</dialog>
+
+<dialog id="doc-dlg" aria-labelledby="doc-h">
+  <form class="dlg" id="doc-form" method="dialog" novalidate>
+    <div class="dlg__head">
+      <h2 id="doc-h">Договор</h2>
+      <button class="btn btn--ghost btn--icon" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="hint" id="doc-hint"></p>
+    <details class="me" id="me-box">
+      <summary>Мои реквизиты <small id="me-state"></small></summary>
+      <div class="me__in">
+        <p class="hint">Попадут в каждый документ. Хранятся в Apps Script, на сайте не публикуются — их видит только тот, кому вы отправили ссылку.</p>
+        <div class="dlg__grid">
+          <div class="field full"><label for="me-name">ИП или ФИО *</label><input class="input" id="me-name" maxlength="80" autocomplete="off" placeholder="ИП «WEBNEX» или Фамилия Имя Отчество"></div>
+          <div class="field"><label for="me-iin">ИИН / БИН *</label><input class="input" id="me-iin" maxlength="20" inputmode="numeric" autocomplete="off"></div>
+          <div class="field"><label for="me-city">Город</label><input class="input" id="me-city" maxlength="40" autocomplete="off" placeholder="Петропавловск"></div>
+          <div class="field"><label for="me-bank">Банк</label><input class="input" id="me-bank" maxlength="80" autocomplete="off" placeholder="АО «Kaspi Bank»"></div>
+          <div class="field"><label for="me-iban">Номер счёта (IBAN)</label><input class="input" id="me-iban" maxlength="34" autocomplete="off" placeholder="KZ…"></div>
+          <div class="field"><label for="me-bik">БИК</label><input class="input" id="me-bik" maxlength="20" autocomplete="off"></div>
+          <div class="field"><label for="me-kbe">Кбе</label><input class="input" id="me-kbe" maxlength="4" inputmode="numeric" autocomplete="off" placeholder="19"></div>
+          <div class="field full"><label for="me-phone">Телефон</label><input class="input" id="me-phone" maxlength="30" inputmode="tel" autocomplete="off"></div>
+          <div class="field full"><label for="me-pay">Как оплатить — подставится в счёт</label><textarea class="input" id="me-pay" maxlength="300" placeholder="Например: перевод Kaspi по номеру телефона или на счёт выше"></textarea></div>
+        </div>
+        <div class="dlg__foot"><p class="msg" id="me-msg" role="alert"></p><button class="btn btn--ghost btn--sm" type="button" id="me-save">Сохранить реквизиты</button></div>
+      </div>
+    </details>
+    <div class="dlg__grid">
+      <div class="field"><label for="doc-client">Клиент: ИП, ТОО или ФИО *</label><input class="input" id="doc-client" maxlength="80" autocomplete="off"></div>
+      <div class="field"><label for="doc-cid">ИИН / БИН клиента</label><input class="input" id="doc-cid" maxlength="20" inputmode="numeric" autocomplete="off" placeholder="если клиент дал"></div>
+      <div class="field"><label for="doc-cc">Телефон клиента</label><input class="input" id="doc-cc" maxlength="80" autocomplete="off"></div>
+      <div class="field"><label for="doc-date">Дата документа</label><input class="input" type="date" id="doc-date"></div>
+      <div class="dlg__part" id="doc-c">
+        <div class="field"><label for="doc-title">Какой сайт *</label><input class="input" id="doc-title" maxlength="80" list="a-types" autocomplete="off"></div>
+        <div class="field"><label for="doc-price">Цена, ₸ *</label><input class="input" id="doc-price" inputmode="numeric" maxlength="12" autocomplete="off"></div>
+        <div class="field"><label for="doc-days">Срок</label><input class="input" id="doc-days" maxlength="30" autocomplete="off" placeholder="7–10 рабочих дней"></div>
+        <div class="field"><label for="doc-edits">Правки</label><input class="input" id="doc-edits" maxlength="60" autocomplete="off" placeholder="3 круга правок"></div>
+        <div class="field full"><span>Предоплата</span><div class="seg" id="doc-prepay"></div></div>
+        <div class="field full"><label for="doc-support">Бесплатная поддержка после запуска</label><input class="input" id="doc-support" maxlength="80" autocomplete="off" placeholder="14 дней"></div>
+        <div class="field full"><label for="doc-items">Что входит в работу — каждый пункт с новой строки</label><textarea class="input" id="doc-items" rows="8"></textarea></div>
+      </div>
+      <div class="dlg__part" id="doc-i">
+        <div class="field full"><span>За что счёт: название, количество, цена за штуку</span><div class="lines" id="doc-lines"></div>
+          <div class="row"><button class="btn btn--ghost btn--sm" type="button" id="doc-line">+ Строка</button><span class="ln-sum" id="doc-sum"></span></div></div>
+        <div class="field"><label for="doc-due">Оплатить до</label><input class="input" type="date" id="doc-due"></div>
+        <div class="field"><label for="doc-cno">По договору №</label><input class="input" id="doc-cno" maxlength="20" autocomplete="off" placeholder="если есть"></div>
+        <div class="field full"><label for="doc-pay">Как оплатить</label><textarea class="input" id="doc-pay" maxlength="300"></textarea></div>
+      </div>
+    </div>
+    <p class="hint">Это простой типовой шаблон. Для крупной или необычной сделки покажите его юристу.</p>
+    <div class="dlg__foot"><p class="msg" id="doc-msg" role="alert"></p><button class="btn" type="submit" id="doc-btn">Сохранить и получить ссылку</button></div>
+  </form>
+</dialog>
+
+<dialog id="csv-dlg" aria-labelledby="csv-h">
+  <form class="dlg" id="csv-form" method="dialog" novalidate>
+    <div class="dlg__head">
+      <h2 id="csv-h">Выгрузка для Excel</h2>
+      <button class="btn btn--ghost btn--icon" type="button" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="hint">Скачается файл .csv — он открывается в Excel и Google Таблицах. Заявки отбираются по дню, когда пришли, оплаты — по дню оплаты. Пустые даты — за всё время.</p>
+    <div class="dlg__grid">
+      <div class="field"><label for="csv-a">С какого дня</label><input class="input" type="date" id="csv-a"></div>
+      <div class="field"><label for="csv-b">По какой день</label><input class="input" type="date" id="csv-b"></div>
+      <div class="links full" id="csv-quick"></div>
+      <label class="check full"><input type="checkbox" id="csv-arch"> Вместе с архивом</label>
+    </div>
+    <div class="dlg__foot"><p class="msg" id="csv-msg" role="alert"></p>
+      <button class="btn btn--ghost" type="button" id="csv-pay">Скачать оплаты</button>
+      <button class="btn" type="button" id="csv-leads">Скачать заявки</button></div>
   </form>
 </dialog>
 
@@ -520,7 +660,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   $('logout').addEventListener('click', function () { dropKey(); leads = []; seen = null; fresh = {}; unread = 0; title(); $('list').textContent = ''; showLogin(); });
 
   // ---------- данные ----------
-  var leads = [], filter = 'все', query = '', open = {}, loadedAt = 0;
+  var leads = [], filter = 'все', query = '', open = {}, loadedAt = 0, me = {};
 
   function load(quiet) {
     var b = $('refresh'); b.classList.add('spin');
@@ -541,6 +681,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   function got(r, quiet) {
     leads = (r.leads || []).sort(function (a, b) { return b.ts - a.ts; });
     if (Array.isArray(r.templates)) tpls = r.templates;
+    if (r.me) me = r.me;
     loadedAt = Date.now();
     $('loading').hidden = true; $('content').hidden = false;
     detectNew(quiet);
@@ -621,7 +762,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     return String(l.log || '').split('\n').filter(function (s) { return s.trim(); }).map(function (s) {
       var m = s.match(/^(\d\d)\.(\d\d)\.(\d{4}) (\d\d):(\d\d) · ([\s\S]*)$/);
       var e = m ? { t: new Date(+m[3], m[2] - 1, +m[1], +m[4], +m[5]).getTime(), x: m[6] } : { t: 0, x: s };
-      e.sys = /^(статус: |добавлена вручную|оплата: |оплачено исправлено|этап|обслуживание|КП |клиент открыл КП)/.test(e.x);
+      e.sys = /^(статус: |добавлена вручную|оплата: |оплачено исправлено|этап|обслуживание|КП |клиент открыл|источник|договор № |счёт № )/.test(e.x);
       return e;
     });
   }
@@ -721,18 +862,26 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     var p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', d); s.appendChild(p);
     return s;
   }
-  function source(ref) {
-    var r = (ref || '').toLowerCase();
-    if (/^вручную/.test(r)) return (ref.split('·')[1] || 'другое').trim().replace(/^./, function (c) { return c.toUpperCase(); }) + ' (вручную)';
-    if (!r || r === 'прямой заход') return 'Прямой заход';
+  // откуда клиент: что выбрано в заявке, а если не выбрано — угадываю по ссылке (так же считает Apps Script)
+  var SOURCES = ['Сайт', 'Instagram', '2ГИС', 'Google Карты', 'По знакомству', 'Другое'];
+  function chan(l) {
+    if (SOURCES.indexOf(l.src) >= 0) return l.src;
+    var r = String(l.ref || '').toLowerCase();
+    if (/^вручную/.test(r)) {
+      if (/instagram|direct/.test(r)) return 'Instagram';
+      if (/знаком/.test(r)) return 'По знакомству';
+      if (/2гис|2gis/.test(r)) return '2ГИС';
+      if (/google|гугл/.test(r)) return 'Google Карты';
+      return 'Другое';
+    }
     if (/instagram|^ig$/.test(r)) return 'Instagram';
-    if (/google/.test(r)) return 'Google';
-    if (/yandex|ya\.ru/.test(r)) return 'Яндекс';
-    if (/2gis/.test(r)) return '2ГИС';
-    if (/t\.me|telegram/.test(r)) return 'Telegram';
-    if (/wa\.me|whatsapp/.test(r)) return 'WhatsApp';
-    return ref;
+    if (/2gis|2гис/.test(r)) return '2ГИС';
+    if (/google_?maps|gmaps|maps\.google|maps\.app|g\.page|^gbp|^gmb/.test(r)) return 'Google Карты';
+    return 'Сайт';
   }
+  // деньги с клиента: по сделанным — сумма сделки, по остальным — сколько уже заплатил
+  function earned(l) { return l.status === 'сделано' ? Math.max(l.deal || 0, l.paid || 0) : l.paid || 0; }
+  function tasksDone(l) { return (l.tasks || []).filter(function (x) { return x.d; }).length; }
 
   // ---------- отрисовка ----------
   function render() { stats(); chips(); list(); }
@@ -797,7 +946,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
         tip: MONF[m.m] + (m.y !== new Date().getFullYear() ? ' ' + m.y : '') + ': ' + money(m.n) + (m.c ? ' · ' + plural(m.c, 'сделка', 'сделки', 'сделок') : '') };
     }));
 
-    drawTop($('src'), leads.map(function (l) { return source(l.ref); }));
+    drawChannels($('src'));
     drawTop($('types'), leads.map(function (l) { return l.type || 'Не указан'; }));
 
     // деньги: сколько ещё должны и сколько клиентов на обслуживании
@@ -824,7 +973,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
         if (i < arr.length - 1) rm.appendChild(document.createTextNode(' · '));
       });
     };
-    group('Пора связаться:', due, function (l) { return l.name + (day0(l.next) < day0(Date.now()) ? ' (с ' + dShort(l.next) + ')' : ''); });
+    group('Пора связаться:', due, function (l) { return l.name + (day0(l.next) < day0(Date.now()) ? ' (с ' + dShort(l.next) + ')' : '') + (l.memo ? ' — ' + l.memo : ''); });
     group('Продлить обслуживание:', renew, function (l) {
       var d = daysLeft(l.until);
       return l.name + ' (' + (d > 0 ? 'до ' + dShort(l.until) : d === 0 ? 'сегодня последний день' : 'закончилось ' + dShort(l.until)) + ')';
@@ -873,6 +1022,26 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     });
   }
 
+  // каналы: сколько заявок, сделок и денег дал каждый
+  function drawChannels(ul) {
+    var by = {};
+    leads.forEach(function (l) {
+      var k = chan(l), r = by[k] || (by[k] = { n: 0, d: 0, m: 0 });
+      r.n++; if (l.status === 'сделано') r.d++; r.m += earned(l);
+    });
+    var rows = SOURCES.filter(function (k) { return by[k]; }).sort(function (a, b) { return by[b].n - by[a].n || by[b].m - by[a].m; });
+    ul.textContent = '';
+    if (!rows.length) { ul.appendChild(h('li', 'empty-s', 'Пока нет данных')); return; }
+    var most = Math.max.apply(null, rows.map(function (k) { return by[k].n; }).concat(1));
+    rows.forEach(function (k) {
+      var r = by[k], li = h('li');
+      li.appendChild(h('span', null, k)); li.appendChild(h('b', null, plural(r.n, 'заявка', 'заявки', 'заявок')));
+      var s = h('s'), i = h('i'); i.style.width = (r.n / most * 100) + '%'; s.appendChild(i); li.appendChild(s);
+      li.appendChild(h('em', null, (r.d ? plural(r.d, 'сделка', 'сделки', 'сделок') + ' · ' + Math.round(r.d / r.n * 100) + '%' : 'сделок пока нет') + (r.m ? ' · ' + money(r.m) : '')));
+      ul.appendChild(li);
+    });
+  }
+
   function chips() {
     var c = $('chips'); c.textContent = '';
     var base = leads.filter(inPer);
@@ -887,18 +1056,22 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     });
   }
 
-  function visible() {
+  function visible(any) {
     var q = query.toLowerCase(), qd = query.replace(/\D/g, '');
     return leads.filter(function (l) {
-      if (filter !== 'все' && l.status !== filter) return false;
+      if (!any && filter !== 'все' && l.status !== filter) return false;
       if (!inPer(l)) return false;
       if (!q) return true;
-      var hay = [l.name, l.contact, l.about, l.type, l.log, l.ref].join(' ').toLowerCase();
+      var hay = [l.name, l.contact, l.about, l.type, l.log, l.ref, l.memo, chan(l)].join(' ').toLowerCase();
       return hay.indexOf(q) >= 0 || (qd.length >= 3 && l.contact.replace(/\D/g, '').indexOf(qd) >= 0);
     });
   }
 
   function list() {
+    var b = view === 'board';
+    $('board').hidden = !b; $('board-hint').hidden = !b; $('list').hidden = b; $('chips').hidden = b;
+    if (b) { $('list').textContent = ''; board(); return; }
+    $('board').textContent = '';
     var box = $('list'); box.textContent = '';
     var items = visible();
     if (!items.length) {
@@ -919,6 +1092,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     var pill = h('span', 'pill', l.status); pill.dataset.s = l.status; nm.appendChild(pill);
     if (isDue(l)) nm.appendChild(h('span', 'pill pill--due', 'связаться ' + (day0(l.next) === day0(Date.now()) ? 'сегодня' : 'с ' + dShort(l.next))));
     else if (l.next && l.status !== 'сделано' && l.status !== 'отказ') nm.appendChild(h('span', 'pill', 'связаться ' + dShort(l.next)));
+    if (l.tasks && l.tasks.length) nm.appendChild(h('span', 'pill' + (tasksDone(l) === l.tasks.length ? ' pill--ok' : ''), 'задачи ' + tasksDone(l) + '/' + l.tasks.length));
     var prog = [];
     if (l.stage && l.status === 'в работе') prog.push(l.stage);
     if (owes(l)) prog.push(l.paid ? 'оплачено ' + Math.floor(l.paid / l.deal * 100) + '%' : 'не оплачено');
@@ -928,6 +1102,8 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
       nm.appendChild(h('span', 'pill ' + (left < 0 ? 'pill--due' : 'pill--ok'), l.maint + (left < 0 ? ' · закончилось' : ' до ' + dShort(l.until))));
     }
     if (l.kp) nm.appendChild(h('span', 'pill', l.kpViews ? 'КП открыто' : 'КП не открыто'));
+    if (l.contract) nm.appendChild(h('span', 'pill', l.contractViews ? 'договор открыт' : 'договор не открыт'));
+    if (l.invoice) nm.appendChild(h('span', 'pill', l.invoiceViews ? 'счёт открыт' : 'счёт не открыт'));
     head.appendChild(nm);
     head.appendChild(h('span', 'lead__date', when(l.ts)));
     var meta = h('p', 'lead__meta'), what = h('strong', null, l.type || 'Сайт');
@@ -936,6 +1112,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     if (rest) meta.appendChild(document.createTextNode(' · ' + rest));
     head.appendChild(meta);
     if (l.about) head.appendChild(h('p', 'lead__about', l.about));
+    if (l.memo && l.next && l.status !== 'сделано' && l.status !== 'отказ') head.appendChild(h('p', 'lead__memo', 'Напомнить ' + dShort(l.next) + ': ' + l.memo));
     var lastNote = hist(l).filter(function (e) { return !e.sys; }).pop();
     if (lastNote) head.appendChild(h('p', 'lead__note', '✎ ' + lastNote.x));
     el.appendChild(head);
@@ -998,25 +1175,41 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     var nextF = h('div', 'field'), nextId = 'n' + l.ts;
     var nl = h('label', null, 'Связаться'); nl.htmlFor = nextId; nextF.appendChild(nl);
     var next = h('input', 'input'); next.type = 'date'; next.id = nextId; next.value = iso(l.next);
-    nextF.appendChild(next); f.appendChild(nextF);
+    nextF.appendChild(next);
+    var quick = h('div', 'links');
+    [[1, 'завтра'], [3, 'через 3 дня'], [7, 'через неделю']].forEach(function (x) {
+      quick.appendChild(linkBtn(x[1], function () { next.value = iso(day0(Date.now()) + x[0] * 864e5 + 36e5); f.dataset.dirty = '1'; memo.focus(); }));
+    });
+    nextF.appendChild(quick); f.appendChild(nextF);
+
+    var memoF = h('div', 'field full'), memoId = 'r' + l.ts;
+    var ml = h('label', null, 'О чём напомнить — придёт в Telegram утром в этот день'); ml.htmlFor = memoId; memoF.appendChild(ml);
+    var memo = h('input', 'input'); memo.id = memoId; memo.maxLength = 200; memo.value = l.memo || '';
+    memo.placeholder = 'например: спросить, готовы ли тексты и фото';
+    memo.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click(); });
+    memoF.appendChild(memo); f.appendChild(memoF);
 
     var foot = h('div', 'edit__foot');
     var btn = h('button', 'btn btn--sm', 'Сохранить'); btn.type = 'button';
     btn.addEventListener('click', function () {
-      var data = { deal: deal.value.replace(/\D/g, ''), next: next.value };
+      var data = { deal: deal.value.replace(/\D/g, ''), next: next.value, memo: next.value ? memo.value.trim() : '' };
       btn.disabled = true;
       save(l, data, saved, null, function () {
         btn.disabled = false;
         l.deal = +data.deal || 0;
         l.next = data.next ? new Date(data.next + 'T00:00:00').getTime() : 0;
+        l.memo = data.memo;
       });
     });
     foot.appendChild(btn); foot.appendChild(saved);
     f.appendChild(foot);
 
+    f.appendChild(srcField(l));
     if (l.status === 'в работе' || l.status === 'сделано' || l.paid || l.stage) f.appendChild(payBlock(l));
+    if (l.status === 'в работе' || l.status === 'сделано' || (l.tasks && l.tasks.length)) f.appendChild(tasksBlock(l));
     if (l.status === 'сделано' || l.maint) f.appendChild(maintBlock(l));
     if (l.status !== 'отказ' || l.kp) f.appendChild(kpBlock(l));
+    if (l.status === 'связался' || l.status === 'в работе' || l.status === 'сделано' || l.contract || l.invoice) f.appendChild(docBlock(l));
 
     // история по клиенту: новые записи сверху
     var hf = h('div', 'field full'), logId = 'm' + l.ts;
@@ -1064,6 +1257,79 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     f.appendChild(foot2);
     f.addEventListener('input', function () { f.dataset.dirty = '1'; });
     return f;
+  }
+
+  // откуда клиент: сохраняется сразу по нажатию
+  function srcField(l) {
+    var fl = h('div', 'field full'), lab = h('span'), msg = h('span', 'saved');
+    var guess = !l.src;
+    lab.appendChild(document.createTextNode('Откуда клиент'));
+    if (guess) lab.appendChild(h('small', 'hint', ' — угадал по ссылке, нажмите нужное, чтобы запомнить'));
+    fl.appendChild(lab);
+    var seg = h('div', 'seg'), cur = chan(l);
+    SOURCES.forEach(function (x) {
+      var b = h('button', null, x); b.type = 'button'; b.setAttribute('aria-pressed', String(x === cur));
+      b.addEventListener('click', function () {
+        if (l.src === x) return;
+        var prev = l.src; l.src = x;
+        [].forEach.call(seg.children, function (y) { y.setAttribute('aria-pressed', String(y === b)); });
+        save(l, { src: x }, msg, function () { l.src = prev; });
+      });
+      seg.appendChild(b);
+    });
+    fl.appendChild(seg); fl.appendChild(msg);
+    return fl;
+  }
+
+  // чек-лист задач по проекту
+  var TASKS_DEF = ['Получить тексты, фото и логотип', 'Предоплата', 'Макет главной страницы', 'Согласовать макет', 'Собрать все страницы',
+    'Правки клиента', 'Домен и запуск', 'Заявки в Telegram и таблицу', 'Карточка в 2ГИС и Google Картах', 'Видео-инструкция', 'Оплата остатка'];
+  function tasksBlock(l) {
+    var b = h('div', 'block'), msg = h('span', 'saved'), hd = h('div', 'block__h'), cnt = h('span');
+    hd.appendChild(h('b', null, 'Задачи по проекту')); hd.appendChild(cnt); b.appendChild(hd);
+    var ul = h('ul', 'tasks');
+    var put = function (arr, after) {
+      var prev = l.tasks; l.tasks = arr; draw();
+      save(l, { tasks: arr }, msg, function () { l.tasks = prev; draw(); }, after);
+    };
+    var draw = function () {
+      var t = l.tasks || [];
+      ul.textContent = '';
+      cnt.textContent = t.length ? 'готово ' + tasksDone(l) + ' из ' + t.length : '';
+      t.forEach(function (x, i) {
+        var li = h('li', x.d ? 'done' : null), lb = h('label'), cb = h('input');
+        cb.type = 'checkbox'; cb.checked = !!x.d;
+        cb.addEventListener('change', function () {
+          put(t.map(function (y, j) { return j === i ? { t: y.t, d: cb.checked } : y; }));
+        });
+        lb.appendChild(cb); lb.appendChild(h('span', null, x.t)); li.appendChild(lb);
+        var del = h('button', 'x'); del.type = 'button'; del.setAttribute('aria-label', 'Удалить задачу «' + x.t + '»'); del.title = 'Удалить';
+        del.appendChild(icon('M6 6l12 12M18 6 6 18'));
+        del.addEventListener('click', function () { put(t.filter(function (y, j) { return j !== i; })); });
+        li.appendChild(del); ul.appendChild(li);
+      });
+      plan.hidden = t.length > 0;
+    };
+    b.appendChild(ul);
+    var row = h('div', 'row'), inp = h('input', 'input');
+    inp.maxLength = 160; inp.placeholder = 'Новая задача'; inp.setAttribute('aria-label', 'Новая задача');
+    var add = h('button', 'btn btn--ghost btn--sm', 'Добавить'); add.type = 'button';
+    add.addEventListener('click', function () {
+      var v = inp.value.trim();
+      if (!v) { inp.focus(); return; }
+      if ((l.tasks || []).length >= 60) { msg.className = 'saved err'; msg.textContent = 'Не больше 60 задач'; return; }
+      put((l.tasks || []).concat({ t: v, d: false }), function () { inp.value = ''; });
+    });
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') add.click(); });
+    row.appendChild(inp); row.appendChild(add); b.appendChild(row);
+    var plan = h('div', 'links');
+    plan.appendChild(linkBtn('Добавить типовой план (' + TASKS_DEF.length + ' шагов)', function () {
+      put(TASKS_DEF.map(function (x) { return { t: x, d: x === 'Предоплата' && l.paid > 0 }; }));
+    }));
+    b.appendChild(plan);
+    hd.appendChild(msg);
+    draw();
+    return b;
   }
 
   // оплата по частям и этап работы
@@ -1192,6 +1458,40 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     return b;
   }
 
+  // договор и счёт: страница для клиента по ссылке, PDF — через печать
+  var DOC_URL = 'https://webnexkz.github.io/doc/#';
+  var DOC_NAME = { contract: 'Договор', invoice: 'Счёт' };
+  function docBlock(l) {
+    var b = h('div', 'block'), hd = h('div', 'block__h');
+    hd.appendChild(h('b', null, 'Договор и счёт'));
+    hd.appendChild(h('span', null, 'клиент открывает по ссылке, PDF — кнопкой на странице'));
+    b.appendChild(hd);
+    ['contract', 'invoice'].forEach(function (kind) {
+      var id = l[kind], no = l[kind + 'No'], v = l[kind + 'Views'] || 0;
+      var part = h('div', 'doc'), t = h('p', 'doc__t');
+      if (id) {
+        t.appendChild(h('b', null, DOC_NAME[kind] + (no ? ' № ' + no : '')));
+        t.appendChild(document.createTextNode(' · ' + (v ? 'клиент открыл ' + plural(v, 'раз', 'раза', 'раз') : 'клиент ещё не открывал')));
+      } else t.textContent = kind === 'contract' ? 'Договор на разработку: работы, цена, сроки, предоплата, правки. Заполню из КП или заявки.' : 'Счёт на оплату: предоплата или остаток — посчитаю сам.';
+      part.appendChild(t);
+      var row = h('div', 'row'), btn = function (cls, text, fn) { var x = h('button', 'btn btn--sm ' + cls, text); x.type = 'button'; x.addEventListener('click', fn); row.appendChild(x); };
+      if (id) {
+        var url = DOC_URL + id;
+        btn('', 'Отправить клиенту', function () {
+          send(l, { x: kind === 'contract'
+            ? 'Здравствуйте, {имя}! Отправляю договор на разработку сайта' + (no ? ' № ' + no : '') + '. Посмотрите, пожалуйста, — если всё устраивает, подпишем: ' + url
+            : 'Здравствуйте, {имя}! Отправляю счёт на оплату' + (no ? ' № ' + no : '') + ': ' + url });
+        });
+        btn('btn--ghost', 'Скопировать ссылку', function () { copy(url); toast('Ссылка скопирована'); });
+        btn('btn--ghost', 'Посмотреть / PDF', function () { window.open(new URL('../doc/?p=1#' + id, location.href).href, '_blank', 'noopener'); });
+        btn('btn--ghost', 'Изменить', function () { docOpen(l, kind); });
+      } else btn(kind === 'contract' ? '' : 'btn--ghost', kind === 'contract' ? 'Сделать договор' : 'Сделать счёт', function () { docOpen(l, kind); });
+      part.appendChild(row);
+      b.appendChild(part);
+    });
+    return b;
+  }
+
   function save(l, data, msg, undo, after) {
     msg.className = 'saved'; msg.textContent = 'Сохраняю…';
     data.action = 'update'; data.row = l.row; data.ts = l.ts;
@@ -1254,7 +1554,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     [].forEach.call(d.querySelectorAll('[data-close]'), function (b) { b.onclick = function () { close(d); }; });
   }
   function close(d) { if (typeof d.close === 'function') d.close(); else d.removeAttribute('open'); }
-  [$('add-dlg'), $('tpl-dlg'), $('kp-dlg')].forEach(function (d) {
+  [$('add-dlg'), $('tpl-dlg'), $('kp-dlg'), $('doc-dlg'), $('csv-dlg')].forEach(function (d) {
     d.addEventListener('click', function (e) { if (e.target === d) close(d); });   // нажатие мимо окна
   });
   function segPick(box, items, val) {
@@ -1270,7 +1570,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
   // ---------- заявка вручную ----------
   $('add').addEventListener('click', function () {
     $('add-form').reset(); $('add-msg').textContent = '';
-    segPick($('a-ref'), ['Instagram Direct', 'Звонок', 'WhatsApp', 'Знакомые', 'Другое'], 'Instagram Direct');
+    segPick($('a-ref'), SOURCES, 'Instagram');
     segPick($('a-status'), ['новая', 'связался', 'в работе'], 'связался');
     modal($('add-dlg'));
     setTimeout(function () { $('a-name').focus(); }, 50);
@@ -1283,7 +1583,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     if (contact.length < 3) { $('add-msg').textContent = 'Впишите телефон или ник в Instagram.'; $('a-contact').focus(); return; }
     var btn = $('add-btn'); btn.disabled = true; btn.textContent = 'Добавляю…'; $('add-msg').textContent = '';
     api({ action: 'add', name: name, contact: contact, type: $('a-type').value.trim(), sum: $('a-sum').value.trim(),
-      about: $('a-about').value.trim(), ref: segVal($('a-ref')), status: segVal($('a-status')) }).then(function (r) {
+      about: $('a-about').value.trim(), src: segVal($('a-ref')), status: segVal($('a-status')) }).then(function (r) {
       btn.disabled = false; btn.textContent = 'Добавить';
       if (!r.ok) throw r;
       if (seen) seen[r.lead.ts] = 1;
@@ -1443,6 +1743,424 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
     });
   });
 
+  // ---------- договор и счёт: окно ----------
+  var docLead = null, docKind = 'contract';
+  var ME_KEYS = ['name', 'iin', 'city', 'bank', 'iban', 'bik', 'kbe', 'phone', 'pay'];
+  function meFill() {
+    ME_KEYS.forEach(function (k) { $('me-' + k).value = me[k] || ''; });
+    var ok = me.name && me.iin;
+    $('me-state').textContent = ok ? me.name : 'не заполнены';
+    $('me-box').open = !ok;
+    $('me-msg').textContent = '';
+  }
+  $('me-save').addEventListener('click', function () {
+    var m = {}, btn = this;
+    ME_KEYS.forEach(function (k) { m[k] = $('me-' + k).value.trim(); });
+    if (!m.name) { $('me-msg').textContent = 'Впишите ИП или ФИО.'; $('me-name').focus(); return; }
+    btn.disabled = true; $('me-msg').textContent = 'Сохраняю…';
+    api({ action: 'me', me: m }).then(function (r) {
+      btn.disabled = false;
+      if (!r.ok) throw r;
+      me = r.me || m; meFill(); $('me-box').open = false;
+      if (docKind === 'invoice' && !$('doc-pay').value.trim()) $('doc-pay').value = me.pay || '';
+      toast('Реквизиты сохранены');
+    }).catch(function (r) {
+      btn.disabled = false;
+      if (r && r.error === 'key') { close($('doc-dlg')); dropKey(); showLogin(ERR.key); return; }
+      $('me-msg').textContent = ERR[r && r.error] || ERR.net;
+    });
+  });
+
+  function lineRow(x) {
+    var row = h('div', 'ln');
+    var t = h('input', 'input ln__t'); t.maxLength = 120; t.value = x.t || ''; t.placeholder = 'За что'; t.setAttribute('aria-label', 'За что');
+    var q = h('input', 'input'); q.inputMode = 'numeric'; q.maxLength = 4; q.value = x.q || 1; q.setAttribute('aria-label', 'Количество'); q.title = 'Количество';
+    var p = h('input', 'input'); p.inputMode = 'numeric'; p.maxLength = 12; p.value = x.p ? money(x.p).replace(' ₸', '') : ''; p.placeholder = 'Цена, ₸'; p.setAttribute('aria-label', 'Цена за штуку, ₸');
+    numInput(p);
+    var del = h('button', 'btn btn--ghost btn--icon'); del.type = 'button'; del.setAttribute('aria-label', 'Убрать строку'); del.title = 'Убрать строку';
+    del.appendChild(icon('M6 6l12 12M18 6 6 18'));
+    del.addEventListener('click', function () { row.remove(); lineSum(); });
+    [q, p].forEach(function (el) { el.addEventListener('input', lineSum); });
+    row.appendChild(t); row.appendChild(q); row.appendChild(p); row.appendChild(del);
+    return row;
+  }
+  function lines() {
+    return [].map.call($('doc-lines').children, function (r) {
+      var v = r.querySelectorAll('input');
+      return { t: v[0].value.trim(), q: Math.max(1, digits(v[1].value) || 1), p: digits(v[2].value) };
+    }).filter(function (x) { return x.t && x.p; });
+  }
+  function lineSum() {
+    var s = lines().reduce(function (t, x) { return t + x.q * x.p; }, 0);
+    $('doc-sum').textContent = '';
+    if (s) { $('doc-sum').appendChild(document.createTextNode('Итого: ')); $('doc-sum').appendChild(h('b', null, money(s))); }
+  }
+  $('doc-line').addEventListener('click', function () {
+    if ($('doc-lines').children.length >= 20) return;
+    var r = lineRow({}); $('doc-lines').appendChild(r); r.querySelector('input').focus();
+  });
+  numInput($('doc-price'));
+
+  function docFill(kind, d) {
+    $('doc-client').value = d.client || ''; $('doc-cid').value = d.clientId || ''; $('doc-cc').value = d.clientContact || '';
+    $('doc-date').value = d.date || iso(Date.now());
+    if (kind === 'contract') {
+      $('doc-title').value = d.title || ''; $('doc-price').value = d.price ? money(d.price).replace(' ₸', '') : '';
+      $('doc-days').value = d.days || ''; $('doc-edits').value = d.edits || ''; $('doc-support').value = d.support || '';
+      segPick($('doc-prepay'), ['30%', '50%', '100%', 'без предоплаты'], d.prepay ? d.prepay + '%' : 'без предоплаты');
+      $('doc-items').value = (d.items || []).join('\n');
+    } else {
+      $('doc-lines').textContent = '';
+      (d.lines && d.lines.length ? d.lines : [{}]).forEach(function (x) { $('doc-lines').appendChild(lineRow(x)); });
+      lineSum();
+      $('doc-due').value = d.due || ''; $('doc-cno').value = d.contractNo || ''; $('doc-pay').value = d.payNote || '';
+    }
+  }
+  // правки и поддержка — как в тарифе калькулятора
+  var TIER_TERMS = { 'Старт': ['2 круга правок', '7 дней'], 'Бизнес': ['3 круга правок', '14 дней'], 'Всё включено': ['без ограничений', '1 месяц'] };
+  function docOpen(l, kind) {
+    docLead = l; docKind = kind;
+    var c = kind === 'contract', id = l[kind];
+    $('doc-h').textContent = c ? 'Договор' + (l.contractNo ? ' № ' + l.contractNo : '') : 'Счёт на оплату' + (l.invoiceNo ? ' № ' + l.invoiceNo : '');
+    $('doc-c').hidden = !c; $('doc-i').hidden = c;
+    $('doc-msg').textContent = ''; $('doc-btn').disabled = false; $('doc-btn').textContent = 'Сохранить и получить ссылку';
+    meFill();
+    var tier = TIERS.indexOf(l.tier) >= 0 ? l.tier : 'Бизнес', T = TYPES[l.type], i = TIERS.indexOf(tier), terms = TIER_TERMS[tier];
+    var title = l.type || 'Сайт', price = l.deal || digits(l.sum) || (T ? T.p[i] : 0);
+    var base = { client: l.name, clientContact: l.contact, city: me.city || '' };
+    if (c) {
+      base.title = title; base.price = price; base.days = l.days || (T ? T.d[i] + ' рабочих дней' : '');
+      base.prepay = 50; base.edits = terms[0]; base.support = terms[1]; base.items = kpItems(l.type, tier);
+    } else {
+      var left = l.deal ? Math.max(0, l.deal - (l.paid || 0)) : 0;
+      base.lines = !l.paid
+        ? [{ t: 'Предоплата 50% за разработку сайта «' + title + '»', q: 1, p: Math.round(price / 2) }]
+        : [{ t: 'Оплата остатка за разработку сайта «' + title + '»', q: 1, p: left }];
+      base.due = iso(Date.now() + 3 * 864e5); base.contractNo = l.contractNo || ''; base.payNote = me.pay || '';
+    }
+    docFill(kind, base);
+    $('doc-hint').textContent = id ? 'Загружаю сохранённый документ…'
+      : c ? 'Заполнил из заявки' + (l.kp ? ' и КП' : '') + ' — проверьте. Клиент откроет договор по ссылке и сможет скачать PDF.'
+        : 'Посчитал из суммы сделки и оплат — проверьте. Клиент откроет счёт по ссылке и сможет скачать PDF.';
+    modal($('doc-dlg'));
+    setTimeout(function () { $('doc-client').focus(); }, 50);
+    var mine = function () { return docLead === l && docKind === kind; };
+    if (id) {
+      api({ action: 'docget', id: id }).then(function (r) {
+        if (!mine()) return;
+        if (!r.ok) throw r;
+        $('doc-hint').textContent = 'Ссылка останется прежней — клиент увидит обновлённый документ.';
+        docFill(kind, r.doc);
+      }).catch(function () { if (mine()) $('doc-hint').textContent = 'Не удалось загрузить сохранённое — показываю данные из заявки.'; });
+      return;
+    }
+    // новый договор: берём цену, срок и состав из КП, если оно есть
+    if (c && l.kp) api({ action: 'kpget', id: l.kp }).then(function (r) {
+      if (!mine() || !r.ok || !r.kp) return;
+      var k = r.kp;
+      if (k.title) $('doc-title').value = k.title;
+      if (k.price) $('doc-price').value = money(k.price).replace(' ₸', '');
+      if (k.days) $('doc-days').value = k.days;
+      segPick($('doc-prepay'), ['30%', '50%', '100%', 'без предоплаты'], k.prepay ? k.prepay + '%' : 'без предоплаты');
+      if (k.items && k.items.length) $('doc-items').value = k.items.join('\n');
+      if (TIER_TERMS[k.tier]) { $('doc-edits').value = TIER_TERMS[k.tier][0]; $('doc-support').value = TIER_TERMS[k.tier][1]; }
+    }).catch(function () {});
+    // новый счёт на предоплату: процент — из договора
+    if (!c && !l.paid && l.contract) api({ action: 'docget', id: l.contract }).then(function (r) {
+      if (!mine() || !r.ok || !r.doc) return;
+      var d = r.doc, pp = d.prepay || 100, v = $('doc-lines').querySelectorAll('.ln');
+      if (v.length !== 1) return;
+      var inp = v[0].querySelectorAll('input');
+      inp[0].value = (pp >= 100 ? 'Оплата' : 'Предоплата ' + pp + '%') + ' за разработку сайта «' + (d.title || title) + '»';
+      inp[2].value = money(Math.round(d.price * pp / 100)).replace(' ₸', '');
+      if (d.number) $('doc-cno').value = d.number;
+      lineSum();
+    }).catch(function () {});
+  }
+  $('doc-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var l = docLead, kind = docKind, msg = $('doc-msg');
+    var d = { client: $('doc-client').value.trim(), clientId: $('doc-cid').value.trim(), clientContact: $('doc-cc').value.trim(),
+      date: $('doc-date').value, city: me.city || '' };
+    if (d.client.length < 2) { msg.textContent = 'Впишите, кто клиент.'; $('doc-client').focus(); return; }
+    if (kind === 'contract') {
+      d.title = $('doc-title').value.trim(); d.price = digits($('doc-price').value); d.days = $('doc-days').value.trim();
+      d.prepay = parseInt(segVal($('doc-prepay')), 10) || 0; d.edits = $('doc-edits').value.trim(); d.support = $('doc-support').value.trim();
+      d.items = $('doc-items').value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+      if (!d.title) { msg.textContent = 'Впишите, какой сайт.'; $('doc-title').focus(); return; }
+      if (!d.price) { msg.textContent = 'Впишите цену.'; $('doc-price').focus(); return; }
+    } else {
+      d.lines = lines(); d.price = d.lines.reduce(function (t, x) { return t + x.q * x.p; }, 0);
+      d.due = $('doc-due').value; d.contractNo = $('doc-cno').value.trim(); d.payNote = $('doc-pay').value.trim();
+      if (!d.lines.length) { msg.textContent = 'Добавьте хотя бы одну строку с названием и ценой.'; var f = $('doc-lines').querySelector('input'); if (f) f.focus(); return; }
+    }
+    if (!me.name) { msg.textContent = 'Сначала впишите и сохраните свои реквизиты — без них документ неполный.'; $('me-box').open = true; $('me-name').focus(); return; }
+    var btn = $('doc-btn'); btn.disabled = true; btn.textContent = 'Сохраняю…'; msg.textContent = '';
+    api({ action: 'docsave', row: l.row, ts: l.ts, kind: kind, doc: d }).then(function (r) {
+      btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
+      if (!r.ok) throw r;
+      if (r.lead) Object.keys(r.lead).forEach(function (x) { l[x] = r.lead[x]; });
+      close($('doc-dlg'));
+      copy(DOC_URL + r.id);
+      open[l.ts] = 1; rerenderCard(l);
+      toast(DOC_NAME[kind] + ' № ' + r.number + ' готов — ссылка скопирована');
+    }).catch(function (r) {
+      btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
+      if (r && r.error === 'key') { close($('doc-dlg')); dropKey(); showLogin(ERR.key); return; }
+      msg.textContent = r && r.error === 'bad' ? 'Проверьте клиента, название и цену.' : ERR[r && r.error] || ERR.net;
+    });
+  });
+
+  // ---------- доска по статусам ----------
+  var VIEW = 'wx-admin-view', view = 'list', drag = null;
+  try { if (localStorage.getItem(VIEW) === 'board') view = 'board'; } catch (e) {}
+  function setView(v) {
+    view = v;
+    try { localStorage.setItem(VIEW, v); } catch (e) {}
+    [].forEach.call($('view').children, function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === v)); });
+    list();
+  }
+  [].forEach.call($('view').children, function (b) {
+    b.setAttribute('aria-pressed', String(b.dataset.v === view));
+    b.addEventListener('click', function () { if (view !== b.dataset.v) setView(b.dataset.v); });
+  });
+
+  function board() {
+    var box = $('board'), sx = box.scrollLeft, items = visible(true);
+    box.textContent = '';
+    STATUSES.forEach(function (s) {
+      var col = h('section', 'col'), in_ = items.filter(function (l) { return l.status === s; });
+      col.dataset.s = s; col.setAttribute('aria-label', s);
+      var hd = h('div', 'col__h'), sum = in_.reduce(function (t, l) { return t + (l.deal || digits(l.sum)); }, 0);
+      hd.appendChild(h('b', null, s[0].toUpperCase() + s.slice(1) + ' · ' + in_.length));
+      if (sum) hd.appendChild(h('small', null, money(sum)));
+      col.appendChild(hd);
+      if (!in_.length) col.appendChild(h('p', 'col__empty', 'Пусто'));
+      in_.forEach(function (l) { col.appendChild(tile(l)); });
+      box.appendChild(col);
+    });
+    box.scrollLeft = sx;
+  }
+  function tile(l) {
+    var t = h('div', 'tile'); t.tabIndex = 0; t.dataset.ts = l.ts;
+    t.setAttribute('role', 'button');
+    t.setAttribute('aria-label', l.name + ', ' + l.status + '. Стрелки влево и вправо меняют статус, Enter открывает заявку.');
+    t.appendChild(h('b', null, l.name));
+    t.appendChild(document.createTextNode(l.type || 'Сайт'));
+    var m = h('div', 'tile__m'), sum = l.deal || digits(l.sum);
+    if (sum) m.appendChild(h('span', null, money(sum)));
+    if (owes(l)) m.appendChild(h('span', null, l.paid ? 'оплачено ' + Math.floor(l.paid / l.deal * 100) + '%' : 'не оплачено'));
+    if (isDue(l)) m.appendChild(h('span', 'due', 'связаться ' + (day0(l.next) === day0(Date.now()) ? 'сегодня' : 'с ' + dShort(l.next))));
+    else if (l.next && l.status !== 'сделано' && l.status !== 'отказ') m.appendChild(h('span', null, 'связаться ' + dShort(l.next)));
+    if (l.tasks && l.tasks.length) m.appendChild(h('span', tasksDone(l) === l.tasks.length ? 'ok' : null, 'задачи ' + tasksDone(l) + '/' + l.tasks.length));
+    if (m.children.length) t.appendChild(m);
+    t.addEventListener('click', function () { if (t.dataset.nc) { delete t.dataset.nc; return; } openInList(l); });
+    t.addEventListener('keydown', function (e) {
+      var i = STATUSES.indexOf(l.status);
+      if (e.key === 'Enter') { e.preventDefault(); openInList(l); }
+      else if (e.key === 'ArrowRight' && i < STATUSES.length - 1) { e.preventDefault(); move(l, STATUSES[i + 1], true); }
+      else if (e.key === 'ArrowLeft' && i > 0) { e.preventDefault(); move(l, STATUSES[i - 1], true); }
+    });
+    t.addEventListener('contextmenu', function (e) { if (drag) e.preventDefault(); });
+    t.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch' || e.button !== 0) return;
+      dragPrep(l, t, e.clientX, e.clientY, false);
+    });
+    t.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      dragPrep(l, t, e.touches[0].clientX, e.touches[0].clientY, true);
+    }, { passive: true });
+    return t;
+  }
+  function openInList(l) { setView('list'); reveal(l.ts); }
+  function focusTile(ts) { var t = document.querySelector('.tile[data-ts="' + ts + '"]'); if (t) t.focus(); }
+
+  // смена статуса с доски
+  function move(l, s, keyb) {
+    if (l.status === s) return;
+    var prev = l.status; l.status = s;
+    board(); if (keyb) focusTile(l.ts);
+    api({ action: 'update', row: l.row, ts: l.ts, status: s }).then(function (r) {
+      if (!r.ok) throw r;
+      if (r.lead) Object.keys(r.lead).forEach(function (k) { l[k] = r.lead[k]; });
+      stats(); chips();
+      if (!drag) { var f = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.ts : ''; board(); if (f) focusTile(f); }
+      toast('«' + l.name + '» → ' + s);
+    }).catch(function (r) {
+      l.status = prev; board();
+      if (r && r.error === 'key') { dropKey(); showLogin(ERR.key); return; }
+      toast((ERR[r && r.error] || ERR.net) + ' Статус не сменился.');
+    });
+  }
+
+  // перетаскивание: мышь — сразу после сдвига, палец — после долгого нажатия
+  function dragPrep(l, t, x, y, touch) {
+    drag = { l: l, t: t, x0: x, y0: y, x: x, y: y, on: false, touch: touch, timer: 0, ghost: null, over: null, raf: 0 };
+    var d = drag;
+    if (touch) {
+      t.classList.add('press');
+      d.timer = setTimeout(function () { if (drag === d) { try { navigator.vibrate && navigator.vibrate(15); } catch (e) {} dragStart(); } }, 350);
+      document.addEventListener('touchmove', tMove, { passive: false });
+      document.addEventListener('touchend', tEnd);
+      document.addEventListener('touchcancel', tCancel);
+    } else {
+      document.addEventListener('pointermove', pMove);
+      document.addEventListener('pointerup', pEnd);
+      document.addEventListener('pointercancel', pCancel);
+    }
+  }
+  function dragStart() {
+    var d = drag, r = d.t.getBoundingClientRect();
+    d.on = true; d.dx = d.x0 - r.left; d.dy = d.y0 - r.top;
+    d.t.classList.remove('press');
+    var g = d.t.cloneNode(true); g.classList.add('ghost'); g.removeAttribute('tabindex'); g.setAttribute('aria-hidden', 'true');
+    g.style.width = r.width + 'px';
+    document.body.appendChild(g); d.ghost = g;
+    d.t.classList.add('lift'); document.body.classList.add('dragging');
+    dragAt(d.x, d.y);
+    d.raf = requestAnimationFrame(autoScroll);
+  }
+  function dragAt(x, y) {
+    var d = drag; d.x = x; d.y = y;
+    if (!d.on) return;
+    d.ghost.style.left = (x - d.dx) + 'px'; d.ghost.style.top = (y - d.dy) + 'px';
+    var el = document.elementFromPoint(x, y), col = el && el.closest ? el.closest('.col') : null;
+    if (col !== d.over) { if (d.over) d.over.classList.remove('over'); d.over = col; if (col) col.classList.add('over'); }
+  }
+  function autoScroll() {
+    var d = drag; if (!d || !d.on) return;
+    var b = $('board'), r = b.getBoundingClientRect(), e = 48, v = 0, w = 0;
+    if (d.x < r.left + e) v = -12; else if (d.x > r.right - e) v = 12;
+    if (d.y < e) w = -12; else if (d.y > innerHeight - e) w = 12;
+    if (v) b.scrollLeft += v;
+    if (w) scrollBy(0, w);
+    if (v || w) dragAt(d.x, d.y);
+    d.raf = requestAnimationFrame(autoScroll);
+  }
+  function dragEnd(drop) {
+    var d = drag; if (!d) return;
+    clearTimeout(d.timer); cancelAnimationFrame(d.raf);
+    document.removeEventListener('touchmove', tMove); document.removeEventListener('touchend', tEnd); document.removeEventListener('touchcancel', tCancel);
+    document.removeEventListener('pointermove', pMove); document.removeEventListener('pointerup', pEnd); document.removeEventListener('pointercancel', pCancel);
+    d.t.classList.remove('press', 'lift'); document.body.classList.remove('dragging');
+    if (d.ghost) d.ghost.remove();
+    if (d.over) d.over.classList.remove('over');
+    var was = d.on, to = d.over ? d.over.dataset.s : '';
+    if (was) d.t.dataset.nc = '1';                     // гасим клик, который придёт следом
+    drag = null;
+    if (was) setTimeout(function () { delete d.t.dataset.nc; }, 400);
+    if (was && drop && to) move(d.l, to);
+  }
+  function pMove(e) {
+    var d = drag; if (!d) return;
+    if (!d.on && Math.abs(e.clientX - d.x0) + Math.abs(e.clientY - d.y0) > 5) { d.x = e.clientX; d.y = e.clientY; dragStart(); }
+    dragAt(e.clientX, e.clientY);
+  }
+  function pEnd() { dragEnd(true); }
+  function pCancel() { dragEnd(false); }
+  function tMove(e) {
+    var d = drag; if (!d) return;
+    var p = e.touches[0];
+    if (!d.on) {
+      // палец сдвинулся до долгого нажатия — значит, человек прокручивает
+      if (Math.abs(p.clientX - d.x0) + Math.abs(p.clientY - d.y0) > 10) dragEnd(false);
+      return;
+    }
+    e.preventDefault();
+    dragAt(p.clientX, p.clientY);
+  }
+  function tEnd() { dragEnd(true); }
+  function tCancel() { dragEnd(false); }
+
+  // ---------- выгрузка для Excel ----------
+  var archived = null;
+  $('csv-open').addEventListener('click', function () {
+    $('csv-msg').textContent = '';
+    var q = $('csv-quick'); q.textContent = '';
+    var now = new Date(), y = now.getFullYear(), m = now.getMonth();
+    [['Этот месяц', new Date(y, m, 1), now], ['Прошлый месяц', new Date(y, m - 1, 1), new Date(y, m, 0)],
+      ['Этот год', new Date(y, 0, 1), now], ['Всё время', 0, 0]].forEach(function (x) {
+      q.appendChild(linkBtn(x[0], function () { $('csv-a').value = x[1] ? iso(+x[1]) : ''; $('csv-b').value = x[2] ? iso(+x[2]) : ''; }));
+    });
+    if (!$('csv-a').value && !$('csv-b').value) { $('csv-a').value = iso(+new Date(y, m, 1)); $('csv-b').value = iso(+now); }
+    modal($('csv-dlg'));
+  });
+  function csvRange() {
+    var a = $('csv-a').value, b = $('csv-b').value;
+    return [a ? new Date(a + 'T00:00:00').getTime() : -Infinity, b ? new Date(b + 'T00:00:00').getTime() + 864e5 : Infinity];
+  }
+  function csvSource() {
+    if (!$('csv-arch').checked) return Promise.resolve(leads.map(function (l) { return [l, false]; }));
+    var withArch = function () { return leads.map(function (l) { return [l, false]; }).concat(archived.map(function (l) { return [l, true]; })); };
+    if (archived) return Promise.resolve(withArch());
+    $('csv-msg').textContent = 'Загружаю архив…';
+    return api({ action: 'list', arch: 1 }).then(function (r) {
+      if (!r.ok) throw r;
+      archived = r.archived || []; $('csv-msg').textContent = '';
+      return withArch();
+    });
+  }
+  function cell(v) {
+    if (v == null) return '';
+    if (typeof v === 'number') return String(v);
+    v = String(v).replace(/\r?\n/g, ' ').trim();
+    if (/^\+?\d[\d\s()-]{6,}$/.test(v)) v = '="' + v.replace(/"/g, '') + '"';      // телефон — текстом, чтобы Excel не съел «+» и нули
+    else if (/^[=+\-@\t]/.test(v)) v = "'" + v;                                       // защита от формул
+    return /[";\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+  function dd(t) { return t ? iso(t).split('-').reverse().join('.') : ''; }
+  function download(name, rows) {
+    var text = '﻿' + rows.map(function (r) { return r.map(cell).join(';'); }).join('\r\n');
+    var a = h('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' }));
+    a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+  function csvName(what) {
+    var a = $('csv-a').value, b = $('csv-b').value;
+    return 'webnex-' + what + (a || b ? '-' + (a || 'начало') + '_' + (b || iso(Date.now())) : '-всё') + '.csv';
+  }
+  function csvFail(r) {
+    if (r && r.error === 'key') { close($('csv-dlg')); dropKey(); showLogin(ERR.key); return; }
+    $('csv-msg').textContent = ERR[r && r.error] || ERR.net;
+  }
+  $('csv-leads').addEventListener('click', function () {
+    var rg = csvRange();
+    csvSource().then(function (all) {
+      var rows = [['Дата', 'Имя', 'Контакт', 'Откуда', 'Какой сайт', 'Тариф', 'Статус', 'Сумма сделки', 'Оплачено', 'Осталось', 'Этап',
+        'Обслуживание', 'Обслуживание до', 'Связаться', 'Напомнить', 'Задачи', 'Договор №', 'Счёт №', 'О бизнесе', 'В архиве']];
+      all.filter(function (x) { return x[0].ts >= rg[0] && x[0].ts < rg[1]; }).sort(function (a, b) { return a[0].ts - b[0].ts; }).forEach(function (x) {
+        var l = x[0], t = l.tasks || [];
+        rows.push([dd(l.ts), l.name, l.contact, chan(l), l.type, l.tier, l.status, l.deal || '', l.paid || '', l.deal ? Math.max(0, l.deal - (l.paid || 0)) : '',
+          l.stage, l.maint, dd(l.until), dd(l.next), l.memo, t.length ? tasksDone(l) + ' из ' + t.length : '', l.contractNo, l.invoiceNo, l.about, x[1] ? 'да' : '']);
+      });
+      if (rows.length < 2) { $('csv-msg').textContent = 'За этот период заявок нет.'; return; }
+      download(csvName('заявки'), rows);
+      $('csv-msg').textContent = ''; toast('Скачано заявок: ' + (rows.length - 1));
+    }).catch(csvFail);
+  });
+  $('csv-pay').addEventListener('click', function () {
+    var rg = csvRange();
+    csvSource().then(function (all) {
+      var rows = [['Дата оплаты', 'Клиент', 'Контакт', 'Откуда', 'Какой сайт', 'Сумма, ₸', 'Сумма сделки', 'Статус']], total = 0, pays = [];
+      all.forEach(function (x) {
+        var l = x[0];
+        hist(l).forEach(function (e) {
+          var m = /^оплата: \+([\d\s  ]+) ₸/.exec(e.x);
+          if (!m || !e.t || e.t < rg[0] || e.t >= rg[1]) return;
+          pays.push([e.t, l, +m[1].replace(/\D/g, '')]);
+        });
+      });
+      pays.sort(function (a, b) { return a[0] - b[0]; }).forEach(function (p) {
+        var l = p[1]; total += p[2];
+        rows.push([dd(p[0]), l.name, l.contact, chan(l), l.type, p[2], l.deal || '', l.status]);
+      });
+      if (!pays.length) { $('csv-msg').textContent = 'За этот период оплат нет. Оплаты считаются из блока «Оплата» в карточке заявки.'; return; }
+      rows.push(['Итого', '', '', '', '', total, '', '']);
+      download(csvName('оплаты'), rows);
+      $('csv-msg').textContent = ''; toast('Скачано оплат: ' + pays.length + ' на ' + money(total));
+    }).catch(csvFail);
+  });
+
   // ---------- период ----------
   $('per').addEventListener('change', function () {
     per = this.value; $('per-c').hidden = per !== 'custom';
@@ -1458,7 +2176,7 @@ dialog::backdrop{background:rgba(3,6,20,.72)}
 
   function busy() {
     var a = document.activeElement;
-    return document.querySelector('.edit[data-dirty]') || document.querySelector('dialog[open]') || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.id !== 'q' && a.id !== 'per');
+    return (drag && drag.on) || document.querySelector('.edit[data-dirty]') || document.querySelector('dialog[open]') || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.id !== 'q' && a.id !== 'per');
   }
   function tick() {
     if (!loadedAt) return;
