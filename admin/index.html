@@ -613,8 +613,21 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
   function store(remember) { try { return remember ? localStorage : sessionStorage; } catch (e) { return null; } }
   function getKey() { try { return localStorage.getItem(K) || sessionStorage.getItem(K) || ''; } catch (e) { return mem; } }
   function setKey(k, remember) { mem = k; var s = store(remember); try { if (s) s.setItem(K, k); } catch (e) {} }
-  function dropKey() { mem = ''; try { localStorage.removeItem(K); sessionStorage.removeItem(K); } catch (e) {} }
+  function dropKey() { mem = ''; try { [localStorage, sessionStorage].forEach(function (s) { s.removeItem(K); s.removeItem(CK); }); } catch (e) {} }
   var mem = '';
+
+  // копия заявок там же, где код входа: «Запомнить» — на этом устройстве, иначе до закрытия вкладки. «Выйти» стирает.
+  var CK = 'wx-admin-cache', ct;
+  function keyStore() { try { return localStorage.getItem(K) ? localStorage : sessionStorage.getItem(K) ? sessionStorage : null; } catch (e) { return null; } }
+  function saveCache() {
+    clearTimeout(ct);
+    ct = setTimeout(function () {
+      var s = keyStore();
+      if (!s || !loadedAt) return;
+      try { s.setItem(CK, JSON.stringify({ at: loadedAt, leads: leads, templates: tpls, me: me })); } catch (e) {}
+    }, 300);
+  }
+  function readCache() { var s = keyStore(); try { var c = s && JSON.parse(s.getItem(CK) || 'null'); return c && Array.isArray(c.leads) ? c : null; } catch (e) { return null; } }
 
   // ---------- связь с таблицей ----------
   function api(body) {
@@ -651,7 +664,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
       if (!r.ok) { mem = ''; $('login-msg').textContent = ERR[r.error] || 'Не получилось войти.'; return; }
       setKey(k, $('remember').checked); $('key').value = '';
       $('login').hidden = true; $('app').hidden = false;
-      got(r);
+      got(r); saveCache();
     }).catch(function () {
       btn.disabled = false; btn.textContent = 'Войти'; mem = '';
       $('login-msg').textContent = ERR.net;
@@ -660,7 +673,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
   $('logout').addEventListener('click', function () { dropKey(); leads = []; seen = null; fresh = {}; unread = 0; title(); $('list').textContent = ''; showLogin(); });
 
   // ---------- данные ----------
-  var leads = [], filter = 'все', query = '', open = {}, loadedAt = 0, me = {};
+  var leads = [], filter = 'все', query = '', open = {}, loadedAt = 0, me = {}, offline = false;
 
   function load(quiet) {
     var b = $('refresh'); b.classList.add('spin');
@@ -670,19 +683,23 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
         if (r.error === 'key' || r.error === 'nokey' || r.error === 'locked') { dropKey(); showLogin(ERR[r.error]); return; }
         throw new Error(r.error);
       }
-      $('err').hidden = true; got(r, quiet);
+      $('err').hidden = true; offline = false;
+      // пока что-то правите или сохраняется — не перерисовываю, обновлю чуть позже
+      if (quiet && busy()) { tick(); return; }
+      got(r, quiet); saveCache();
     }).catch(function () {
       b.classList.remove('spin');
       $('loading').hidden = true;
-      if (!quiet || !leads.length) { $('err').textContent = ERR.net; $('err').hidden = false; }
+      if (leads.length) { if (!offline) toast('Нет связи — показаны сохранённые заявки'); offline = true; tick(); }
+      if (!quiet || !leads.length) { $('err').textContent = leads.length ? ERR.net + ' Показаны сохранённые заявки.' : ERR.net; $('err').hidden = false; }
     });
   }
 
-  function got(r, quiet) {
+  function got(r, quiet, at) {
     leads = (r.leads || []).sort(function (a, b) { return b.ts - a.ts; });
     if (Array.isArray(r.templates)) tpls = r.templates;
     if (r.me) me = r.me;
-    loadedAt = Date.now();
+    loadedAt = at || Date.now();
     $('loading').hidden = true; $('content').hidden = false;
     detectNew(quiet);
     render(); tick();
@@ -1346,7 +1363,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     } else b.appendChild(h('p', 'block__t', (paid ? 'Оплачено ' + money(paid) + '. ' : '') + 'Впишите сумму сделки выше — покажу, сколько осталось.'));
 
     var row = h('div', 'row'), inp = h('input', 'input');
-    inp.inputMode = 'numeric'; inp.placeholder = 'Сколько заплатил, ₸'; inp.setAttribute('aria-label', 'Сумма оплаты'); numInput(inp);
+    inp.id = 'p' + l.ts; inp.inputMode = 'numeric'; inp.placeholder = 'Сколько заплатил, ₸'; inp.setAttribute('aria-label', 'Сумма оплаты'); numInput(inp);
     var add = h('button', 'btn btn--sm', 'Добавить оплату'); add.type = 'button';
     add.addEventListener('click', function () {
       var v = +inp.value.replace(/\D/g, '');
@@ -1492,27 +1509,57 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     return b;
   }
 
+  // правка видна сразу, в таблицу уходит в фоне; не сохранилось — возвращаю как было и показываю ошибку
+  var inflight = 0, pend = {};
+  function stamp() { var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; }; return p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + d.getFullYear() + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); }
   function save(l, data, msg, undo, after) {
-    msg.className = 'saved'; msg.textContent = 'Сохраняю…';
-    data.action = 'update'; data.row = l.row; data.ts = l.ts;
-    api(data).then(function (r) {
-      if (!r.ok) throw r;
-      if (r.lead) Object.keys(r.lead).forEach(function (k) { l[k] = r.lead[k]; });
-      if (after) after();
-      msg.className = 'saved ok'; msg.textContent = 'Сохранено ✓';
-      var ed = msg.closest('.edit');
-      if (ed && after) delete ed.dataset.dirty;
+    var ed = msg.closest('.edit'), box = msg.closest('.lead');
+    var idx = box ? [].indexOf.call(box.querySelectorAll('.saved'), msg) : -1;
+    var snap = JSON.parse(JSON.stringify(l)), lines = [];
+    if (after) after();
+    if (data.pay) { l.paid = (+l.paid || 0) + (+data.pay || 0); lines.push('оплата: +' + money(+data.pay)); }
+    if (data.paid != null) { l.paid = +data.paid || 0; lines.push('оплачено исправлено: ' + money(l.paid)); }
+    if (data.maint != null) { l.maint = data.maint; l.until = data.maint && data.until ? new Date(data.until + 'T00:00:00').getTime() : 0; }
+    if (data.log) lines.push(data.log);
+    if (lines.length) l.log = (l.log ? l.log + '\n' : '') + lines.map(function (t) { return stamp() + ' · ' + t; }).join('\n');
+    if (ed && after) delete ed.dataset.dirty;
+    var keep = ed && ed.dataset.dirty;
+    inflight++; pend[l.ts] = (pend[l.ts] || 0) + 1;
+    var show = function (cls, text) {
+      var c = document.getElementById('l' + l.ts), m = c && idx >= 0 ? c.querySelectorAll('.saved')[idx] : null;
+      if (m) { m.className = cls; m.textContent = text; }
+    };
+    var refresh = function (cls, text) {
       stats(); chips();
       var pill = document.querySelector('#l' + l.ts + ' .lead__name .pill');
       if (pill) { pill.textContent = l.status; pill.dataset.s = l.status; }
-      // карточку перерисовываем, только если в ней нет несохранённых правок
-      if (!ed || !ed.dataset.dirty) rerenderCard(l);
+      var c = document.getElementById('l' + l.ts), e = c && c.querySelector('.edit');
+      if (!e || !e.dataset.dirty) rerenderCard(l);
+      show(cls, text);
+    };
+    if (keep) show('saved', 'Сохраняю…'); else refresh('saved', 'Сохраняю…');
+    data.action = 'update'; data.row = l.row; data.ts = l.ts;
+    api(data).then(function (r) {
+      if (!r.ok) throw r;
+      inflight--; pend[l.ts]--;
+      if (r.lead && !pend[l.ts]) Object.keys(r.lead).forEach(function (k) { l[k] = r.lead[k]; });
+      saveCache();
+      if (pend[l.ts]) show('saved', 'Сохраняю…'); else refresh('saved ok', 'Сохранено ✓');
     }).catch(function (r) {
+      inflight--; pend[l.ts]--;
+      Object.keys(l).forEach(function (k) { delete l[k]; });
+      Object.keys(snap).forEach(function (k) { l[k] = snap[k]; });
       if (undo) undo();
-      var ed = msg.closest('.edit');
-      if (ed) [].forEach.call(ed.querySelectorAll('button:disabled'), function (b) { b.disabled = false; });
       if (r && r.error === 'key') { dropKey(); showLogin(ERR.key); return; }
-      msg.className = 'saved err'; msg.textContent = ERR[r && r.error] || ERR.net;
+      var err = ERR[r && r.error] || ERR.net;
+      refresh('saved err', err);
+      // то, что вписали, возвращаю в поля — можно нажать ещё раз
+      var fill = { deal: 'd', next: 'n', memo: 'r', log: 'm', pay: 'p' };
+      Object.keys(fill).forEach(function (k) {
+        var el = data[k] != null && data[k] !== '' && document.getElementById(fill[k] + l.ts);
+        if (el) { el.value = k === 'deal' || k === 'pay' ? money(+String(data[k]).replace(/\D/g, '')).replace(' ₸', '') : data[k]; var e = el.closest('.edit'); if (e) e.dataset.dirty = '1'; }
+      });
+      toast('Не сохранилось: ' + err);
     });
   }
 
@@ -1520,9 +1567,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     var old = document.getElementById('l' + l.ts);
     if (!old) return;
     if (visible().indexOf(l) < 0) { list(); return; }
-    var fresh = card(l), m = fresh.querySelector('.saved');
-    m.className = 'saved ok'; m.textContent = 'Сохранено ✓';
-    old.replaceWith(fresh);
+    old.replaceWith(card(l));
   }
 
   function reveal(ts) {
@@ -1535,16 +1580,20 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
   // ---------- архив ----------
   function archive(l, btn) {
     if (!confirm('Убрать заявку «' + l.name + '» в архив?\nОна переедет на лист «Архив» в таблице и исчезнет из списка.')) return;
-    btn.disabled = true; btn.textContent = 'Убираю…';
+    var at = leads.indexOf(l), wasOpen = open[l.ts];
+    leads = leads.filter(function (x) { return x !== l; });
+    delete open[l.ts]; delete fresh[l.ts];
+    render(); toast('«' + l.name + '» — в архиве');
+    inflight++;
     api({ action: 'archive', row: l.row, ts: l.ts }).then(function (r) {
+      inflight--;
       if (!r.ok) throw r;
-      leads = leads.filter(function (x) { return x !== l; });
-      delete open[l.ts]; delete fresh[l.ts];
-      render(); toast('«' + l.name + '» — в архиве');
-    }).catch(function (r) {
-      btn.disabled = false; btn.textContent = 'В архив';
+      saveCache();
+    }, function (e) { inflight--; throw e; }).catch(function (r) {
+      leads.splice(Math.max(0, at), 0, l); if (wasOpen) open[l.ts] = 1;
+      render();
       if (r && r.error === 'key') { dropKey(); showLogin(ERR.key); return; }
-      toast(ERR[r && r.error] || ERR.net);
+      toast('Не убрал в архив: ' + (ERR[r && r.error] || ERR.net));
     });
   }
 
@@ -1587,7 +1636,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
       btn.disabled = false; btn.textContent = 'Добавить';
       if (!r.ok) throw r;
       if (seen) seen[r.lead.ts] = 1;
-      leads.unshift(r.lead);
+      leads.unshift(r.lead); saveCache();
       close($('add-dlg'));
       reveal(r.lead.ts);
       stats(); toast('Заявка добавлена');
@@ -1627,7 +1676,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     api({ action: 'templates', templates: items }).then(function (r) {
       btn.disabled = false; btn.textContent = 'Сохранить';
       if (!r.ok) throw r;
-      tpls = r.templates; close($('tpl-dlg')); list(); toast('Шаблоны сохранены');
+      tpls = r.templates; saveCache(); close($('tpl-dlg')); list(); toast('Шаблоны сохранены');
     }).catch(function (r) {
       btn.disabled = false; btn.textContent = 'Сохранить';
       $('tpl-msg').textContent = ERR[r && r.error] || ERR.net;
@@ -1732,7 +1781,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
       btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
       if (!r.ok) throw r;
       if (r.lead) Object.keys(r.lead).forEach(function (x) { l[x] = r.lead[x]; });
-      close($('kp-dlg'));
+      saveCache(); close($('kp-dlg'));
       copy(KP_URL + r.id);
       open[l.ts] = 1; rerenderCard(l); list();
       toast('КП готово — ссылка скопирована');
@@ -1761,7 +1810,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     api({ action: 'me', me: m }).then(function (r) {
       btn.disabled = false;
       if (!r.ok) throw r;
-      me = r.me || m; meFill(); $('me-box').open = false;
+      me = r.me || m; saveCache(); meFill(); $('me-box').open = false;
       if (docKind === 'invoice' && !$('doc-pay').value.trim()) $('doc-pay').value = me.pay || '';
       toast('Реквизиты сохранены');
     }).catch(function (r) {
@@ -1900,7 +1949,7 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
       btn.disabled = false; btn.textContent = 'Сохранить и получить ссылку';
       if (!r.ok) throw r;
       if (r.lead) Object.keys(r.lead).forEach(function (x) { l[x] = r.lead[x]; });
-      close($('doc-dlg'));
+      saveCache(); close($('doc-dlg'));
       copy(DOC_URL + r.id);
       open[l.ts] = 1; rerenderCard(l);
       toast(DOC_NAME[kind] + ' № ' + r.number + ' готов — ссылка скопирована');
@@ -1980,13 +2029,15 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
     if (l.status === s) return;
     var prev = l.status; l.status = s;
     board(); if (keyb) focusTile(l.ts);
+    inflight++;
     api({ action: 'update', row: l.row, ts: l.ts, status: s }).then(function (r) {
+      inflight--;
       if (!r.ok) throw r;
       if (r.lead) Object.keys(r.lead).forEach(function (k) { l[k] = r.lead[k]; });
-      stats(); chips();
+      saveCache(); stats(); chips();
       if (!drag) { var f = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.ts : ''; board(); if (f) focusTile(f); }
       toast('«' + l.name + '» → ' + s);
-    }).catch(function (r) {
+    }, function (e) { inflight--; throw e; }).catch(function (r) {
       l.status = prev; board();
       if (r && r.error === 'key') { dropKey(); showLogin(ERR.key); return; }
       toast((ERR[r && r.error] || ERR.net) + ' Статус не сменился.');
@@ -2176,12 +2227,12 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
 
   function busy() {
     var a = document.activeElement;
-    return (drag && drag.on) || document.querySelector('.edit[data-dirty]') || document.querySelector('dialog[open]') || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.id !== 'q' && a.id !== 'per');
+    return inflight > 0 || (drag && drag.on) || document.querySelector('.edit[data-dirty]') || document.querySelector('dialog[open]') || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.id !== 'q' && a.id !== 'per');
   }
   function tick() {
     if (!loadedAt) return;
     var m = Math.round((Date.now() - loadedAt) / 60000);
-    $('upd').textContent = m < 1 ? 'обновлено только что' : 'обновлено ' + m + ' мин назад';
+    $('upd').textContent = (offline ? 'нет связи · ' : '') + (m < 1 ? 'обновлено только что' : 'обновлено ' + m + ' мин назад');
   }
   setInterval(function () {
     tick();
@@ -2194,8 +2245,18 @@ body.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
 
   // ---------- старт ----------
   if (!URL_API) { showLogin('Форма сайта ещё не подключена к таблице (config.js → formUrl).'); $('login-btn').disabled = true; return; }
-  if (getKey()) { $('app').hidden = false; load(); }
+  if (getKey()) {
+    $('app').hidden = false;
+    var c = readCache();
+    // сначала — сохранённая копия (открывается сразу), свежие заявки подтянутся следом
+    if (c) { got(c, false, c.at); load(true); } else load();
+  }
   else showLogin();
+
+  // офлайн: оболочка админки хранится в браузере и открывается даже без интернета
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
 })();
 </script>
 </body>
